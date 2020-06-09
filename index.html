@@ -34,7 +34,7 @@
         }
 
         .time {
-          margin: 120px 20px;
+          margin: 120px 50px;
           font-size: 12rem;
         }
 
@@ -74,13 +74,9 @@
         document.getElementById("week").innerHTML = weekString
       }
 
-      update() // 初始化时间
-      var date = new Date()
-      var remainSec = 60-date.getSeconds()
-      setTimeout(function() {
-        update()
-        setInterval("update()", 60 * 1000)
-      },remainSec)
+      update()
+
+      setInterval("update()", 60 * 1000)
       
     </script>
 </body>
