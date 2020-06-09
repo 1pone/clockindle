@@ -11,6 +11,11 @@
           background-color: #ffffff;
         }
 
+        ul {
+          list-style: none;
+          line-height: 32px;
+        }
+
         .page {
           position: fixed;
           width: 100%;
@@ -42,6 +47,14 @@
           padding-top: 40px;
           font-size: 4rem;
         }
+
+        #weaTitle {
+          font-size: 2rem;
+        }
+
+        #weaList {
+          font-size: 2rem;
+        }
     </style>
 </head>
 
@@ -53,13 +66,44 @@
 
       <div class="date_container">
           <div class="date" id="date">1月1日</div>
-          <div class="date" id="week">星期一</div>
+          <p id="weaTitle">当前天气</p>
+          <ul id="weaList"></ul>
       </div>
     </div>
 
 
     <script>
       function update() {
+        function createXHR(){
+          var xhr = null;
+          if(window.XMLHttpRequest){
+              xhr = new XMLHttpRequest();
+          }else if(window.ActiveXObject){
+              xhr = new ActiveXObject("Microsoft.XMLHTTP");
+          }
+          return xhr;
+        }
+
+        function getWea(){
+          var xhr = createXHR();
+          xhr.open('GET','https://tianqiapi.com/free/day?appid=48353766&appsecret=VjZ4oxd5',true);
+          xhr.onreadystatechange = function(){
+              if(this.readyState == 4){
+                var data = JSON.parse(this.responseText)
+                var info =  '<li>天气：'+data.wea+'</li>'+
+            '<li>当前气温：'+data.tem+'&#8451;</li>'+
+            '<li>最高气温：'+data.tem_day+'&#8451;</li>'+
+            '<li>最低气温：'+data.tem_night+'&#8451;</li>'+
+            '<li>更新时间：'+data.update_time+'</li>';
+                 document.getElementById('weaList').innerHTML = info
+                 document.getElementById('weaTitle').innerHTML = data.city + '当前天气'
+              }
+          }
+          xhr.send(null);
+        }
+
+        getWea()
+
         var date = new Date()
         var utc8DiffMinutes = date.getTimezoneOffset() + 480
         date.setMinutes(date.getMinutes() + utc8DiffMinutes)
@@ -70,8 +114,7 @@
         var weekString = '星期' + weekList[date.getDay()]
 
         document.getElementById("time").innerHTML = timeString
-        document.getElementById("date").innerHTML = dateString
-        document.getElementById("week").innerHTML = weekString
+        document.getElementById("date").innerHTML = dateString + " " + weekString
       }
 
       update()
