@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>天气查询</title>
+	<script src="jquery.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			$('#btn').click(function() {
+				// 	air: "67"
+				// 	city: "北京"
+				// 	cityid: "101010100"
+				// 	tem: "26"
+				// 	tem_day: "28"
+				// 	tem_night: "13"
+				// 	update_time: "2020-05-11 2020-05-11 17:17:04"
+				// 	wea: "晴"
+				// 	wea_img: "qing"
+				// 	win: "西南风"
+				// 	win_meter: "16-24km/h"
+				// 	win_speed: "4级"
+				$.ajax({
+					url: 'https://tianqiapi.com/free/day',
+					data: {appid: '48353766', appsecret: 'VjZ4oxd5', city: $('#city').val()},
+					dataTypes: 'json',
+					jsonpCallback: 'abc',
+					success: function(data){
+						console.log(data);
+						var info = 	'<li>天气：'+data.wea+'</li>'+
+									'<li>当前气温：'+data.tem+'&#8451;</li>'+
+									'<li>最高气温：'+data.tem_day+'&#8451;</li>'+
+									'<li>最低气温：'+data.tem_night+'&#8451;</li>'+
+									'<li>更新时间：'+data.update_time+'</li>'+
+									'<li>空气质量：'+data.air+'</li>'+
+									'<li>风向：'+data.win+'</li>'+
+									'<li>风速：'+data.win_speed + ' ' + data.win_meter+'</li>';
+						$('#list').empty().append($('<li>').html(info));
+
+					}
+
+				})
+			})
+		})
+	</script>
+	<style type="text/css">
+		#container{
+			width: 400px;
+			min-height: 300px;
+			background-color: lightyellow;
+			margin: auto;
+			padding: 10px;
+			text-align: center;
+		}
+		ul{
+			list-style: none;
+			line-height: 32px;
+			text-align: left;
+		}
+	</style>
+</head>
+<body>
+	<div id="container">
+		<!-- <select id="city">
+			<option value="101010100">北京</option>
+			<option value="101020100">上海</option>
+			<option value="101280101">广州</option>
+			<option value="101280601">深圳</option>
+		</select> -->
+		<input type="text" name="city" id="city">
+		<input type="button" value="查询" id="btn">
+		<ul id="list"></ul>
+
+	</div>
+</body>
+</html>
