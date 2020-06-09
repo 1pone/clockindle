@@ -35,7 +35,7 @@
 
         .time {
           padding-top: 120px;
-          font-size: 16rem;
+          font-size: 12rem;
         }
 
         .date {
@@ -75,8 +75,14 @@
         document.getElementById("week").innerHTML = weekString
       }
 
-      update()
-      setInterval("update()", 60 * 1000)
+      update() // 初始化时间
+      var date = new Date()
+      var remainSec = 60-date.getSeconds()
+      setTimeout(function() {
+        update()
+        setInterval("update()", 60 * 1000)
+      },remainSec)
+      
     </script>
 </body>
 </html>
