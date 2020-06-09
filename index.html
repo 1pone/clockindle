@@ -48,6 +48,7 @@
         }
 
         #weaTitle {
+          margin-left: 40px;
           font-size: 1rem;
         }
 
@@ -105,6 +106,7 @@
         }
 
         getWea()
+        setInterval("getWea()", 60 * 1000 * 10)
 
         var date = new Date()
         var utc8DiffMinutes = date.getTimezoneOffset() + 480
