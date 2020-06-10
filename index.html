@@ -114,12 +114,19 @@
         font-size: 1.5rem;
       }
 
+      #weaImg {
+        display: inline-block;
+        margin-right: 2.5rem;
+      }
+
       .iconfont {
         font-size: 7.5rem;
+        width: 7.5rem;
       }
 
       #weaTemp {
-        margin-right: 1.25rem;
+        display: inline-block;
+        margin-right: 2.5rem;
       }
 
       .tempNum {
@@ -133,6 +140,7 @@
       }
 
       #weaInfo {
+        display: inline-block;
         font-size: 1rem;
         line-height: 1.5rem;
       }
@@ -154,14 +162,14 @@
       <div class="time_container">
         <div id="apm"></div>
         <div class="time" id="time">00:00</div>
-        <div class="date" id="date">1月1日</div>
+        <div class="date" id="date">1月1日 星期一</div>
       </div>
 
       <div class="weather_container">
-          <p id="weaTitle">当前天气</p>
-          <div id="weaImg" style="display: inline-block; margin-right: 50px"></div>
-          <div id="weaTemp" style="display: inline-block;"></div>
-          <div id="weaInfo" style="display: inline-block;"></div>
+          <p id="weaTitle"></p>
+          <div id="weaImg"></div>
+          <div id="weaTemp"></div>
+          <div id="weaInfo"></div>
 
       </div>
     </div>
@@ -237,7 +245,7 @@
         bingbao: ['&#xe667;', '&#xe667;'],
         yun: ['&#xe648;', '&#xe648;'],
         yu: ['&#xe64b;', '&#xe64b;'],
-        yin: ['&#xe64a;', '&#xe644;'],
+        yin: ['&#xe64a;', '&#xe652;'],
         qing: ['&#xe649;', '&#xe764;'],
         weizhi: ['&#xe6f2;', '&#xe6f2;']
       }
@@ -258,7 +266,7 @@
               date.setMinutes(date.getMinutes() + utc8DiffMinutes)
               var hour = date.getHours()
               // 20点后天气使用夜间天气图标
-              if (hour > 20 || hour < 6) {
+              if (hour > 18 || hour < 6) {
                 img = imgs[1]
               }
 
