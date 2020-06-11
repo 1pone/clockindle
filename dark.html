@@ -29,6 +29,8 @@
         -moz-osx-font-smoothing: grayscale;
       }
       body {
+        color: #ffffff;
+        background-color: #000000;
         margin: 0;
         padding: 0;
       }
@@ -43,8 +45,6 @@
         overflow: hidden;
         width: 100%;
         height: 100%;
-        color: #ffffff;
-        background-color: #000000;
       }
 
       .hitokoto_container {
@@ -96,7 +96,7 @@
         line-height: 3.75rem;
         position: absolute;
         top: 2rem;
-        left: 2rem;
+        right: 2rem;
       }
 
       .time {
@@ -219,10 +219,9 @@
         date.setMinutes(date.getMinutes() + utc8DiffMinutes)
 
         var hour = date.getHours()
-        var apm = 'a<br>m'
-
+        var apm = '上<br>午'
         if (hour > 12) {
-          apm = 'p<br>m'
+          apm = '下<br>午'
           hour -= 12
         }
         var timeString = hour + ':' + ('0' + date.getMinutes()).slice(-2)
