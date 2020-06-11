@@ -223,7 +223,7 @@
           apm = '下<br>午'
           hour -= 12
         }
-        
+
         var timeString = hour + ':' + ('0' + date.getMinutes()).slice(-2)
         var dateString = (date.getMonth() + 1) + '月' + date.getDate() + '日'
         var weekList = ['日', '一', '二', '三', '四', '五', '六']
@@ -269,7 +269,7 @@
               date.setMinutes(date.getMinutes() + utc8DiffMinutes)
               var hour = date.getHours()
               // 20点后天气使用夜间天气图标
-              if (hour > 18 || hour < 6) {
+              if (hour > 19 || hour < 6) {
                 img = imgs[1]
               }
 
