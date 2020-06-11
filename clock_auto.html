@@ -21,7 +21,7 @@
 
       .page {
         position: fixed;
-        width: 100%;
+        width: 100.5%;
         height: 100%;
       }
 
@@ -80,6 +80,8 @@
 
 
     <script>
+      // 深浅色模式标示
+      var lightMode = true
       // 创建XMLHttpRequest对象
       function createXHR(){
         var xhr = null;
@@ -98,10 +100,25 @@
         date.setMinutes(date.getMinutes() + utc8DiffMinutes)
 
         var hour = date.getHours()
-        var apm = 'a<br>m'
 
+        // 20点后6点前启用深色模式
+        if (hour > 19 || hour < 6) {
+          if (lightMode) {
+            document.getElementsByClassName('page')[0].style.color = '#ffffff'
+            document.getElementsByClassName('page')[0].style.backgroundColor = '#000000'
+            lightMode = false
+          }
+        } else {
+          if (!lightMode) {
+            document.getElementsByClassName('page')[0].style.color = '#000000'
+            document.getElementsByClassName('page')[0].style.backgroundColor = '#ffffff'
+            lightMode = true
+          }
+        }
+
+        var apm = '上<br>午'
         if (hour > 12) {
-          apm = 'p<br>m'
+          apm = '下<br>午'
           hour -= 12
         }
         var timeString = hour + ':' + ('0' + date.getMinutes()).slice(-2)

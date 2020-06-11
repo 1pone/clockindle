@@ -28,8 +28,8 @@
         -moz-osx-font-smoothing: grayscale;
       }
       body {
-        color: #ffffff;
-        background-color: #000000;
+        color: #000000;
+        background-color: #ffffff;
         margin: 0;
         padding: 0;
       }
@@ -41,7 +41,7 @@
 
       .page {
         position: fixed;
-        width: 100%;
+        width: 100.5%;
         height: 100%;
       }
 
@@ -178,6 +178,8 @@
 
 
     <script>
+      // 深浅色模式标示
+      var lightMode = true
       // 获取设备显示尺寸
       // var width = window.screen.width
       // var height = window.screen.height
@@ -217,12 +219,28 @@
         date.setMinutes(date.getMinutes() + utc8DiffMinutes)
 
         var hour = date.getHours()
-        var apm = 'a<br>m'
 
+        // 20点后6点前启用深色模式
+        if (hour > 19 || hour < 6) {
+          if (lightMode) {
+            document.getElementsByClassName('page')[0].style.color = '#ffffff'
+            document.getElementsByClassName('page')[0].style.backgroundColor = '#000000'
+            lightMode = false
+          }
+        } else {
+          if (!lightMode) {
+            document.getElementsByClassName('page')[0].style.color = '#000000'
+            document.getElementsByClassName('page')[0].style.backgroundColor = '#ffffff'
+            lightMode = true
+          }
+        }
+
+        var apm = '上<br>午'
         if (hour > 12) {
-          apm = 'p<br>m'
+          apm = '下<br>午'
           hour -= 12
         }
+
         var timeString = hour + ':' + ('0' + date.getMinutes()).slice(-2)
         var dateString = (date.getMonth() + 1) + '月' + date.getDate() + '日'
         var weekList = ['日', '一', '二', '三', '四', '五', '六']
@@ -261,14 +279,13 @@
               var data = JSON.parse(this.responseText)
               // 获取天气图标信息
               var imgs = weaImgs[data.wea_img]
-              console.log(imgs)
               var img = imgs[0]
               var date = new Date()
               var utc8DiffMinutes = date.getTimezoneOffset() + 480
               date.setMinutes(date.getMinutes() + utc8DiffMinutes)
               var hour = date.getHours()
               // 20点后天气使用夜间天气图标
-              if (hour > 18 || hour < 6) {
+              if (hour > 19 || hour < 6) {
                 img = imgs[1]
               }
 
