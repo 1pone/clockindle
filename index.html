@@ -94,7 +94,7 @@
         line-height: 3.75rem;
         position: absolute;
         top: 2rem;
-        left: 2rem;
+        right: 2.25rem;
       }
 
       .time {
@@ -217,12 +217,13 @@
         date.setMinutes(date.getMinutes() + utc8DiffMinutes)
 
         var hour = date.getHours()
-        var apm = 'a<br>m'
 
+        var apm = '上<br>午'
         if (hour > 12) {
-          apm = 'p<br>m'
+          apm = '下<br>午'
           hour -= 12
         }
+        
         var timeString = hour + ':' + ('0' + date.getMinutes()).slice(-2)
         var dateString = (date.getMonth() + 1) + '月' + date.getDate() + '日'
         var weekList = ['日', '一', '二', '三', '四', '五', '六']
