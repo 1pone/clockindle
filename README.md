@@ -12,7 +12,7 @@
 
 为了让屏幕关闭自动锁屏保持常亮，请在Kindle主页搜索栏输入`~ds` 并回车，这时并不会有明显的反应，但是当你尝试按锁屏键时已无法锁屏，即已生效。当你想要恢复正常锁屏重启Kindle即可。
 
-<img src="https://github.com/1pone/1pone.github.io/raw/master/images/index.png/～ds.jpg" alt="～ds" style="zoom:18%;border:solid 0.5px" />
+<img src="https://github.com/1pone/1pone.github.io/raw/master/images/～ds.png" alt="～ds" style="zoom:18%;border:solid 0.5px" />
 
 #### 更多功能 🤩
 
