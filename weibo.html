@@ -42,7 +42,7 @@
         return xhr;
       }
       // 微博热搜模块
-      function hitokoto() {
+      function weibo() {
         var xhr = createXHR();
         xhr.open("GET", "https://v1.alapi.cn/api/new/wbtop?num=3", true);
         xhr.onreadystatechange = function () {
@@ -63,8 +63,8 @@
         xhr.send(null);
       }
 
-      hitokoto();
-      setInterval("hitokoto()", 60 * 1000 * 60);
+      weibo();
+      setInterval("weibo()", 60 * 1000 * 20);
 
       // 时钟模块
       function clock() {

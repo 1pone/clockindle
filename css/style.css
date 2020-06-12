@@ -99,14 +99,24 @@ li div {
   line-height: 3rem;
 }
 
-#hot_word_num ,#hot_word {
-
+#hot_word, #hot_word_num {
   display: inline-block;
 }
 
 #hot_word {
   text-align: left;
   margin-right: 1rem;
+  max-width: 24rem;
+}
+
+#hot_word_num {
+  width: auto;
+}
+
+#hot_word li,#hot_word_num {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .time_container {
