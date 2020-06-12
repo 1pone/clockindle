@@ -106,7 +106,7 @@ li div {
 #hot_word {
   text-align: left;
   margin-right: 1rem;
-  max-width: 24rem;
+  max-width: 25rem;
 }
 
 #hot_word_num {
@@ -134,7 +134,7 @@ li div {
   font-weight: 600;
   line-height: 3.75rem;
   position: absolute;
-  top: 2.25rem;
+  top: 2rem;
   left: 2rem;
 }
 
