@@ -25,6 +25,15 @@
 | 一言 + 时钟 + 天气 |   `/yiyan`   | `/yiyanDark` | `/yiyanAuto` |    √     |  ✕   |
 | 微博热搜+时钟+天气 |   `/weibo`   | `/weiboDark` | `/weiboAuto` |    ✕     |  ✕   |
 |     图片+时钟      |    `/pic`    |  `/picDark`  |  `/picAuto`  |    ✕     |  ✕   |
+|        ...         |     ...      |     ...      |     ...      |   ...    | ...  |
+
+<div align=center><img src="https://github.com/1pone/1pone.github.io/raw/master/images/dark.png" alt="index" width="400"/></div>
+
+<div align=center><img src="https://github.com/1pone/1pone.github.io/raw/master/images/clock.png" alt="index" width="400"/></div>
+
+
+
+<div align=center><img src="https://github.com/1pone/1pone.github.io/raw/master/images/clockDark.png" alt="index" width="400"/></div>
 
 ### 一点说明 😏
 
