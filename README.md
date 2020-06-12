@@ -1,22 +1,23 @@
 ## Kindle拯救计划 —— 你的Kindle实用工具网站
 
-> 前言...
+> 你的Kindle还好么？是否还藏在角落吃灰呢？赶紧拿出来擦一擦，与其闲置着不如让它成为一台墨水屏时钟，既实用又有格调。当然，它能做的远不止一台时钟...
 
 ### 如何使用 😛
 
 现在就在你的Kindle浏览器中打开Kindle实用工具网站主页 https://1pone.github.io 吧！
 
-<div align=center><img src="https://github.com/1pone/1pone.github.io/raw/master/images/index.png" alt="index" width="400"/></div>
+<div align=center><img src="https://github.com/1pone/1pone.github.io/raw/master/images/index.png" alt="index" width="400"/><p>「 首页 」</p>
+  </p></div>
 
 ### 一点技巧 🥳
 
 为了让屏幕关闭自动锁屏保持常亮，请在Kindle主页搜索栏输入`~ds` 并回车，这时并不会有明显的反应，但是当你尝试按锁屏键时已无法锁屏，即已生效。当你想要恢复正常锁屏重启Kindle即可。
 
-<div align=center><img src="https://github.com/1pone/1pone.github.io/raw/master/images/～ds.png" alt="～ds" width="400"/></div>
+<div align=center><img src="https://github.com/1pone/1pone.github.io/raw/master/images/～ds.png" alt="～ds" width="400"/><p>「 输入 ～ds 保持屏幕常亮 」</p></div>
 
 ### 更多功能 🤩
 
-你可以根据你的喜好需求选择 `模式` `功能` 对应下的路径，将至添加到主页 https://1pone.github.io 之后，即可访问相应页面，如，`深色模式` `时钟` 页面的路径为 https://1pone.github.io/clockDark ，路径省略时默认路径为`/index`，即 `浅色模式`，`一言 + 时钟 + 天气功能`。
+你可以根据你的喜好需求选择 `模式` `功能` 对应下的路径，将至添加到主页 https://1pone.github.io 之后，即可访问相应页面，如，`深色模式` `时钟` 页面的路径为 https://1pone.github.io/clockDark ，路径省略时默认路径为`/index`，即 `浅色模式`，`一言 + 时钟 + 天气`功能。
 
 |      功能模块      | 浅色模式路径 | 深色模式路径 | 自动模式路径 | 离线支持 | 完成 |
 | :----------------: | :----------: | :----------: | :----------: | :------: | :--: |
@@ -27,13 +28,13 @@
 |     图片+时钟      |    `/pic`    |  `/picDark`  |  `/picAuto`  |    ✕     |  ✕   |
 |        ...         |     ...      |     ...      |     ...      |   ...    | ...  |
 
-<div align=center><img src="https://github.com/1pone/1pone.github.io/raw/master/images/dark.png" alt="index" width="400"/></div>
+<div align=center><img src="https://github.com/1pone/1pone.github.io/raw/master/images/dark.png" alt="index" width="400"/><p>「 深色模式 一言 + 时钟 + 天气 」</p></div>
 
-<div align=center><img src="https://github.com/1pone/1pone.github.io/raw/master/images/clock.png" alt="index" width="400"/></div>
+<div align=center><img src="https://github.com/1pone/1pone.github.io/raw/master/images/clock.png" alt="index" width="400"/><p>「 浅色模式 时钟 」</p></div>
 
 
 
-<div align=center><img src="https://github.com/1pone/1pone.github.io/raw/master/images/clockDark.png" alt="index" width="400"/></div>
+<div align=center><img src="https://github.com/1pone/1pone.github.io/raw/master/images/clockDark.png" alt="index" width="400"/><p>「 深色模式 时钟 」</p></div>
 
 ### 一点说明 😏
 
