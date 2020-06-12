@@ -41,6 +41,10 @@ ul {
   padding: 0;
 }
 
+li {
+  line-height: 2rem;
+}
+
 li div {
   display: inline-block;
 }
@@ -88,6 +92,7 @@ li div {
   text-align: center;
   height: 20%;
   margin: 1.25rem;
+  font-size: 1.5rem;
 }
 
 .time_container {
