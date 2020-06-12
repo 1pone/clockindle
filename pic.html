@@ -11,7 +11,11 @@
         background-position: center;
         background-size: cover;
         background-repeat: no-repeat;
-        background-image: url('https://source.unsplash.com/random/1072x1448');
+        /*background-image: url('https://source.unsplash.com/random/1072x1448');*/
+      }
+
+      #apm, #data {
+        font-weight: 600;
       }
     </style>
 </head>
@@ -31,38 +35,7 @@
 
 
     <script>
-      // 创建XMLHttpRequest对象
-      // function createXHR(){
-      //   var xhr = null;
-      //   if(window.XMLHttpRequest){
-      //       xhr = new XMLHttpRequest();
-      //   }else if(window.ActiveXObject){
-      //       xhr = new ActiveXObject("Microsoft.XMLHTTP");
-      //   }
-      //   return xhr;
-      // }
-      // 幻灯片模块 目前API处于开发阶段，请求频率受限，每小时50次
-      // function picture() {
-      //   var xhr = createXHR();
-      //   xhr.open('GET','https://api.unsplash.com/photos/random?client_id=bXwWoUhPeVw-yvSesGMgaOENnlSzhHYB43kZIQOR8cQ',true);
-      //   xhr.onreadystatechange = function(){
-      //       if(this.readyState == 4){
-      //         var data = JSON.parse(this.responseText)
-      //         console.log(data)
-      //         document.getElementsByClassName('page')[0].style.backgroundImage = 'url('+data.urls.regular+')'
-      //       }
-      //   }
-      //   xhr.send(null);
-      // }
-
-      // picture()
-      // setInterval("picture()", 60 * 1000 * 60)
       
-      setInterval(function() {
-        document.getElementsByClassName('page')[0].style.backgroundImage = ''
-        document.getElementsByClassName('page')[0].style.backgroundImage = 'url(https://source.unsplash.com/random/1072x1448)';
-      }, 1000 * 60)
-
       // 创建XMLHttpRequest对象
       function createXHR(){
         var xhr = null;
@@ -73,6 +46,27 @@
         }
         return xhr;
       }
+      // 幻灯片模块 目前API处于开发阶段，请求频率受限，每小时50次
+      function picture() {
+        var xhr = createXHR();
+        xhr.open('GET','https://api.unsplash.com/photos/random?client_id=bXwWoUhPeVw-yvSesGMgaOENnlSzhHYB43kZIQOR8cQ',true);
+        xhr.onreadystatechange = function(){
+            if(this.readyState == 4){
+              var data = JSON.parse(this.responseText)
+              console.log(data)
+              document.getElementsByClassName('page')[0].style.backgroundImage = 'url('+data.urls.regular+')'
+            }
+        }
+        xhr.send(null);
+      }
+
+      picture()
+      setInterval("picture()", 60 * 1000 * 60)
+      
+      setInterval(function() {
+        document.getElementsByClassName('page')[0].style.backgroundImage = ''
+        document.getElementsByClassName('page')[0].style.backgroundImage = 'url(https://source.unsplash.com/random/1072x1448)';
+      }, 1000 * 60)
 
       // 时钟模块
       function clock() {
