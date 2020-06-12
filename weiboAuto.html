@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title> </title>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+  </head>
+
+  <body>
+    <div class="page">
+      <div class="weibo_container">
+        <div class="weibo_title">微博实时热搜</div>
+        <div class="hot_list">
+          <ul id="hot_word"></ul>
+          <ul id="hot_word_num"></ul>
+        </div>
+      </div>
+
+      <div class="time_container">
+        <div id="apm"></div>
+        <div class="time" id="time">00:00</div>
+        <div class="date" id="date">1月1日 星期一</div>
+      </div>
+
+      <div class="weather_container">
+        <p id="weaTitle"></p>
+        <div id="weaImg"></div>
+        <div id="weaTemp"></div>
+        <div id="weaInfo"></div>
+      </div>
+    </div>
+
+    <script>
+      lightMode = true;
+      // 创建XMLHttpRequest对象
+      function createXHR() {
+        var xhr = null;
+        if (window.XMLHttpRequest) {
+          xhr = new XMLHttpRequest();
+        } else if (window.ActiveXObject) {
+          xhr = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        return xhr;
+      }
+      // 微博热搜模块
+      function weibo() {
+        var xhr = createXHR();
+        xhr.open("GET", "https://v1.alapi.cn/api/new/wbtop?num=3", true);
+        xhr.onreadystatechange = function () {
+          if (this.readyState == 4) {
+            var data = JSON.parse(this.responseText);
+            var hots = data.data;
+            var hot_word = document.getElementById("hot_word");
+            var hot_word_num = document.getElementById("hot_word_num");
+            hot_word.innerHTML = "";
+            hot_word_num.innerHTML = "";
+            for (var i = 0; i < hots.length; i++) {
+              var index = i + 1;
+              hot_word.innerHTML += "<li>" + index + ". " + hots[i].hot_word + "</li>";
+              hot_word_num.innerHTML += "<li>" + hots[i].hot_word_num + "</li>";
+            }
+          }
+        };
+        xhr.send(null);
+      }
+
+      weibo();
+      setInterval("weibo()", 60 * 1000 * 20);
+
+      // 时钟模块
+      function clock() {
+        var date = new Date();
+        var utc8DiffMinutes = date.getTimezoneOffset() + 480;
+        date.setMinutes(date.getMinutes() + utc8DiffMinutes);
+
+        var hour = date.getHours();
+
+        // 20点后6点前启用深色模式
+        if (hour > 19 || hour < 6) {
+          if (lightMode) {
+            document.getElementsByClassName('page')[0].style.color = '#ffffff'
+            document.getElementsByClassName('page')[0].style.backgroundColor = '#000000'
+            lightMode = false
+          }
+        } else {
+          if (!lightMode) {
+            document.getElementsByClassName('page')[0].style.color = '#000000'
+            document.getElementsByClassName('page')[0].style.backgroundColor = '#ffffff'
+            lightMode = true
+          }
+        }
+
+        var apm = "上<br>午";
+        if (hour > 12) {
+          apm = "下<br>午";
+          hour -= 12;
+        }
+
+        var timeString = hour + ":" + ("0" + date.getMinutes()).slice(-2);
+        var dateString = date.getMonth() + 1 + "月" + date.getDate() + "日";
+        var weekList = ["日", "一", "二", "三", "四", "五", "六"];
+        var weekString = "星期" + weekList[date.getDay()];
+
+        document.getElementById("apm").innerHTML = apm;
+        document.getElementById("time").innerHTML = timeString;
+        document.getElementById("date").innerHTML =
+          dateString + " " + weekString;
+      }
+
+      clock();
+
+      setInterval("clock()", 60 * 1000);
+
+      // 天气模块
+      // 固定9种类型: xue、lei、shachen、wu、bingbao、yun、yu、yin、qing
+      var weaImgs = {
+        xue: ["&#xe645;", "&#xe645;"],
+        lei: ["&#xe643;", "&#xe643;"],
+        shachen: ["&#xe646;", "&#xe646;"],
+        wu: ["&#xe647;", "&#xe647;"],
+        bingbao: ["&#xe667;", "&#xe667;"],
+        yun: ["&#xe648;", "&#xe648;"],
+        yu: ["&#xe64b;", "&#xe64b;"],
+        yin: ["&#xe64a;", "&#xe652;"],
+        qing: ["&#xe649;", "&#xe764;"],
+        weizhi: ["&#xe6f2;", "&#xe6f2;"],
+      };
+
+      function getWea() {
+        var xhr = createXHR();
+        // xhr.open('GET','https://tianqiapi.com/free/day?appid=48353766&appsecret=VjZ4oxd5',true);
+        xhr.open(
+          "GET",
+          "https://tianqiapi.com/free/day?appid=48373524&appsecret=5iHwLsS8",
+          true
+        );
+        xhr.onreadystatechange = function () {
+          if (this.readyState == 4) {
+            var data = JSON.parse(this.responseText);
+            // 获取天气图标信息
+            var imgs = weaImgs[data.wea_img];
+            var img = imgs[0];
+            var date = new Date();
+            var utc8DiffMinutes = date.getTimezoneOffset() + 480;
+            date.setMinutes(date.getMinutes() + utc8DiffMinutes);
+            var hour = date.getHours();
+            // 20点后天气使用夜间天气图标
+            if (hour > 19 || hour < 6) {
+              img = imgs[1];
+            }
+
+            var weaImg =
+              '<span class="iconfont">' +
+              img +
+              "</span>" +
+              "<div>天气：" +
+              data.wea +
+              "</div>";
+            var weaTemp =
+              '<div class="tempNum">' +
+              data.tem +
+              '<div class="symbol">&#8451;</div></div>' +
+              "<div>当前气温</div>";
+            var weaInfo =
+              "<div>最高气温：" +
+              data.tem_day +
+              "&#8451;</div>" +
+              "<div>最低气温：" +
+              data.tem_night +
+              "&#8451;</div>" +
+              "<div>空气质量：" +
+              data.air +
+              "</div>" +
+              "<div>风向：" +
+              data.win +
+              "</div>" +
+              "<div>风速：" +
+              data.win_speed +
+              " " +
+              data.win_meter +
+              "</div>" +
+              "<div>更新时间：" +
+              data.update_time +
+              "</div>";
+            document.getElementById("weaTitle").innerHTML =
+              data.city + "当前天气";
+            document.getElementById("weaImg").innerHTML = weaImg;
+            document.getElementById("weaTemp").innerHTML = weaTemp;
+            document.getElementById("weaInfo").innerHTML = weaInfo;
+          }
+        };
+        xhr.send(null);
+      }
+
+      getWea();
+      setInterval("getWea()", 60 * 1000 * 20);
+    </script>
+  </body>
+</html>

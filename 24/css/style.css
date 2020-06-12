@@ -1,19 +1,23 @@
 @media screen and (min-width: 500px) {
-  html {font-size: 16px}
+  html {
+    font-size: 16px;
+  }
 }
 
 @media screen and (min-width: 1000px) {
-  html {font-size: 28px}
+  html {
+    font-size: 28px;
+  }
 }
 
 @font-face {
-  font-family: 'iconfont';
-  src: url('./font/iconfont.eot');
-  src: url('./font/iconfont.eot?#iefix') format('embedded-opentype'),
-      url('./font/iconfont.woff2') format('woff2'),
-      url('./font/iconfont.woff') format('woff'),
-      url('./font/iconfont.ttf') format('truetype'),
-      url('./font/iconfont.svg#iconfont') format('svg');
+  font-family: "iconfont";
+  src: url("./font/iconfont.eot");
+  src: url("./font/iconfont.eot?#iefix") format("embedded-opentype"),
+    url("./font/iconfont.woff2") format("woff2"),
+    url("./font/iconfont.woff") format("woff"),
+    url("./font/iconfont.ttf") format("truetype"),
+    url("./font/iconfont.svg#iconfont") format("svg");
 }
 
 .iconfont {
@@ -29,6 +33,20 @@ body {
   background-color: #ffffff;
   margin: 0;
   padding: 0;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  line-height: 2rem;
+}
+
+li div {
+  display: inline-block;
 }
 
 .page {
@@ -70,6 +88,37 @@ body {
   margin: 0.5rem;
 }
 
+.weibo_container {
+  text-align: center;
+  height: 20%;
+  margin: 1.25rem;
+  font-size: 1.5rem;
+}
+
+.weibo_title {
+  padding-bottom: 0.5rem;
+}
+
+#hot_word, #hot_word_num {
+  display: inline-block;
+}
+
+#hot_word {
+  text-align: left;
+  margin-right: 1rem;
+  max-width: 25rem;
+}
+
+#hot_word_num {
+  width: auto;
+}
+
+#hot_word li,#hot_word_num {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 .time_container {
   position: relative;
   height: 40%;
@@ -85,13 +134,13 @@ body {
   font-weight: 600;
   line-height: 3.75rem;
   position: absolute;
-  top: 2.25rem;
+  top: 2rem;
   left: 2rem;
 }
 
 .time {
   font-size: 12.5rem;
-  display: inline-block
+  display: inline-block;
 }
 
 .date {
@@ -130,7 +179,7 @@ body {
 
 .symbol {
   display: inline-block;
-  font-size: 3rem
+  font-size: 3rem;
 }
 
 #weaInfo {
