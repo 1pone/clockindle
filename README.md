@@ -6,14 +6,15 @@
 
 现在就在你的Kindle浏览器中打开Kindle实用工具网站主页 https://1pone.github.io 吧！
 
-<div align=center><img src="https://github.com/1pone/1pone.github.io/raw/master/images/index.png" alt="index" width="400"/><p>「 首页 」</p>
+<div align=center><img src="https://github.com/1pone/1pone.github.io/raw/master/images/index.png" alt="index.png" width="400"/><p>「 首页 」</p>
   </p></div>
+
 
 ### 一点技巧 🥳
 
 为了让屏幕关闭自动锁屏保持常亮，请在Kindle主页搜索栏输入`~ds` 并回车，这时并不会有明显的反应，但是当你尝试按锁屏键时已无法锁屏，即已生效。当你想要恢复正常锁屏重启Kindle即可。
 
-<div align=center><img src="https://github.com/1pone/1pone.github.io/raw/master/images/～ds.png" alt="～ds" width="400"/><p>「 输入 ～ds 保持屏幕常亮 」</p></div>
+<div align=center><img src="https://github.com/1pone/1pone.github.io/raw/master/images/～ds.png" alt="～ds.png" width="400"/><p>「 输入 ～ds 保持屏幕常亮 」</p></div>
 
 ### 更多功能 🤩
 
@@ -23,20 +24,23 @@
 | :----------------: | :----------: | :----------: | :----------: | :------: | :--: |
 | 一言 + 时钟 + 天气 |   `/index`   |   `/dark`    |   `/auto`    |    ✕     |  √   |
 |        时钟        |   `/clock`   | `/clockDark` | `/clockAuto` |    √     |  √   |
-|    一言 + 时钟     |   `/yiyan`   | `/yiyanDark` | `/yiyanAuto` |    √     |  ✕   |
 | 微博热搜+时钟+天气 |   `/weibo`   | `/weiboDark` | `/weiboAuto` |    ✕     |  √   |
-|     图片+时钟      |    `/pic`    |      ✕       |      ✕       |    ✕     |  ✕   |
+|     图片+时钟      |    `/pic`    |      ✕       |      ✕       |    ✕     |  √   |
+|    一言 + 时钟     |   `/yiyan`   | `/yiyanDark` | `/yiyanAuto` |    √     |  ✕   |
 |        ...         |     ...      |     ...      |     ...      |   ...    | ...  |
 
-<div align=center><img src="https://github.com/1pone/1pone.github.io/raw/master/images/dark.png" alt="index" width="400"/><p>「 深色模式 一言 + 时钟 + 天气 」</p></div>
+<div align=center><img src="https://github.com/1pone/1pone.github.io/raw/master/images/dark.png" alt="dark.png" width="400"/><p>「 深色模式 一言 + 时钟 + 天气 」</p></div>
 ****
-<div align=center><img src="https://github.com/1pone/1pone.github.io/raw/master/images/clock.png" alt="index" width="400"/><p>「 浅色模式 时钟 」</p></div>
+<div align=center><img src="https://github.com/1pone/1pone.github.io/raw/master/images/clock.png" alt="clock.png" width="400"/><p>「 浅色模式 时钟 」</p></div>
 ****
-<div align=center><img src="https://github.com/1pone/1pone.github.io/raw/master/images/clockDark.png" alt="index" width="400"/><p>「 深色模式 时钟 」</p></div>
+<div align=center><img src="https://github.com/1pone/1pone.github.io/raw/master/images/clockDark.png" alt="clockDark.png" width="400"/><p>「 深色模式 时钟 」</p></div>
 ****
-<div align=center><img src="https://github.com/1pone/1pone.github.io/raw/master/images/weibo.png" alt="index" width="400"/><p>「 浅色模式 微博热搜 + 时钟 + 天气 」</p></div>
+<div align=center><img src="https://github.com/1pone/1pone.github.io/raw/master/images/weibo.png" alt="weibo.png" width="400"/><p>「 浅色模式 微博热搜 + 时钟 + 天气 」</p></div>
 ****
-<div align=center><img src="https://github.com/1pone/1pone.github.io/raw/master/images/weiboDark.png" alt="index" width="400"/><p>「 深色模式 微博热搜 + 时钟 + 天气 」</p></div>
+<div align=center><img src="https://github.com/1pone/1pone.github.io/raw/master/images/weiboDark.png" alt="weiboDark.png" width="400"/><p>「 深色模式 微博热搜 + 时钟 + 天气 」</p></div>
+****
+<div align=center><img src="https://github.com/1pone/1pone.github.io/raw/master/images/pic.png" alt="pic.png" width="400"/><p>「  图片 + 时钟  」</p></div>
+
 
 ### 一点说明 😏
 
