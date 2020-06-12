@@ -8,10 +8,12 @@
 
   <body>
     <div class="page">
-      <!-- <div id="screensize"></div> -->
       <div class="weibo_container">
         <div class="weibo_title">微博实时热搜</div>
-        <ul id="hot_list"></ul>
+        <div class="hot_list">
+          <ul id="hot_word"></ul>
+          <ul id="hot_word_num"></ul>
+        </div>
       </div>
 
       <div class="time_container">
@@ -47,20 +49,14 @@
           if (this.readyState == 4) {
             var data = JSON.parse(this.responseText);
             var hots = data.data;
-            var hot_list = document.getElementById("hot_list");
-            hot_list.innerHTML = "";
+            var hot_word = document.getElementById("hot_word");
+            var hot_word_num = document.getElementById("hot_word_num");
+            hot_word.innerHTML = "";
+            hot_word_num.innerHTML = "";
             for (var i = 0; i < hots.length; i++) {
               var index = i + 1;
-              var hot_word = hots[i].hot_word;
-              var hot_word_num = hots[i].hot_word_num;
-              hot_list.innerHTML +=
-                "<li>" +
-                index +
-                ". " +
-                hot_word +
-                " " +
-                hot_word_num +
-                "</div>";
+              hot_word.innerHTML += "<li>" + index + ". " + hots[i].hot_word + "</li>";
+              hot_word_num.innerHTML += "<li>" + hots[i].hot_word_num + "</li>";
             }
           }
         };
