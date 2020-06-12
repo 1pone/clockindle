@@ -1,19 +1,23 @@
 @media screen and (min-width: 500px) {
-  html {font-size: 16px}
+  html {
+    font-size: 16px;
+  }
 }
 
 @media screen and (min-width: 1000px) {
-  html {font-size: 28px}
+  html {
+    font-size: 28px;
+  }
 }
 
 @font-face {
-  font-family: 'iconfont';
-  src: url('./font/iconfont.eot');
-  src: url('./font/iconfont.eot?#iefix') format('embedded-opentype'),
-      url('./font/iconfont.woff2') format('woff2'),
-      url('./font/iconfont.woff') format('woff'),
-      url('./font/iconfont.ttf') format('truetype'),
-      url('./font/iconfont.svg#iconfont') format('svg');
+  font-family: "iconfont";
+  src: url("./font/iconfont.eot");
+  src: url("./font/iconfont.eot?#iefix") format("embedded-opentype"),
+    url("./font/iconfont.woff2") format("woff2"),
+    url("./font/iconfont.woff") format("woff"),
+    url("./font/iconfont.ttf") format("truetype"),
+    url("./font/iconfont.svg#iconfont") format("svg");
 }
 
 .iconfont {
@@ -29,6 +33,16 @@ body {
   background-color: #ffffff;
   margin: 0;
   padding: 0;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+li div {
+  display: inline-block;
 }
 
 .page {
@@ -70,6 +84,12 @@ body {
   margin: 0.5rem;
 }
 
+.weibo_container {
+  text-align: center;
+  height: 20%;
+  margin: 1.25rem;
+}
+
 .time_container {
   position: relative;
   height: 40%;
@@ -91,7 +111,7 @@ body {
 
 .time {
   font-size: 12.5rem;
-  display: inline-block
+  display: inline-block;
 }
 
 .date {
@@ -130,7 +150,7 @@ body {
 
 .symbol {
   display: inline-block;
-  font-size: 3rem
+  font-size: 3rem;
 }
 
 #weaInfo {
