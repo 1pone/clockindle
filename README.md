@@ -23,7 +23,7 @@
 | :----------------: | :----------: | :----------: | :----------: | :------: | :--: |
 | 一言 + 时钟 + 天气 |   `/index`   |   `/dark`    |   `/auto`    |    ✕     |  √   |
 |        时钟        |   `/clock`   | `/clockDark` | `/clockAuto` |    √     |  √   |
-| 一言 + 时钟 + 天气 |   `/yiyan`   | `/yiyanDark` | `/yiyanAuto` |    √     |  ✕   |
+|    一言 + 时钟     |   `/yiyan`   | `/yiyanDark` | `/yiyanAuto` |    √     |  ✕   |
 | 微博热搜+时钟+天气 |   `/weibo`   | `/weiboDark` | `/weiboAuto` |    ✕     |  ✕   |
 |     图片+时钟      |    `/pic`    |  `/picDark`  |  `/picAuto`  |    ✕     |  ✕   |
 |        ...         |     ...      |     ...      |     ...      |   ...    | ...  |
