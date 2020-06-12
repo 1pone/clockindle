@@ -96,7 +96,7 @@ li div {
 }
 
 .weibo_title {
-  line-height: 3rem;
+  padding-bottom: 0.5rem;
 }
 
 #hot_word, #hot_word_num {
