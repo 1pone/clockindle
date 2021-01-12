@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>　</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+
+<body>
+    <div class="page">
+      <div class="hitokoto_container"></div>
+
+      <div class="time_container">
+        <div id="apm"></div>
+        <div class="time" id="time">00:00</div>
+        <div class="date" id="date">1月1日</div>
+      </div>
+
+      <div class="weather_container"></div>
+    </div>
+
+
+    <script>
+      // 创建XMLHttpRequest对象
+      function createXHR(){
+        var xhr = null;
+        if(window.XMLHttpRequest){
+            xhr = new XMLHttpRequest();
+        }else if(window.ActiveXObject){
+            xhr = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        return xhr;
+      }
+
+      // 时钟模块
+      function clock() {
+        var date = new Date()
+        var utc8DiffMinutes = date.getTimezoneOffset() + 480
+        date.setMinutes(date.getMinutes() + utc8DiffMinutes)
+
+        var hour = date.getHours()
+
+        var timeString = hour + ':' + ('0' + date.getMinutes()).slice(-2)
+        var dateString = (date.getMonth() + 1) + '月' + date.getDate() + '日'
+        var weekList = ['日', '一', '二', '三', '四', '五', '六']
+        var weekString = '星期' + weekList[date.getDay()]
+
+        document.getElementById("time").innerHTML = timeString
+        document.getElementById("date").innerHTML = dateString + " " + weekString
+      }
+
+      clock()
+
+      setInterval("clock()", 60 * 1000)
+    </script>
+</body>
+</html>

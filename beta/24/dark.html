@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>　</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+
+<body>
+    <div class="page">
+      <!-- <div id="screensize"></div> -->
+      <div class="hitokoto_container">
+        <div class="hitokoto_main">
+          <div class="brackets-l">『</div>
+          <div id="hitokoto"></div>
+          <div class="brackets-r">』</div>
+        </div>
+        <div id="from"></div>
+      </div>
+
+      <div class="time_container">
+        <div class="time" id="time">00:00</div>
+        <div class="date" id="date">1月1日 星期一</div>
+      </div>
+
+      <div class="weather_container">
+          <p id="weaTitle"></p>
+          <div id="weaImg"></div>
+          <div id="weaTemp"></div>
+          <div id="weaInfo"></div>
+
+      </div>
+    </div>
+
+
+    <script>
+      // 获取设备显示尺寸
+      // var width = window.screen.width
+      // var height = window.screen.height
+      // document.getElementById('screensize').innerHTML = '屏幕分辨率的宽：' + width + ' ' + '屏幕分辨率的高：'+height
+
+      // 创建XMLHttpRequest对象
+      function createXHR(){
+        var xhr = null;
+        if(window.XMLHttpRequest){
+            xhr = new XMLHttpRequest();
+        }else if(window.ActiveXObject){
+            xhr = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        return xhr;
+      }
+      // 一言模块
+      function hitokoto() {
+        var xhr = createXHR();
+        xhr.open('GET','https://v1.hitokoto.cn?encode=json&charset=utf-8',true);
+        xhr.onreadystatechange = function(){
+            if(this.readyState == 4){
+              var data = JSON.parse(this.responseText)
+              document.getElementById('hitokoto').innerHTML = data.hitokoto
+              document.getElementById('from').innerHTML =data.from_who ? "「" + data.from + " " + data.from_who + "」" : "「" + data.from + "」"
+            }
+        }
+        xhr.send(null);
+      }
+
+      hitokoto()
+      setInterval("hitokoto()", 60 * 1000 * 60)
+
+      // 时钟模块
+      function clock() {
+        var date = new Date()
+        var utc8DiffMinutes = date.getTimezoneOffset() + 480
+        date.setMinutes(date.getMinutes() + utc8DiffMinutes)
+
+        var hour = date.getHours()
+
+        var timeString = hour + ':' + ('0' + date.getMinutes()).slice(-2)
+        var dateString = (date.getMonth() + 1) + '月' + date.getDate() + '日'
+        var weekList = ['日', '一', '二', '三', '四', '五', '六']
+        var weekString = '星期' + weekList[date.getDay()]
+
+        document.getElementById("time").innerHTML = timeString
+        document.getElementById("date").innerHTML = dateString + " " + weekString
+      }
+
+      clock()
+
+      setInterval("clock()", 60 * 1000)
+      
+      // 天气模块
+      // 固定9种类型: xue、lei、shachen、wu、bingbao、yun、yu、yin、qing
+      var weaImgs = {
+        xue: ['&#xe645;', '&#xe645;'],
+        lei: ['&#xe643;', '&#xe643;'],
+        shachen: ['&#xe646;', '&#xe646;'],
+        wu: ['&#xe647;', '&#xe647;'],
+        bingbao: ['&#xe667;', '&#xe667;'],
+        yun: ['&#xe648;', '&#xe648;'],
+        yu: ['&#xe64b;', '&#xe64b;'],
+        yin: ['&#xe64a;', '&#xe652;'],
+        qing: ['&#xe649;', '&#xe764;'],
+        weizhi: ['&#xe6f2;', '&#xe6f2;']
+      }
+
+      function getWea(){
+        var xhr = createXHR();
+        // xhr.open('GET','https://tianqiapi.com/free/day?appid=48353766&appsecret=VjZ4oxd5',true);
+        xhr.open('GET','https://tianqiapi.com/free/day?appid=48373524&appsecret=5iHwLsS8',true);
+        xhr.onreadystatechange = function(){
+            if(this.readyState == 4){
+              var data = JSON.parse(this.responseText)
+              // 获取天气图标信息
+              var imgs = weaImgs[data.wea_img]
+              console.log(imgs)
+              var img = imgs[0]
+              var date = new Date()
+              var utc8DiffMinutes = date.getTimezoneOffset() + 480
+              date.setMinutes(date.getMinutes() + utc8DiffMinutes)
+              var hour = date.getHours()
+              // 20点后天气使用夜间天气图标
+              if (hour > 19 || hour < 6) {
+                img = imgs[1]
+              }
+
+              var weaImg = '<span class="iconfont">'+img+'</span>' + '<div>天气：'+data.wea+'</div>';
+              var weaTemp = '<div class="tempNum">'+data.tem+'<div class="symbol">&#8451;</div></div>'+'<div>当前气温</div>';
+              var weaInfo = '<div>最高气温：'+data.tem_day+'&#8451;</div>'+
+                          '<div>最低气温：'+data.tem_night+'&#8451;</div>'+
+                          '<div>空气质量：'+data.air+'</div>'+
+                          '<div>风向：'+data.win+'</div>'+
+                          '<div>风速：'+data.win_speed + ' ' + data.win_meter+'</div>'+
+                          '<div>更新时间：'+data.update_time+'</div>';
+              document.getElementById('weaTitle').innerHTML = data.city + '当前天气'
+              document.getElementById('weaImg').innerHTML = weaImg
+              document.getElementById('weaTemp').innerHTML = weaTemp
+              document.getElementById('weaInfo').innerHTML = weaInfo
+            }
+        }
+        xhr.send(null);
+      }
+
+      getWea()
+      setInterval("getWea()", 60 * 1000 * 20)
+    </script>
+</body>
+</html>
