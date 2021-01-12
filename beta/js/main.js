@@ -1,3 +1,6 @@
+var morningHour = 6
+var nightHour = 19
+
 function showScreenSize() {
     // 获取设备显示尺寸
     var w = window.screen.width
@@ -34,7 +37,8 @@ function hitokoto() {
 
 
 // 时钟模块
-function clock(hour24) {
+function clock(hour24, autoMode) {
+
     var d = new Date();
 
     //得到1970年一月一日到现在的秒数
@@ -64,6 +68,28 @@ function clock(hour24) {
     var hour = nd.getHours()
     var minutes = nd.getMinutes()
 
+    // 深浅色模式标示
+    var lightMode = true
+
+    // 自动模式
+    if (autoMode) {
+        // 20点后6点前启用深色模式
+        if (hour > nightHour || hour < morningHour) {
+            if (lightMode) {
+                document.getElementsByClassName('page')[0].style.color = '#ffffff'
+                document.getElementsByClassName('page')[0].style.backgroundColor = '#000000'
+                lightMode = false
+            }
+        } else {
+            if (!lightMode) {
+                document.getElementsByClassName('page')[0].style.color = '#000000'
+                document.getElementsByClassName('page')[0].style.backgroundColor = '#ffffff'
+                lightMode = true
+            }
+        }
+    }
+
+    // 24小時制
     if (!hour24) {
         var apm = '上<br>午'
         if (hour > 12) {
@@ -132,6 +158,42 @@ function getWea() {
             document.getElementById('weaImg').innerHTML = weaImg
             document.getElementById('weaTemp').innerHTML = weaTemp
             document.getElementById('weaInfo').innerHTML = weaInfo
+        }
+    }
+    xhr.send(null);
+}
+
+// 微博热搜模块
+function weibo() {
+    var xhr = createXHR();
+    xhr.open("GET", "https://v1.alapi.cn/api/new/wbtop?num=3", true);
+    xhr.onreadystatechange = function () {
+        if (this.readyState == 4) {
+            var data = JSON.parse(this.responseText);
+            var hots = data.data;
+            var hot_word = document.getElementById("hot_word");
+            var hot_word_num = document.getElementById("hot_word_num");
+            hot_word.innerHTML = "";
+            hot_word_num.innerHTML = "";
+            for (var i = 0; i < hots.length; i++) {
+                var index = i + 1;
+                hot_word.innerHTML += "<li>" + index + ". " + hots[i].hot_word + "</li>";
+                hot_word_num.innerHTML += "<li>" + hots[i].hot_word_num + "</li>";
+            }
+        }
+    };
+    xhr.send(null);
+}
+
+// 幻灯片模块 目前API处于开发阶段，请求频率受限，每小时50次
+function picture() {
+    var xhr = createXHR();
+    xhr.open('GET', 'https://api.unsplash.com/photos/random?client_id=bXwWoUhPeVw-yvSesGMgaOENnlSzhHYB43kZIQOR8cQ', true);
+    xhr.onreadystatechange = function () {
+        if (this.readyState == 4) {
+            var data = JSON.parse(this.responseText)
+            console.log(data)
+            document.getElementsByClassName('page')[0].style.backgroundImage = 'url(' + data.urls.regular + ')'
         }
     }
     xhr.send(null);

@@ -3,8 +3,14 @@
   <head>
     <meta charset="utf-8" />
     <title> </title>
-    <link rel="stylesheet" type="text/css" href="../css/style.css" />
-    <script src="../js/main.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <style type="text/css">
+      body {
+        color: #ffffff;
+        background-color: #000000;
+      }
+    </style>
+    <script src="js/main.js"></script>
   </head>
 
   <body>
@@ -38,8 +44,8 @@
       setInterval("weibo()", 60 * 1000 * 20);
 
       // 时钟模块
-      clock(true, true);
-      setInterval("clock(true, true)", 60 * 1000);
+      clock(false, false);
+      setInterval("clock(false, false)", 60 * 1000);
 
       // 天气模块
       getWea();

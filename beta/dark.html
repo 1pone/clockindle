@@ -5,12 +5,19 @@
   <meta charset="utf-8" />
   <title>　</title>
   <link rel="stylesheet" type="text/css" href="css/style.css">
+  <style type="text/css">
+    body {
+      color: #ffffff;
+      background-color: #000000;
+    }
+  </style>
   <script src="js/main.js"></script>
+
 </head>
 
 <body>
   <div class="page">
-    <div id="screensize"></div>
+    <!-- <div id="screensize"></div> -->
     <div class="hitokoto_container">
       <div class="hitokoto_main">
         <div class="brackets-l">『</div>
@@ -39,15 +46,15 @@
   <script>
     // 一言模块
     hitokoto()
-      setInterval("hitokoto()", 60 * 1000 * 60)
+    setInterval("hitokoto()", 60 * 1000 * 60)
 
-      // 时钟模块
-      clock(false, false)
-      setInterval("clock(false, false)", 60 * 1000)
+    // 时钟模块
+    clock(false, false)
+    setInterval("clock(false, false)", 60 * 1000)
 
-      // 天气模块
-      getWea()
-      setInterval("getWea()", 60 * 1000 * 20)
+    // 天气模块
+    getWea()
+    setInterval("getWea()", 60 * 1000 * 20)
   </script>
 </body>
 
