@@ -1,6 +1,8 @@
 var morningHour = 6 // 自动模式下夜晚结束时间
 var nightHour = 19 // 自动模式下夜晚开始时间
-var vertical = true
+var vertical = true // 竖屏标识
+var lastTouchStart = null
+var lastTouchEnd = null
 
 
 /** 
@@ -253,18 +255,27 @@ window.ondblclick = function() {
     vertical = !vertical
 }
 
-window.touchstart = function() {
-    console.log('double tap')
-    var w = document.documentElement.clientWidth || document.body.clientWidth;
-    var h = document.documentElement.clientHeight || document.body.clientHeight;
-    if (vertical) {
-        document.getElementsByTagName('body')[0].classList.add('horizontal')
-        document.getElementsByTagName("body")[0].style.height = h + "px"
-        document.getElementsByClassName("page")[0].style.width = w + "px"
-    } else {
-        document.getElementsByTagName('body')[0].classList.remove('horizontal')
-        document.getElementsByTagName("body")[0].style.height = w + "px"
-        document.getElementsByClassName("page")[0].style.width = h + "px"
+window.ontouchstart = function() {
+    console.log('touchstart')
+    lastTouchStart = new Date()
+}
+
+window.ontouchend = function() {
+    console.log('touchend')
+    lastTouchEnd = new Date()
+    if (lastTouchEnd - lastTouchStart > 2000) {
+        console.log('rotate')
+        var w = document.documentElement.clientWidth || document.body.clientWidth;
+        var h = document.documentElement.clientHeight || document.body.clientHeight;
+        if (vertical) {
+            document.getElementsByTagName('body')[0].classList.add('horizontal')
+            document.getElementsByTagName("body")[0].style.height = h + "px"
+            document.getElementsByClassName("page")[0].style.width = w + "px"
+        } else {
+            document.getElementsByTagName('body')[0].classList.remove('horizontal')
+            document.getElementsByTagName("body")[0].style.height = w + "px"
+            document.getElementsByClassName("page")[0].style.width = h + "px"
+        }
+        vertical = !vertical
     }
-    vertical = !vertical
 }
