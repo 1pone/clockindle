@@ -1,5 +1,6 @@
 var morningHour = 6 // 自动模式下夜晚结束时间
 var nightHour = 19 // 自动模式下夜晚开始时间
+var vertical = true
 
 
 /** 
@@ -235,4 +236,36 @@ function picture() {
         }
     }
     xhr.send(null);
+}
+
+window.ondblclick = function() {
+    console.log('double click')
+    var w = document.documentElement.clientWidth || document.body.clientWidth;
+    var h = document.documentElement.clientHeight || document.body.clientHeight;
+    if (vertical) {
+        document.getElementsByTagName('body')[0].classList.add('horizontal')
+        document.getElementsByTagName("body")[0].style.height = h + "px"
+        document.getElementsByClassName("page")[0].style.width = w + "px"
+    } else {
+        document.getElementsByTagName('body')[0].classList.remove('horizontal')
+        document.getElementsByTagName("body")[0].style.height = w + "px"
+        document.getElementsByClassName("page")[0].style.width = h + "px"
+    }
+    vertical = !vertical
+}
+
+window.doubleTap = function() {
+    console.log('double tap')
+    var w = document.documentElement.clientWidth || document.body.clientWidth;
+    var h = document.documentElement.clientHeight || document.body.clientHeight;
+    if (vertical) {
+        document.getElementsByTagName('body')[0].classList.add('horizontal')
+        document.getElementsByTagName("body")[0].style.height = h + "px"
+        document.getElementsByClassName("page")[0].style.width = w + "px"
+    } else {
+        document.getElementsByTagName('body')[0].classList.remove('horizontal')
+        document.getElementsByTagName("body")[0].style.height = w + "px"
+        document.getElementsByClassName("page")[0].style.width = h + "px"
+    }
+    vertical = !vertical
 }

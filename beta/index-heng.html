@@ -2,68 +2,58 @@
 <html>
 
 <head>
-  <meta charset="utf-8" />
-  <title>　</title>
-  <link rel="stylesheet" type="text/css" href="css/style_heng.css">
-  <script src="js/main.js"></script>
+    <meta charset="utf-8" />
+    <title>　</title>
+    <link rel="stylesheet" type="text/css" href="css/style_heng.css">
+    <script src="js/main.js"></script>
 </head>
 
 <body>
-  <div class="page">
-    <div class="log_container">
-      <div id="screensize"></div>
-      <br>
-      <div id="timezone"></div>
+    <div class="page">
+        <div class="log_container">
+            <div id="screensize"></div>
+            <br>
+            <div id="timezone"></div>
+        </div>
+        <div class="hitokoto_container">
+            <div class="hitokoto_main">
+                <div class="brackets-l">『</div>
+                <div id="hitokoto"></div>
+                <div class="brackets-r">』</div>
+            </div>
+            <div id="from"></div>
+        </div>
+
+        <div class="time_container">
+            <div id="apm"></div>
+            <div class="time" id="time">00:00</div>
+            <div class="date" id="date">1月1日 星期一</div>
+        </div>
+
+        <div class="weather_container">
+            <p id="weaTitle"></p>
+            <div id="weaImg"></div>
+            <div id="weaTemp"></div>
+            <div id="weaInfo"></div>
+
+        </div>
     </div>
-    <div class="hitokoto_container">
-      <div class="hitokoto_main">
-        <div class="brackets-l">『</div>
-        <div id="hitokoto"></div>
-        <div class="brackets-r">』</div>
-      </div>
-      <div id="from"></div>
-    </div>
-
-    <div class="time_container">
-      <div id="apm"></div>
-      <div class="time" id="time">00:00</div>
-      <div class="date" id="date">1月1日 星期一</div>
-    </div>
-
-    <div class="weather_container">
-      <p id="weaTitle"></p>
-      <div id="weaImg"></div>
-      <div id="weaTemp"></div>
-      <div id="weaInfo"></div>
-
-    </div>
-  </div>
 
 
-  <script>
-    var w = document.documentElement.clientWidth || document.body.clientWidth;
-    var h = document.documentElement.clientHeight || document.body.clientHeight;
-    console.log(w, h)
-    // document.getElementsByTagName("html")[0].style.width = w + "px"
-    // document.getElementsByTagName("html")[0].style.height = h + "px"
-    // document.getElementsByTagName("body")[0].style.width = h + "px"
-    document.getElementsByTagName("body")[0].style.height = w + "px"
-    document.getElementsByClassName("page")[0].style.width = h + "px"
-    // document.getElementsByClassName("page")[0].style.height = w + "px"
+    <script>
+        showScreenSize()
+            // 一言模块
+        hitokoto()
+        setInterval("hitokoto()", 60 * 1000 * 60)
 
-    showScreenSize()
-    // 一言模块
-    hitokoto()
-    setInterval("hitokoto()", 60 * 1000 * 60)
+        // 时钟模块
+        clock(false, false)
+        setInterval("clock(false, false)", 60 * 1000)
 
-    // 时钟模块
-    clock(false, false)
-    setInterval("clock(false, false)", 60 * 1000)
-
-    // 天气模块
-    getWea()
-    setInterval("getWea()", 60 * 1000 * 20)
-  </script>
+        // 天气模块
+        getWea()
+        setInterval("getWea()", 60 * 1000 * 20)
+    </script>
 </body>
 
 </html>
