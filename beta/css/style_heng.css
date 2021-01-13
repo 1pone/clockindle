@@ -37,12 +37,11 @@ body {
     margin: 0;
     padding: 0;
     transform: rotate(90deg);
-    -ms-transform: translateX(90deg);
-    -moz-transform: translateX(90deg);
-    -webkit-transform: translateX(90deg);
-    -o-transform: translateX(90deg);
+    -ms-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
     transform-origin: center center;
-    filter: progid: DXImageTransform.Microsoft.BasicImage(rotation=1);
 }
 
 ul {
