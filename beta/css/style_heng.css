@@ -28,12 +28,18 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+html{
+  width: 100%;
+  height: 100%;
+}
+
 body {
+  width: 100%;
+  height: 100%;
   color: #000000;
   background-color: #ffffff;
   margin: 0;
   padding: 0;
-
   transform: rotate(90deg);
   transform-origin: center center;
 }
@@ -56,15 +62,21 @@ li div {
   position: relative;
   width: 100%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .log_container {
   position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .hitokoto_container {
   height: 20%;
-  margin: 1.25rem;
+  width: 100%;
+  margin: 1rem;
 }
 
 .hitokoto_main {
@@ -98,6 +110,7 @@ li div {
 .weibo_container {
   text-align: center;
   height: 20%;
+  width: 100%;
   margin: 1.25rem;
   font-size: 1.5rem;
 }
@@ -158,6 +171,7 @@ li div {
 
 .weather_container {
   height: 40%;
+  width: 100%;
   text-align: center;
 }
 

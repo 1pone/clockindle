@@ -41,6 +41,16 @@
 
 
   <script>
+    var w = document.documentElement.clientWidth || document.body.clientWidth;
+    var h = document.documentElement.clientHeight || document.body.clientHeight;
+    console.log(w, h)
+    // document.getElementsByTagName("html")[0].style.width = w + "px"
+    // document.getElementsByTagName("html")[0].style.height = h + "px"
+    // document.getElementsByTagName("body")[0].style.width = h + "px"
+    document.getElementsByTagName("body")[0].style.height = w + "px"
+    document.getElementsByClassName("page")[0].style.width = h + "px"
+    // document.getElementsByClassName("page")[0].style.height = w + "px"
+
     showScreenSize()
     // 一言模块
     hitokoto()

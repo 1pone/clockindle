@@ -3,8 +3,8 @@ var nightHour = 19 // 自动模式下夜晚开始时间
 
 function showScreenSize() {
     // 获取设备显示尺寸
-    var w = window.screen.width
-    var h = window.screen.height
+    var w = document.documentElement.clientWidth || document.body.clientWidth;
+    var h = document.documentElement.clientHeight || document.body.clientHeight;
     console.log(w, h)
     document.getElementById('screensize').innerHTML = '屏幕分辨率的宽：' + w + '</br>屏幕分辨率的高：' + h
 }
@@ -109,7 +109,7 @@ function clock(hour24, autoMode) {
     document.getElementById("date").innerHTML = dateString + " " + weekString
 
     ///////
-    if(document.getElementById("timezone")){
+    if (document.getElementById("timezone")) {
         document.getElementById("timezone").innerHTML = "timezone: " + localUtc
     }
 }
