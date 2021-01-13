@@ -1,5 +1,5 @@
-var morningHour = 6
-var nightHour = 19
+var morningHour = 6 // 自动模式下夜晚结束时间
+var nightHour = 19 // 自动模式下夜晚开始时间
 
 function showScreenSize() {
     // 获取设备显示尺寸
@@ -107,6 +107,11 @@ function clock(hour24, autoMode) {
 
     document.getElementById("time").innerHTML = timeString
     document.getElementById("date").innerHTML = dateString + " " + weekString
+
+    ///////
+    if(document.getElementById("timezone")){
+        document.getElementById("timezone").innerHTML = "timezone: " + localUtc
+    }
 }
 
 
