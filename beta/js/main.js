@@ -39,8 +39,7 @@ function showScreenSize() {
     var h = document.documentElement.clientHeight || document.body.clientHeight;
     console.log(w, h)
     document.getElementById('screensize').innerHTML = '屏幕分辨率的宽：' + w +
-        '</br>屏幕分辨率的高：' + h +
-        '</br>rotate兼容性' + supportCss3('transform')
+        '</br>屏幕分辨率的高：' + h
 }
 
 // 创建XMLHttpRequest对象
@@ -254,7 +253,7 @@ window.ondblclick = function() {
     vertical = !vertical
 }
 
-window.doubleTap = function() {
+window.touchstart = function() {
     console.log('double tap')
     var w = document.documentElement.clientWidth || document.body.clientWidth;
     var h = document.documentElement.clientHeight || document.body.clientHeight;
