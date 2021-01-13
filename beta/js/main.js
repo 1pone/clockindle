@@ -1,12 +1,45 @@
 var morningHour = 6 // 自动模式下夜晚结束时间
 var nightHour = 19 // 自动模式下夜晚开始时间
 
+
+/** 
+ * 判断浏览器是否支持某一个CSS3属性 
+ * @param {String} 属性名称 
+ * @return {Boolean} true/false 
+ * @version 1.0 
+ * @author ydr.me 
+ * 2014年4月4日14:47:19 
+ */
+function supportCss3(style) {
+    var prefix = ['webkit', 'Moz', 'ms', 'o'],
+        i,
+        humpString = [],
+        htmlStyle = document.documentElement.style,
+        _toHumb = function(string) {
+            return string.replace(/-(\w)/g, function($0, $1) {
+                return $1.toUpperCase();
+            });
+        };
+
+    for (i in prefix)
+        humpString.push(_toHumb(prefix[i] + '-' + style));
+
+    humpString.push(_toHumb(style));
+
+    for (i in humpString)
+        if (humpString[i] in htmlStyle) return true;
+
+    return false;
+}
+
 function showScreenSize() {
     // 获取设备显示尺寸
     var w = document.documentElement.clientWidth || document.body.clientWidth;
     var h = document.documentElement.clientHeight || document.body.clientHeight;
     console.log(w, h)
-    document.getElementById('screensize').innerHTML = '屏幕分辨率的宽：' + w + '</br>屏幕分辨率的高：' + h
+    document.getElementById('screensize').innerHTML = '屏幕分辨率的宽：' + w +
+        '</br>屏幕分辨率的高：' + h +
+        '</br>rotate兼容性' + supportCss3('transform')
 }
 
 // 创建XMLHttpRequest对象
@@ -24,7 +57,7 @@ function createXHR() {
 function hitokoto() {
     var xhr = createXHR();
     xhr.open('GET', 'https://v1.hitokoto.cn?encode=json&charset=utf-8', true);
-    xhr.onreadystatechange = function () {
+    xhr.onreadystatechange = function() {
         if (this.readyState == 4) {
             var data = JSON.parse(this.responseText)
             document.getElementById('hitokoto').innerHTML = data.hitokoto
@@ -57,7 +90,7 @@ function clock(hour24, autoMode) {
         utcTime = local + offset;
     }
     console.log(localUtc)
-    //得到时区的绝对值
+        //得到时区的绝对值
     var localTime = utcTime + 3600000 * Math.abs(localUtc);
 
     // 得到当前时区的时间对象
@@ -134,10 +167,10 @@ function getWea() {
     var xhr = createXHR();
     xhr.open('GET', 'https://tianqiapi.com/free/day?appid=48353766&appsecret=VjZ4oxd5', true);
     // xhr.open('GET','https://tianqiapi.com/free/day?appid=48373524&appsecret=5iHwLsS8',true);
-    xhr.onreadystatechange = function () {
+    xhr.onreadystatechange = function() {
         if (this.readyState == 4) {
             var data = JSON.parse(this.responseText)
-            // 获取天气图标信息
+                // 获取天气图标信息
             var imgs = weaImgs[data.wea_img]
             console.log(imgs)
             var img = imgs[0]
@@ -145,7 +178,7 @@ function getWea() {
             var utc8DiffMinutes = date.getTimezoneOffset() + 480
             date.setMinutes(date.getMinutes() + utc8DiffMinutes)
             var hour = date.getHours()
-            // 20点后天气使用夜间天气图标
+                // 20点后天气使用夜间天气图标
             if (hour > 19 || hour < 6) {
                 img = imgs[1]
             }
@@ -172,7 +205,7 @@ function getWea() {
 function weibo() {
     var xhr = createXHR();
     xhr.open("GET", "https://v1.alapi.cn/api/new/wbtop?num=3", true);
-    xhr.onreadystatechange = function () {
+    xhr.onreadystatechange = function() {
         if (this.readyState == 4) {
             var data = JSON.parse(this.responseText);
             var hots = data.data;
@@ -194,7 +227,7 @@ function weibo() {
 function picture() {
     var xhr = createXHR();
     xhr.open('GET', 'https://api.unsplash.com/photos/random?client_id=bXwWoUhPeVw-yvSesGMgaOENnlSzhHYB43kZIQOR8cQ', true);
-    xhr.onreadystatechange = function () {
+    xhr.onreadystatechange = function() {
         if (this.readyState == 4) {
             var data = JSON.parse(this.responseText)
             console.log(data)
