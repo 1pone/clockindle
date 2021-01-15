@@ -39,7 +39,6 @@
         </div>
     </div>
 
-
     <script>
         showScreenSize()
             // 一言模块
@@ -53,6 +52,8 @@
         // 天气模块
         getWea()
         setInterval("getWea()", 60 * 1000 * 20)
+
+        document.getElementsByClassName("time_container")[0].addEventListener('click', rotateScreen)
     </script>
 </body>
 

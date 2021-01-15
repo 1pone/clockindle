@@ -239,7 +239,9 @@ function picture() {
     xhr.send(null);
 }
 
-window.ondblclick = function() {
+// window.ondblclick = rotateScreen()
+
+function rotateScreen() {
     console.log('double click')
     var w = document.documentElement.clientWidth || document.body.clientWidth;
     var h = document.documentElement.clientHeight || document.body.clientHeight;
@@ -255,30 +257,31 @@ window.ondblclick = function() {
     vertical = !vertical
 }
 
-window.ontouchstart = function() {
-    console.log('touchstart')
-    document.getElementById('screensize').innerHTML += '</br>touchstart'
-    lastTouchStart = new Date()
-}
 
-window.ontouchend = function() {
-    console.log('touchend')
-    document.getElementById('screensize').innerHTML += '</br>touchend'
+// window.ontouchstart = function() {
+//     console.log('touchstart')
+//     document.getElementById('screensize').innerHTML += '</br>touchstart'
+//     lastTouchStart = new Date()
+// }
 
-    lastTouchEnd = new Date()
-    if (lastTouchEnd - lastTouchStart > 1000) {
-        console.log('rotate')
-        var w = document.documentElement.clientWidth || document.body.clientWidth;
-        var h = document.documentElement.clientHeight || document.body.clientHeight;
-        if (vertical) {
-            document.getElementsByTagName('body')[0].classList.add('horizontal')
-            document.getElementsByTagName("body")[0].style.height = h + "px"
-            document.getElementsByClassName("page")[0].style.width = w + "px"
-        } else {
-            document.getElementsByTagName('body')[0].classList.remove('horizontal')
-            document.getElementsByTagName("body")[0].style.height = w + "px"
-            document.getElementsByClassName("page")[0].style.width = h + "px"
-        }
-        vertical = !vertical
-    }
-}
+// window.ontouchend = function() {
+//     console.log('touchend')
+//     document.getElementById('screensize').innerHTML += '</br>touchend'
+
+//     lastTouchEnd = new Date()
+//     if (lastTouchEnd - lastTouchStart > 1000) {
+//         console.log('rotate')
+//         var w = document.documentElement.clientWidth || document.body.clientWidth;
+//         var h = document.documentElement.clientHeight || document.body.clientHeight;
+//         if (vertical) {
+//             document.getElementsByTagName('body')[0].classList.add('horizontal')
+//             document.getElementsByTagName("body")[0].style.height = h + "px"
+//             document.getElementsByClassName("page")[0].style.width = w + "px"
+//         } else {
+//             document.getElementsByTagName('body')[0].classList.remove('horizontal')
+//             document.getElementsByTagName("body")[0].style.height = w + "px"
+//             document.getElementsByClassName("page")[0].style.width = h + "px"
+//         }
+//         vertical = !vertical
+//     }
+// }
