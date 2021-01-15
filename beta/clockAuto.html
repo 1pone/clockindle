@@ -2,32 +2,36 @@
 <html>
 
 <head>
-  <meta charset="utf-8" />
-  <title>　</title>
-  <link rel="stylesheet" type="text/css" href="css/style.css">
-  <script src="js/main.js"></script>
-
+    <meta charset="utf-8" />
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title>　</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="js/main.js"></script>
 </head>
 
 <body>
-  <div class="page">
-    <div class="hitokoto_container"></div>
+    <div class="page">
+        <div class="log_container">
+        </div>
+        <div class="hitokoto_container"></div>
 
-    <div class="time_container">
-      <div id="apm"></div>
-      <div class="time" id="time">00:00</div>
-      <div class="date" id="date">1月1日</div>
+        <div class="time_container">
+            <div id="apm"></div>
+            <div class="time" id="time">00:00</div>
+            <div class="date" id="date">1月1日 星期一</div>
+        </div>
+
+        <div class="weather_container"></div>
     </div>
 
-    <div class="weather_container"></div>
-  </div>
+    <script>
+        // 绑定12/24小时制切换、横/竖屏切换事件
+        addEvent(true) // autoMode
 
-
-  <script>
-    // 时钟模块
-    clock(false, true)
-    setInterval("clock(false, true)", 60 * 1000)
-  </script>
+        // 时钟模块
+        clock(true)
+        setInterval("clock(true)", 60 * 1000)
+    </script>
 </body>
 
 </html>

@@ -1,193 +1,217 @@
 @media screen and (min-width: 500px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 @media screen and (min-width: 1000px) {
-  html {
-    font-size: 28px;
-  }
+    html {
+        font-size: 28px;
+    }
 }
 
 @font-face {
-  font-family: "iconfont";
-  src: url("./font/iconfont.eot");
-  src: url("./font/iconfont.eot?#iefix") format("embedded-opentype"),
-    url("./font/iconfont.woff2") format("woff2"),
-    url("./font/iconfont.woff") format("woff"),
-    url("./font/iconfont.ttf") format("truetype"),
-    url("./font/iconfont.svg#iconfont") format("svg");
+    font-family: "iconfont";
+    src: url("./font/iconfont.eot");
+    src: url("./font/iconfont.eot?#iefix") format("embedded-opentype"), url("./font/iconfont.woff2") format("woff2"), url("./font/iconfont.woff") format("woff"), url("./font/iconfont.ttf") format("truetype"), url("./font/iconfont.svg#iconfont") format("svg");
 }
 
 .iconfont {
-  font-family: "iconfont" !important;
-  font-size: 16px;
-  font-style: normal;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    font-family: "iconfont" !important;
+    font-size: 16px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+    width: 100%;
+    height: 100%;
 }
 
 body {
-  color: #000000;
-  background-color: #ffffff;
-  margin: 0;
-  padding: 0;
+    width: 100%;
+    height: 100%;
+    color: #000000;
+    background-color: #ffffff;
+    margin: 0;
+    padding: 0;
+}
+
+.horizontal {
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    /* -ms-transform: rotate(90deg); */
+    /* -moz-transform: rotate(90deg); */
+    /* -o-transform: rotate(90deg); */
+    transform-origin: center center;
 }
 
 ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 li {
-  line-height: 2rem;
+    line-height: 2rem;
 }
 
 li div {
-  display: inline-block;
+    display: inline-block;
 }
 
 .page {
-  position: fixed;
-  width: 100%;
-  height: 100%;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .log_container {
-  position: absolute;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .hitokoto_container {
-  height: 20%;
-  margin: 1.25rem;
+    height: 20%;
+    max-width: 100%;
+    margin: 3rem 1rem 0 1rem;
 }
 
 .hitokoto_main {
-  position: relative;
-  text-align: center;
-  font-size: 1.5rem;
+    position: relative;
+    text-align: center;
+    font-size: 1.5rem;
 }
 
 .brackets-l {
-  position: absolute;
-  top: 0;
-  left: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .brackets-r {
-  position: absolute;
-  bottom: 0;
-  right: 0;
+    position: absolute;
+    bottom: 0;
+    right: 0;
 }
 
 #hitokoto {
-  padding: 1.875rem 2.5rem;
+    padding: 1.875rem 2.5rem;
 }
 
 #from {
-  float: right;
-  font-size: 1rem;
-  margin: 0.5rem;
+    float: right;
+    font-size: 1rem;
+    margin: 0.5rem;
 }
 
 .weibo_container {
-  text-align: center;
-  height: 20%;
-  margin: 1.25rem;
-  font-size: 1.5rem;
+    text-align: center;
+    height: 20%;
+    width: 100%;
+    margin: 1.25rem;
+    font-size: 1.5rem;
 }
 
 .weibo_title {
-  padding-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
 }
 
-#hot_word, #hot_word_num {
-  display: inline-block;
+#hot_word,
+#hot_word_num {
+    display: inline-block;
 }
 
 #hot_word {
-  text-align: left;
-  margin-right: 1rem;
-  max-width: 25rem;
+    text-align: left;
+    margin-right: 1rem;
+    max-width: 25rem;
 }
 
 #hot_word_num {
-  width: auto;
+    width: auto;
 }
 
-#hot_word li,#hot_word_num {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
+#hot_word li,
+#hot_word_num {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .time_container {
-  position: relative;
-  height: 40%;
-  width: 100%;
-  top: 0;
-  margin: auto;
-  text-align: center;
+    position: relative;
+    height: 40%;
+    width: 100%;
+    top: 0;
+    margin: auto;
+    text-align: center;
 }
 
 #apm {
-  display: inline-block;
-  font-size: 2rem;
-  font-weight: 600;
-  line-height: 3.75rem;
-  position: absolute;
-  top: 2rem;
-  left: 2rem;
+    display: inline-block;
+    font-size: 2rem;
+    font-weight: 600;
+    line-height: 3.75rem;
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    width: 4rem;
+    height: 12rem;
 }
 
 .time {
-  font-size: 12.5rem;
-  display: inline-block;
+    font-size: 12.5rem;
+    display: inline-block;
 }
 
 .date {
-  font-size: 3rem;
+    font-size: 3rem;
 }
 
 .weather_container {
-  height: 40%;
-  text-align: center;
+    height: 40%;
+    width: 100%;
+    text-align: center;
 }
 
 #weaTitle {
-  margin-left: 2.5rem;
-  font-size: 1.5rem;
+    margin-left: 2.5rem;
+    font-size: 1.5rem;
 }
 
 #weaImg {
-  display: inline-block;
-  margin-right: 2.5rem;
+    display: inline-block;
+    margin-right: 2.5rem;
 }
 
 .iconfont {
-  font-size: 7.5rem;
-  width: 7.5rem;
+    font-size: 7.5rem;
+    width: 7.5rem;
 }
 
 #weaTemp {
-  display: inline-block;
-  margin-right: 2.5rem;
+    display: inline-block;
+    margin-right: 2.5rem;
 }
 
 .tempNum {
-  display: inline-block;
-  font-size: 6.875rem;
+    display: inline-block;
+    font-size: 6.875rem;
 }
 
 .symbol {
-  display: inline-block;
-  font-size: 3rem;
+    display: inline-block;
+    font-size: 3rem;
 }
 
 #weaInfo {
-  display: inline-block;
-  font-size: 1rem;
-  line-height: 1.5rem;
+    display: inline-block;
+    font-size: 1rem;
+    line-height: 1.5rem;
 }

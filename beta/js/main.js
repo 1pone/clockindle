@@ -217,8 +217,6 @@ function picture() {
     xhr.send(null);
 }
 
-// window.ondblclick = rotateScreen()
-
 function rotateScreen() {
     console.log('rotateScreen')
     var w = document.documentElement.clientWidth || document.body.clientWidth;
@@ -235,15 +233,11 @@ function rotateScreen() {
     vertical = !vertical
 }
 
-function hourCycle(autoMode) {
-    console.log('hourCycle change')
-    hour24 = !hour24
-    clock(autoMode)
-}
-
-function addEvent(hourMode) {
+function addEvent(autoMode) {
     document.getElementById("apm").addEventListener('click', function() {
-        hourCycle(hourMode)
+        console.log('hourCycle change')
+        hour24 = !hour24
+        clock(autoMode)
     })
     document.getElementsByClassName("time")[0].addEventListener('click', rotateScreen)
 }
