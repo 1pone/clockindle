@@ -41,7 +41,7 @@ function showScreenSize() {
     var h = document.documentElement.clientHeight || document.body.clientHeight;
     console.log(w, h)
     document.getElementById('screensize').innerHTML = '屏幕分辨率的宽：' + w +
-        '</br>屏幕分辨率的高：' + h
+        '</br>屏幕分辨率的高：' + h + '</br>ontouchstart: ' + Boolean(window.ontouchstart)
 }
 
 // 创建XMLHttpRequest对象
@@ -263,7 +263,7 @@ window.ontouchstart = function() {
 window.ontouchend = function() {
     console.log('touchend')
     lastTouchEnd = new Date()
-    if (lastTouchEnd - lastTouchStart > 2000) {
+    if (lastTouchEnd - lastTouchStart > 1000) {
         console.log('rotate')
         var w = document.documentElement.clientWidth || document.body.clientWidth;
         var h = document.documentElement.clientHeight || document.body.clientHeight;
