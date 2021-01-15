@@ -46,25 +46,28 @@
         setInterval("hitokoto()", 60 * 1000 * 60)
 
         // 时钟模块
-        clock(false, false)
-        setInterval("clock(false, false)", 60 * 1000)
+        clock(false)
+        setInterval("clock(false)", 60 * 1000)
 
         // 天气模块
         getWea()
         setInterval("getWea()", 60 * 1000 * 20)
 
-        document.getElementsByClassName("time_container")[0].addEventListener('click', rotateScreen)
+        document.getElementById("apm").addEventListener('click', function() {
+            hourCycle(false)
+        })
+        document.getElementsByClassName("time")[0].addEventListener('click', rotateScreen)
 
-        var log_con = document.getElementsByClassName("log_container")[0]
-        var winkey = Object.keys(window)
-        var num = 0
-        for (var i = 0; i < winkey.length; i++) {
-            if (/^on/.test(winkey[i])) {
-                log_con.innerHTML += '</br>' + winkey[i]
-                num++
-            }
-        }
-        log_con.innerHTML += '</br>' + num
+        // var log_con = document.getElementsByClassName("log_container")[0]
+        // var winkey = Object.keys(window)
+        // var num = 0
+        // for (var i = 0; i < winkey.length; i++) {
+        //     if (/^on/.test(winkey[i])) {
+        //         log_con.innerHTML += '</br>' + winkey[i]
+        //         num++
+        //     }
+        // }
+        // log_con.innerHTML += '</br>' + num
     </script>
 </body>
 

@@ -1,8 +1,7 @@
 var morningHour = 6 // 自动模式下夜晚结束时间
 var nightHour = 19 // 自动模式下夜晚开始时间
 var vertical = true // 竖屏标识
-var lastTouchStart = null
-var lastTouchEnd = null
+var hour24 = false // 24小时制
 
 
 /** 
@@ -41,7 +40,7 @@ function showScreenSize() {
     var h = document.documentElement.clientHeight || document.body.clientHeight;
     console.log(w, h)
     document.getElementById('screensize').innerHTML = '屏幕分辨率的宽：' + w +
-        '</br>屏幕分辨率的高：' + h + '</br>ontouchstart: ' + Boolean(window.ontouchstart)
+        '</br>屏幕分辨率的高：' + h
 }
 
 // 创建XMLHttpRequest对象
@@ -72,7 +71,7 @@ function hitokoto() {
 
 
 // 时钟模块
-function clock(hour24, autoMode) {
+function clock(autoMode) {
 
     var d = new Date();
 
@@ -133,6 +132,8 @@ function clock(hour24, autoMode) {
         }
 
         document.getElementById('apm').innerHTML = apm
+    } else {
+        document.getElementById('apm').innerHTML = ''
     }
 
     var timeString = hour + ':' + ('0' + minutes).slice(-2)
@@ -255,31 +256,8 @@ function rotateScreen() {
     vertical = !vertical
 }
 
-
-// window.ontouchstart = function() {
-//     console.log('touchstart')
-//     document.getElementById('screensize').innerHTML += '</br>touchstart'
-//     lastTouchStart = new Date()
-// }
-
-// window.ontouchend = function() {
-//     console.log('touchend')
-//     document.getElementById('screensize').innerHTML += '</br>touchend'
-
-//     lastTouchEnd = new Date()
-//     if (lastTouchEnd - lastTouchStart > 1000) {
-//         console.log('rotate')
-//         var w = document.documentElement.clientWidth || document.body.clientWidth;
-//         var h = document.documentElement.clientHeight || document.body.clientHeight;
-//         if (vertical) {
-//             document.getElementsByTagName('body')[0].classList.add('horizontal')
-//             document.getElementsByTagName("body")[0].style.height = h + "px"
-//             document.getElementsByClassName("page")[0].style.width = w + "px"
-//         } else {
-//             document.getElementsByTagName('body')[0].classList.remove('horizontal')
-//             document.getElementsByTagName("body")[0].style.height = w + "px"
-//             document.getElementsByClassName("page")[0].style.width = h + "px"
-//         }
-//         vertical = !vertical
-//     }
-// }
+function hourCycle(autoMode) {
+    console.log('hourCycle change')
+    hour24 = !hour24
+    clock(autoMode)
+}
