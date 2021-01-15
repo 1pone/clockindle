@@ -79,7 +79,7 @@ li div {
 .hitokoto_container {
     height: 20%;
     max-width: 100%;
-    margin: 1rem;
+    margin: 2rem 1rem 0 1rem;
 }
 
 .hitokoto_main {

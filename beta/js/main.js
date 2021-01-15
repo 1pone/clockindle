@@ -125,12 +125,6 @@ function clock(autoMode) {
 
     document.getElementById("time").innerHTML = timeString
     document.getElementById("date").innerHTML = dateString + " " + weekString
-
-    ///////
-    if (document.getElementById("timezone")) {
-        // document.getElementById("timezone").innerHTML = "timezone: " + localUtc
-        document.getElementById("timezone").innerHTML = "timezone: " + new Date().getTimezoneOffset()
-    }
 }
 
 
@@ -245,4 +239,11 @@ function hourCycle(autoMode) {
     console.log('hourCycle change')
     hour24 = !hour24
     clock(autoMode)
+}
+
+function addEvent(hourMode) {
+    document.getElementById("apm").addEventListener('click', function() {
+        hourCycle(hourMode)
+    })
+    document.getElementsByClassName("time")[0].addEventListener('click', rotateScreen)
 }

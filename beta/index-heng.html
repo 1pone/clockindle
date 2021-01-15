@@ -40,8 +40,8 @@
     </div>
 
     <script>
-        showScreenSize()
-            // 一言模块
+        // showScreenSize()
+        // 一言模块
         hitokoto()
         setInterval("hitokoto()", 60 * 1000 * 60)
 
@@ -53,21 +53,7 @@
         getWea()
         setInterval("getWea()", 60 * 1000 * 20)
 
-        document.getElementById("apm").addEventListener('click', function() {
-            hourCycle(false)
-        })
-        document.getElementsByClassName("time")[0].addEventListener('click', rotateScreen)
-
-        // var log_con = document.getElementsByClassName("log_container")[0]
-        // var winkey = Object.keys(window)
-        // var num = 0
-        // for (var i = 0; i < winkey.length; i++) {
-        //     if (/^on/.test(winkey[i])) {
-        //         log_con.innerHTML += '</br>' + winkey[i]
-        //         num++
-        //     }
-        // }
-        // log_con.innerHTML += '</br>' + num
+        addEvent(false)
     </script>
 </body>
 
