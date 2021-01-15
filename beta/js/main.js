@@ -73,34 +73,13 @@ function hitokoto() {
 // 时钟模块
 function clock(autoMode) {
 
-    var d = new Date();
+    var date = new Date()
 
-    //得到1970年一月一日到现在的秒数
-    var local = d.getTime();
-
-    //本地时间与GMT时间的时间偏移差
-    var offset = d.getTimezoneOffset() * 60000;
-
-    //获取本地时区，判断如果是负的则相加得到格林尼治时间，正的则相减
-    var localUtc = new Date().getTimezoneOffset() / 60;
-    //得到现在的格林尼治时间
-    var utcTime;
-    if (localUtc > 0) {
-        utcTime = local - offset;
-    } else {
-        utcTime = local + offset;
-    }
-    console.log(localUtc)
-        //得到时区的绝对值
-    var localTime = utcTime + 3600000 * Math.abs(localUtc);
-
-    // 得到当前时区的时间对象
-    var nd = new Date(localTime);
-    var MM = nd.getMonth() + 1
-    var dd = nd.getDate()
-    var day = nd.getDay()
-    var hour = nd.getHours()
-    var minutes = nd.getMinutes()
+    var MM = date.getMonth() + 1
+    var dd = date.getDate()
+    var day = date.getDay()
+    var hour = date.getHours()
+    var minutes = date.getMinutes()
 
     // 深浅色模式标示
     var lightMode = true
