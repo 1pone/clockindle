@@ -75,6 +75,9 @@ function clock(autoMode) {
 
     var date = new Date()
 
+    var utc8DiffMinutes = date.getTimezoneOffset() + 480 // Kindle上new Date()为标准时间且getTimezoneOffset() === 0
+    date.setMinutes(date.getMinutes() + utc8DiffMinutes)
+
     var MM = date.getMonth() + 1
     var dd = date.getDate()
     var day = date.getDay()
