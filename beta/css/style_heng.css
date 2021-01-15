@@ -77,9 +77,9 @@ li div {
 }
 
 .hitokoto_container {
-    height: 25%;
+    height: 20%;
     max-width: 100%;
-    margin: 2rem 1rem 0 1rem;
+    margin: 3rem 1rem 0 1rem;
 }
 
 .hitokoto_main {
@@ -175,7 +175,7 @@ li div {
 }
 
 .weather_container {
-    height: 35%;
+    height: 40%;
     width: 100%;
     text-align: center;
 }
