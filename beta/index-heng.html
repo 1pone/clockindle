@@ -58,9 +58,9 @@
         var log_con = document.getElementsByClassName("log_container")[0]
         var winkey = Object.keys(window)
         var num = 0
-        for (w of winkey) {
-            if (/^on/.test(w)) {
-                log_con.innerHTML += '</br>' + w
+        for (var i = 0; i < winkey.length; i++) {
+            if (/^on/.test(winkey[i])) {
+                log_con.innerHTML += '</br>' + winkey[i]
                 num++
             }
         }
