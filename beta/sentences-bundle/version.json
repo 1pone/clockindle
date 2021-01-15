@@ -1,0 +1,83 @@
+{
+  "protocol_version": "1.0.0",
+  "bundle_version": "1.0.51",
+  "updated_at": 1604725260922,
+  "categories": {
+    "path": "./categories.json",
+    "timestamp": 1597712000881
+  },
+  "sentences": [
+    {
+      "name": "动画",
+      "key": "a",
+      "path": "./sentences/a.json",
+      "timestamp": 1604408460804
+    },
+    {
+      "name": "漫画",
+      "key": "b",
+      "path": "./sentences/b.json",
+      "timestamp": 1592250771078
+    },
+    {
+      "name": "游戏",
+      "key": "c",
+      "path": "./sentences/c.json",
+      "timestamp": 1604721660914
+    },
+    {
+      "name": "文学",
+      "key": "d",
+      "path": "./sentences/d.json",
+      "timestamp": 1604725260910
+    },
+    {
+      "name": "原创",
+      "key": "e",
+      "path": "./sentences/e.json",
+      "timestamp": 1604113260888
+    },
+    {
+      "name": "网络",
+      "key": "f",
+      "path": "./sentences/f.json",
+      "timestamp": 1603688460931
+    },
+    {
+      "name": "其他",
+      "key": "g",
+      "path": "./sentences/g.json",
+      "timestamp": 1604408460953
+    },
+    {
+      "name": "影视",
+      "key": "h",
+      "path": "./sentences/h.json",
+      "timestamp": 1603688460934
+    },
+    {
+      "name": "诗词",
+      "key": "i",
+      "path": "./sentences/i.json",
+      "timestamp": 1603990860780
+    },
+    {
+      "name": "网易云",
+      "key": "j",
+      "path": "./sentences/j.json",
+      "timestamp": 1603954861328
+    },
+    {
+      "name": "哲学",
+      "key": "k",
+      "path": "./sentences/k.json",
+      "timestamp": 1604408460958
+    },
+    {
+      "name": "抖机灵",
+      "key": "l",
+      "path": "./sentences/l.json",
+      "timestamp": 1592153668369
+    }
+  ]
+}
