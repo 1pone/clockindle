@@ -40,7 +40,7 @@ function showScreenSize() {
     var h = document.documentElement.clientHeight || document.body.clientHeight;
     console.log(w, h)
     document.getElementById('screensize').innerHTML = '屏幕分辨率的宽：' + w +
-        '</br>屏幕分辨率的高：' + h
+        '</br>屏幕分辨率的高：' + h + '</br>getTimezoneOffset: ' + Boolean(new Date().getTimezoneOffset)
 }
 
 // 创建XMLHttpRequest对象
