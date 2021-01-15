@@ -146,7 +146,8 @@ function clock(autoMode) {
 
     ///////
     if (document.getElementById("timezone")) {
-        document.getElementById("timezone").innerHTML = "timezone: " + localUtc
+        // document.getElementById("timezone").innerHTML = "timezone: " + localUtc
+        document.getElementById("timezone").innerHTML = "timezone: " + new Date().getTimezoneOffset()
     }
 }
 
@@ -248,10 +249,12 @@ function rotateScreen() {
     var h = document.documentElement.clientHeight || document.body.clientHeight;
     if (vertical) {
         document.getElementsByTagName('body')[0].classList.add('horizontal')
-        document.getElementsByTagName("body")[0].style.height = h + "px"
-        document.getElementsByClassName("page")[0].style.width = w + "px"
+        document.getElementsByTagName("body")[0].style.height = w + "px"
+        document.getElementsByClassName("page")[0].style.width = h + "px"
     } else {
         document.getElementsByTagName('body')[0].classList.remove('horizontal')
+        document.getElementsByTagName("body")[0].style.height = h + "px"
+        document.getElementsByClassName("page")[0].style.width = w + "px"
     }
     vertical = !vertical
 }
