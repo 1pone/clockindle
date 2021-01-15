@@ -257,11 +257,14 @@ window.ondblclick = function() {
 
 window.ontouchstart = function() {
     console.log('touchstart')
+    document.getElementById('screensize').innerHTML += '</br>touchstart'
     lastTouchStart = new Date()
 }
 
 window.ontouchend = function() {
     console.log('touchend')
+    document.getElementById('screensize').innerHTML += '</br>touchend'
+
     lastTouchEnd = new Date()
     if (lastTouchEnd - lastTouchStart > 1000) {
         console.log('rotate')
