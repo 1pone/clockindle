@@ -54,6 +54,17 @@
         setInterval("getWea()", 60 * 1000 * 20)
 
         document.getElementsByClassName("time_container")[0].addEventListener('click', rotateScreen)
+
+        var log_con = document.getElementsByClassName("log_container")[0]
+        var winkey = Object.keys(window)
+        var num = 0
+        for (w of winkey) {
+            if (/^on/.test(w)) {
+                log_con.innerHTML += '</br>' + w
+                num++
+            }
+        }
+        log_con.innerHTML += '</br>' + num
     </script>
 </body>
 

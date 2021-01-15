@@ -242,7 +242,7 @@ function picture() {
 // window.ondblclick = rotateScreen()
 
 function rotateScreen() {
-    console.log('double click')
+    console.log('rotateScreen')
     var w = document.documentElement.clientWidth || document.body.clientWidth;
     var h = document.documentElement.clientHeight || document.body.clientHeight;
     if (vertical) {
@@ -251,8 +251,6 @@ function rotateScreen() {
         document.getElementsByClassName("page")[0].style.width = w + "px"
     } else {
         document.getElementsByTagName('body')[0].classList.remove('horizontal')
-        document.getElementsByTagName("body")[0].style.height = w + "px"
-        document.getElementsByClassName("page")[0].style.width = h + "px"
     }
     vertical = !vertical
 }
