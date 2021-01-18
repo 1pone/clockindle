@@ -1,8 +1,22 @@
+var TOP_MODE = ['nonetop', 'hitokoto', 'weibo']
+var BOTTOM_MODE = ['nonebtm', 'weather']
+var BG_MODE = ['none', 'dark', 'pic']
+
+var top_mode = 1 // 顶部组件序号，默认使用“一言”
+var bottom_mode = 1 // 底部组件序号，默认使用“天气”
+var bg_mode = 0 // 背景组件序号，默认使用白底
+
 var morningHour = 6 // 自动模式下夜晚结束时间
 var nightHour = 19 // 自动模式下夜晚开始时间
 var vertical = true // 竖屏标识
 var hour24 = false // 24小时制
+var bg_autoMode = false // 黑白背景自动切换
 
+var hitokoto_timer = null // 一言模块定时器
+var weibo_timer = null // 微博模块定时器
+var time_timer = null // 时钟模块定时器
+var weather_timer = null // 天气模块定时器
+var pic_timer = null // 图片背景模块定时器
 
 /** 
  * 判断浏览器是否支持某一个CSS3属性 
@@ -89,7 +103,7 @@ function clock(autoMode) {
 
     // 自动模式
     if (autoMode) {
-        // 20点后6点前启用深色模式
+        // nightHour点后morningHour前启用深色模式
         if (hour > nightHour || hour < morningHour) {
             if (lightMode) {
                 document.getElementsByClassName('page')[0].style.color = '#ffffff'
@@ -158,8 +172,8 @@ function getWea() {
             var utc8DiffMinutes = date.getTimezoneOffset() + 480
             date.setMinutes(date.getMinutes() + utc8DiffMinutes)
             var hour = date.getHours()
-                // 20点后天气使用夜间天气图标
-            if (hour > 19 || hour < 6) {
+                // nightHour后天气使用夜间天气图标
+            if (hour > nightHour || hour < morningHour) {
                 img = imgs[1]
             }
 
@@ -203,7 +217,7 @@ function weibo() {
     xhr.send(null);
 }
 
-// 幻灯片模块 目前API处于开发阶段，请求频率受限，每小时50次
+// 图片背景模块 目前API处于开发阶段，请求频率受限，每小时50次
 function picture() {
     var xhr = createXHR();
     xhr.open('GET', 'https://api.unsplash.com/photos/random?client_id=bXwWoUhPeVw-yvSesGMgaOENnlSzhHYB43kZIQOR8cQ', true);
@@ -217,20 +231,67 @@ function picture() {
     xhr.send(null);
 }
 
+// TODO 模块切换时销毁定时器，按需创建定时器
+function changeTopMode() {
+    console.log('change top mode')
+    top_mode++
+    if (top_mode === TOP_MODE.length) top_mode = 0
+
+    for (var i = 0; i < TOP_MODE.length; i++) {
+        document.getElementsByClassName(TOP_MODE[i] + "_container")[0].style.display = 'none'
+    }
+    document.getElementsByClassName(TOP_MODE[top_mode] + "_container")[0].style.display = 'block'
+
+}
+
+function changeBottomMode() {
+    console.log('change bottom mode')
+    bottom_mode++
+    if (bottom_mode === BOTTOM_MODE.length) bottom_mode = 0
+
+    for (var i = 0; i < BOTTOM_MODE.length; i++) {
+        document.getElementsByClassName(BOTTOM_MODE[i] + "_container")[0].style.display = 'none'
+    }
+    document.getElementsByClassName(BOTTOM_MODE[bottom_mode] + "_container")[0].style.display = 'block'
+
+}
+
 function rotateScreen() {
     console.log('rotateScreen')
+
+    var body = document.getElementsByTagName('body')[0]
+    var page = document.getElementsByClassName("page")[0]
     var w = document.documentElement.clientWidth || document.body.clientWidth;
     var h = document.documentElement.clientHeight || document.body.clientHeight;
     if (vertical) {
-        document.getElementsByTagName('body')[0].classList.add('horizontal')
-        document.getElementsByTagName("body")[0].style.height = w + "px"
-        document.getElementsByClassName("page")[0].style.width = h + "px"
+        body.classList.add('horizontal')
+        body.style.height = w + "px"
+        page.style.width = h + "px"
     } else {
-        document.getElementsByTagName('body')[0].classList.remove('horizontal')
-        document.getElementsByTagName("body")[0].style.height = h + "px"
-        document.getElementsByClassName("page")[0].style.width = w + "px"
+        body.classList.remove('horizontal')
+        body.style.height = h + "px"
+        page.style.width = w + "px"
     }
     vertical = !vertical
+}
+
+function changeBgMode() {
+    var page = document.getElementsByClassName('page')[0]
+    var pageClasses = page.classList
+    bg_mode++
+    if (bg_mode === BG_MODE.length) bg_mode = 0
+    if (bg_mode === 0) {
+        clearInterval(pic_timer)
+        pic_timer = null
+        pageClasses.remove('pic')
+        pageClasses.add('white')
+    } else if (bg_mode === 1) {
+        pageClasses.remove('white')
+        pageClasses.add('dark')
+    } else {
+        pageClasses.remove('dark')
+        pageClasses.add('pic')
+    }
 }
 
 function addEvent(autoMode) {
@@ -240,4 +301,7 @@ function addEvent(autoMode) {
         clock(autoMode)
     })
     document.getElementsByClassName("time")[0].addEventListener('click', rotateScreen)
+    document.getElementById("top").addEventListener('click', changeTopMode)
+    document.getElementById("bottom").addEventListener('click', changeBottomMode)
+    document.getElementById("date").addEventListener('click', changeBgMode)
 }
