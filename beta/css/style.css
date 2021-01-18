@@ -87,7 +87,7 @@ li div {
 }
 
 #top {
-    height: 20%;
+    height: 15%;
     width: 100%;
     text-align: center;
     margin: 1.25rem;
@@ -101,7 +101,7 @@ li div {
 }
 
 #bottom {
-    height: 35%;
+    height: 40%;
     width: 100%;
     text-align: center;
     flex-shrink: 0;
@@ -212,11 +212,17 @@ li div {
 #weaImg {
     display: inline-block;
     margin-right: 2.5rem;
+    font-size: 1.5rem;
+}
+
+#weaImg>div {
+    margin: 0.75rem;
 }
 
 #weaTemp {
     display: inline-block;
     margin-right: 2.5rem;
+    font-size: 1.5rem;
 }
 
 .tempNum {
@@ -232,8 +238,8 @@ li div {
 
 #weaInfo {
     display: inline-block;
-    font-size: 1rem;
-    line-height: 1.5rem;
+    font-size: 1.5rem;
+    line-height: 1.75rem;
 }
 
 .pic {
