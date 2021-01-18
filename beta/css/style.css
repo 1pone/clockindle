@@ -183,11 +183,11 @@ li div {
     font-weight: 600;
     line-height: 3.75rem;
     position: absolute;
-    top: 0;
-    left: 2rem;
+    top: 50%;
+    left: 3%;
     width: 4rem;
     height: 7.5rem;
-    padding: 5rem 0;
+    margin-top: -5.5rem;
 }
 
 .time {
@@ -202,7 +202,6 @@ li div {
 
 .weather_container {
     margin-top: 2rem;
-    font-weight: 600;
 }
 
 #weaTitle {
@@ -215,8 +214,9 @@ li div {
     font-size: 1.5rem;
 }
 
-#weaImg>div {
-    margin: 0.75rem;
+#weaImg>div,
+#weaTemp>div:last-child {
+    margin-top: 0.75rem;
 }
 
 #weaTemp {
@@ -250,7 +250,7 @@ li div {
     background-repeat: no-repeat;
     -webkit-filter: grayscale(100%);
     /*background-image: url('https://source.unsplash.com/random/1072x1448');*/
-    font-weight: 600;
+    font-weight: 800;
 }
 
 .white {
