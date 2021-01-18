@@ -74,7 +74,7 @@
         bg_autoMode = false
 
         // 绑定12/24小时制切换、横/竖屏切换事件
-        // addEvent(bg_autoMode) // autoMode
+        addEvent(bg_autoMode) // autoMode
 
         // 一言模块
         hitokoto()
@@ -94,7 +94,7 @@
 
         // 图片背景模块在模块切换器中加载...
         picture()
-        pic_timer = setInterval("clock(false, false)", 60 * 1000)
+        setInterval("picture()", 60 * 1000 * 60)
     </script>
 </body>
 
