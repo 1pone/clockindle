@@ -101,7 +101,7 @@ li div {
 }
 
 #bottom {
-    height: 40%;
+    height: 35%;
     width: 100%;
     text-align: center;
     flex-shrink: 0;
@@ -201,6 +201,7 @@ li div {
 }
 
 .weather_container {
+    margin-top: 2rem;
     font-weight: 600;
 }
 
