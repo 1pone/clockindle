@@ -194,7 +194,7 @@ li div {
 .time {
     font-size: 12.5rem;
     font-weight: normal;
-    display: inline-block;
+    display: block;
 }
 
 .date {
