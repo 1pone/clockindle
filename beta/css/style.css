@@ -80,7 +80,7 @@ li div {
     align-items: center;
 }
 
-.log_container {
+#log_container {
     position: absolute;
     top: 0;
     left: 0;

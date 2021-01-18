@@ -17,9 +17,9 @@
 
 <body scroll="no">
     <div class="page white">
+        <div id="log_container">
+        </div>
         <div id="top">
-            <div class="log_container">
-            </div>
             <div class="nonetop_container">
             </div>
             <div class="hitokoto_container">
@@ -61,6 +61,16 @@
     </div>
 
     <script>
+        var logger = document.getElementById('log_container');
+        console.log(logger)
+        console.log = function(message) {
+            if (typeof message == 'object') {
+                logger.innerHTML += (JSON && JSON.stringify ? JSON.stringify(message) : message) + '<br />';
+            } else {
+                logger.innerHTML += message + '<br />';
+            }
+        }
+
         bg_autoMode = false
 
         // 绑定12/24小时制切换、横/竖屏切换事件
