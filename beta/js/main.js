@@ -81,6 +81,7 @@ function hitokoto() {
         }
     }
     xhr.send(null);
+    document.getElementById('time').style.textAlign = 'center' // 强制剧中
 }
 
 
