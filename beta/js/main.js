@@ -2,7 +2,7 @@ var TOP_MODE = ['nonetop', 'hitokoto', 'weibo']
 var BOTTOM_MODE = ['nonebtm', 'weather']
 var BG_MODE = ['none', 'dark', 'pic']
 
-var top_mode = 1 // 顶部组件序号，默认使用“一言”
+var top_mode = 0 // 顶部组件序号，默认使用“一言”
 var bottom_mode = 1 // 底部组件序号，默认使用“天气”
 var bg_mode = 0 // 背景组件序号，默认使用白底
 
