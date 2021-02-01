@@ -117,25 +117,23 @@ li div {
 }
 
 .hitokoto_main {
-    position: relative;
     text-align: center;
     font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .brackets-l {
-    position: absolute;
-    top: 0;
-    left: 0;
+    align-self: start;
 }
 
 .brackets-r {
-    position: absolute;
-    bottom: 0;
-    right: 0;
+    align-self: flex-end;
 }
 
 #hitokoto {
-    padding: 1.875rem 2.5rem;
+    padding: 1rem;
 }
 
 #from {

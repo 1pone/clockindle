@@ -200,6 +200,7 @@ function getWea() {
 function weibo() {
     var xhr = createXHR();
     xhr.open("GET", "https://v1.alapi.cn/api/new/wbtop?num=3", true);
+    xhr.setRequestHeader('token', 'zn1OaCjDWZoj0f0Q')
     xhr.onreadystatechange = function() {
         if (this.readyState == 4) {
             var data = JSON.parse(this.responseText);
