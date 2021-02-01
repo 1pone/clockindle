@@ -122,10 +122,10 @@ li div {
     /* 兼容kindle浏览器 */
     display: -webkit-box;
     display: flex;
-    justify-content: center;
-    align-items: center;
     -webkit-box-align: center;
     -webkit-box-pack: center;
+    justify-content: center;
+    align-items: center;
 }
 
 .brackets-l {
