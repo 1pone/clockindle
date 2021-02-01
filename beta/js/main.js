@@ -1,3 +1,6 @@
+var ALAPI_TOKEN = 'pBsICqbRV2eVtGiI'
+var UNSPLASH_ID = 'bXwWoUhPeVw-yvSesGMgaOENnlSzhHYB43kZIQOR8cQ'
+
 var TOP_MODE = ['nonetop', 'hitokoto', 'weibo']
 var BOTTOM_MODE = ['nonebtm', 'weather']
 var BG_MODE = ['none', 'dark', 'pic']
@@ -11,6 +14,7 @@ var nightHour = 19 // 自动模式下夜晚开始时间
 var vertical = true // 竖屏标识
 var hour24 = false // 24小时制
 var bg_autoMode = false // 黑白背景自动切换
+var weibo_num = 3 // 微博热搜条数
 
 var hitokoto_timer = null // 一言模块定时器
 var weibo_timer = null // 微博模块定时器
@@ -160,14 +164,14 @@ var weaImgs = {
 
 function getWea() {
     var xhr = createXHR();
-    xhr.open('GET', 'https://tianqiapi.com/free/day?appid=48353766&appsecret=VjZ4oxd5', true);
+    xhr.open('GET', 'https://v1.alapi.cn/api/tianqi/now', true);
+    // xhr.open('GET', 'https://tianqiapi.com/free/day?appid=48353766&appsecret=VjZ4oxd5', true);
     // xhr.open('GET','https://tianqiapi.com/free/day?appid=48373524&appsecret=5iHwLsS8',true);
     xhr.onreadystatechange = function() {
         if (this.readyState == 4) {
-            var data = JSON.parse(this.responseText)
+            var data = JSON.parse(this.responseText).data
                 // 获取天气图标信息
             var imgs = weaImgs[data.wea_img]
-            console.log(imgs)
             var img = imgs[0]
             var date = new Date()
             var utc8DiffMinutes = date.getTimezoneOffset() + 480
@@ -181,12 +185,17 @@ function getWea() {
             var weaImg = '<span class="iconfont">' + img + '</span>' + '<div>天气：' + data.wea + '</div>';
             var weaTemp = '<div class="tempNum">' + data.tem + '<div class="symbol">&#8451;</div></div>' +
                 '<div>当前气温</div>';
-            var weaInfo = '<div>最高气温：' + data.tem_day + '&#8451;</div>' +
-                '<div>最低气温：' + data.tem_night + '&#8451;</div>' +
-                '<div>空气质量：' + data.air + '</div>' +
+            var highTemp = data.tem1 || data.tem_day // 日间气温/最高气温，data.tem_day 为tianqiapi返回字段
+            var lowTemp = data.tem2 || data.tem_night // 夜间气温/最低气温，data.tem_night 为tianqiapi返回字段
+            var airLevel = data.air_level || '' // 空气质量，air_level为alapi独有
+            var updateTime = data.update_time.split(' ') // 更新时间，alapi格式为'年-月-日 时-分-秒'，tianqiapi格式为'时-分'
+            updateTime = updateTime[updateTime.length - 1]
+            var weaInfo = '<div>最高/低气温：' + highTemp + '/' + lowTemp + '&#8451;</div>' +
+                '<div>湿度：' + data.humidity + '</div>' +
+                '<div>空气质量：' + data.air + airLevel + '</div>' +
                 '<div>风向：' + data.win + '</div>' +
                 '<div>风速：' + data.win_speed + ' ' + data.win_meter + '</div>' +
-                '<div>更新时间：' + data.update_time + '</div>';
+                '<div>更新时间：' + updateTime + '</div>';
             document.getElementById('weaTitle').innerHTML = data.city + '当前天气'
             document.getElementById('weaImg').innerHTML = weaImg
             document.getElementById('weaTemp').innerHTML = weaTemp
@@ -199,8 +208,8 @@ function getWea() {
 // 微博热搜模块
 function weibo() {
     var xhr = createXHR();
-    xhr.open("GET", "https://v1.alapi.cn/api/new/wbtop?num=3", true);
-    xhr.setRequestHeader('token', 'zn1OaCjDWZoj0f0Q')
+    xhr.open("GET", "https://v2.alapi.cn/api/new/wbtop", true);
+    xhr.setRequestHeader('token', ALAPI_TOKEN)
     xhr.onreadystatechange = function() {
         if (this.readyState == 4) {
             var data = JSON.parse(this.responseText);
@@ -209,7 +218,7 @@ function weibo() {
             var hot_word_num = document.getElementById("hot_word_num");
             hot_word.innerHTML = "";
             hot_word_num.innerHTML = "";
-            for (var i = 0; i < hots.length; i++) {
+            for (var i = 0; i < weibo_num; i++) {
                 var index = i + 1;
                 hot_word.innerHTML += "<li>" + index + ". " + hots[i].hot_word + "</li>";
                 hot_word_num.innerHTML += "<li>" + hots[i].hot_word_num + "</li>";
@@ -222,18 +231,21 @@ function weibo() {
 // 图片背景模块 目前API处于开发阶段，请求频率受限，每小时50次
 function picture() {
     var xhr = createXHR();
-    xhr.open('GET', 'https://api.unsplash.com/photos/random?client_id=bXwWoUhPeVw-yvSesGMgaOENnlSzhHYB43kZIQOR8cQ', true);
+    xhr.open('GET', 'https://api.unsplash.com/photos/random?client_id=' + UNSPLASH_ID, true);
     xhr.onreadystatechange = function() {
         if (this.readyState == 4) {
             var data = JSON.parse(this.responseText)
-            console.log(data)
             document.getElementsByClassName('page')[0].style.backgroundImage = 'url(' + data.urls.regular + ')'
         }
     }
     xhr.send(null);
+    // ACG picture
+    // document.getElementsByClassName('page')[0].style.backgroundImage = 'url(https://v1.alapi.cn/api/acg)'
+    // Bing picture
+    // document.getElementsByClassName('page')[0].style.backgroundImage = 'url(https://v1.alapi.cn/api/bing)'
 }
 
-// TODO 模块切换时销毁定时器，按需创建定时器
+// TODO 模块切换时销毁定时器，按需创建定时器，节约接口请求
 function changeTopMode() {
     console.log('change top mode')
     top_mode++
@@ -255,7 +267,6 @@ function changeBottomMode() {
         document.getElementsByClassName(BOTTOM_MODE[i] + "_container")[0].style.display = 'none'
     }
     document.getElementsByClassName(BOTTOM_MODE[bottom_mode] + "_container")[0].style.display = 'block'
-
 }
 
 function rotateScreen() {
