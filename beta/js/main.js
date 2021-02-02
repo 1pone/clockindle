@@ -86,7 +86,7 @@ function hitokoto() {
         }
     }
     xhr.send(null);
-    document.getElementById('time').style.textAlign = 'center' // 强制剧中
+    // document.getElementById('time').style.textAlign = 'center' // 强制剧中
 }
 
 
@@ -169,8 +169,8 @@ function getWea() {
     // xhr.open('GET', 'https://tianqiapi.com/free/day?appid=48353766&appsecret=VjZ4oxd5', true);
     // xhr.open('GET','https://tianqiapi.com/free/day?appid=48373524&appsecret=5iHwLsS8',true);
     xhr.onreadystatechange = function() {
-        var data = JSON.parse(this.responseText)
         if (this.readyState == 4) {
+            var data = JSON.parse(this.responseText)
             if (data.code === 200) {
                 data = data.data
                 console.log(data)
@@ -204,6 +204,9 @@ function getWea() {
                 document.getElementById('weaImg').innerHTML = weaImg
                 document.getElementById('weaTemp').innerHTML = weaTemp
                 document.getElementById('weaInfo').innerHTML = weaInfo
+            } else {
+                console.error('天气数据获取失败: ' + data.msg)
+                document.getElementById("weaTitle").innerHTML = '数据获取失败，请稍后再试～';
             }
         }
     }
@@ -213,20 +216,29 @@ function getWea() {
 // 微博热搜模块
 function weibo() {
     var xhr = createXHR();
-    xhr.open("GET", "https://v2.alapi.cn/api/new/wbtop", true);
+    // xhr.open("GET", "http://api.tianapi.com/txapi/weibohot/index?num="+weibo_num+"&key=130dbb050d6326886a2c6d3b0a819405", true); // tianapi 免费接口：：单日100次
+    xhr.open("GET", "https://v2.alapi.cn/api/new/wbtop?num=" + weibo_num, true); //
     xhr.setRequestHeader('token', ALAPI_TOKEN)
     xhr.onreadystatechange = function() {
         if (this.readyState == 4) {
             var data = JSON.parse(this.responseText);
-            var hots = data.data;
-            var hot_word = document.getElementById("hot_word");
-            var hot_word_num = document.getElementById("hot_word_num");
-            hot_word.innerHTML = "";
-            hot_word_num.innerHTML = "";
-            for (var i = 0; i < weibo_num; i++) {
-                var index = i + 1;
-                hot_word.innerHTML += "<li>" + index + ". " + hots[i].hot_word + "</li>";
-                hot_word_num.innerHTML += "<li>" + hots[i].hot_word_num + "</li>";
+            if (data.code === 200) {
+                // var hots = data.newslist; // tianapi
+                var hots = data.data; // alapi
+                var hot_word = document.getElementById("hot_word");
+                var hot_word_num = document.getElementById("hot_word_num");
+                hot_word.innerHTML = "";
+                hot_word_num.innerHTML = "";
+                for (var i = 0; i < weibo_num; i++) {
+                    var index = i + 1;
+                    // hot_word.innerHTML += "<li>" + index + ". " + hots[i].hotword + "</li>"; // tianapi
+                    // hot_word_num.innerHTML += "<li>" + hots[i].hotwordnum + "</li>"; // tianapi
+                    hot_word.innerHTML += "<li>" + index + ". " + hots[i].hot_word + "</li>"; // alapi
+                    hot_word_num.innerHTML += "<li>" + hots[i].hot_word_num + "</li>"; // alapi
+                }
+            } else {
+                console.error('微博热搜数据获取失败: ' + data.msg)
+                document.getElementById("hot_word").innerHTML = '数据获取失败，请稍后再试～';
             }
         }
     };
