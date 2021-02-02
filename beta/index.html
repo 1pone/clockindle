@@ -84,20 +84,20 @@
         // TODO 历史上的今天模块
 
         // 微博热搜模块
-        weibo();
-        weibo_timer = setInterval("weibo()", 60 * 1000 * 20);
+        // weibo();
+        // weibo_timer = setInterval("weibo()", 60 * 1000 * 20);
 
         // 时钟模块
         clock(bg_autoMode)
         time_timer = setInterval('clock(' + bg_autoMode + ')', 60 * 1000)
 
         // 天气模块
-        getWea()
-        weather_timer = setInterval("getWea()", 60 * 1000 * 20)
+        weather()
+        weather_timer = setInterval("weather()", 60 * 1000 * 20)
 
         // 图片背景模块在模块切换器中加载...
-        picture()
-        setInterval("picture()", 60 * 1000 * 60)
+        // picture()
+        // pic_timer = setInterval("picture()", 60 * 1000 * 60)
     </script>
 </body>
 
