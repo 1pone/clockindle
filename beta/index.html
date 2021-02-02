@@ -6,6 +6,7 @@
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
     <title>　</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
     <script src="js/main.js"></script>
     <style type="text/css">
         .nonetop_container,
@@ -60,6 +61,11 @@
         </div>
     </div>
 
+
+    <script type="text/javascript">
+        console.log(returnCitySN)
+    </script>
+
     <script>
         // var logger = document.getElementById('log_container');
         // console.log(logger)
@@ -79,6 +85,8 @@
         // 一言模块
         hitokoto()
         hitokoto_timer = setInterval("hitokoto()", 60 * 1000 * 60)
+
+        // TODO 历史上的今天模块
 
         // 微博热搜模块
         weibo();

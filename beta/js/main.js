@@ -15,6 +15,7 @@ var vertical = true // 竖屏标识
 var hour24 = false // 24小时制
 var bg_autoMode = false // 黑白背景自动切换
 var weibo_num = 3 // 微博热搜条数
+var cip = returnCitySN.cip // 客户端ip
 
 var hitokoto_timer = null // 一言模块定时器
 var weibo_timer = null // 微博模块定时器
@@ -164,42 +165,46 @@ var weaImgs = {
 
 function getWea() {
     var xhr = createXHR();
-    xhr.open('GET', 'https://v1.alapi.cn/api/tianqi/now', true);
+    xhr.open('GET', 'http://v2.alapi.cn/api/tianqi?token=' + ALAPI_TOKEN + '&ip=' + cip, true);
     // xhr.open('GET', 'https://tianqiapi.com/free/day?appid=48353766&appsecret=VjZ4oxd5', true);
     // xhr.open('GET','https://tianqiapi.com/free/day?appid=48373524&appsecret=5iHwLsS8',true);
     xhr.onreadystatechange = function() {
+        var data = JSON.parse(this.responseText)
         if (this.readyState == 4) {
-            var data = JSON.parse(this.responseText).data
-                // 获取天气图标信息
-            var imgs = weaImgs[data.wea_img]
-            var img = imgs[0]
-            var date = new Date()
-            var utc8DiffMinutes = date.getTimezoneOffset() + 480
-            date.setMinutes(date.getMinutes() + utc8DiffMinutes)
-            var hour = date.getHours()
-                // nightHour后天气使用夜间天气图标
-            if (hour > nightHour || hour < morningHour) {
-                img = imgs[1]
-            }
+            if (data.code === 200) {
+                data = data.data
+                console.log(data)
+                    // 获取天气图标信息
+                var imgs = weaImgs[data.weather_code]
+                var img = imgs[0]
+                var date = new Date()
+                var utc8DiffMinutes = date.getTimezoneOffset() + 480
+                date.setMinutes(date.getMinutes() + utc8DiffMinutes)
+                var hour = date.getHours()
+                    // nightHour后天气使用夜间天气图标
+                if (hour > nightHour || hour < morningHour) {
+                    img = imgs[1]
+                }
 
-            var weaImg = '<span class="iconfont">' + img + '</span>' + '<div>天气：' + data.wea + '</div>';
-            var weaTemp = '<div class="tempNum">' + data.tem + '<div class="symbol">&#8451;</div></div>' +
-                '<div>当前气温</div>';
-            var highTemp = data.tem1 || data.tem_day // 日间气温/最高气温，data.tem_day 为tianqiapi返回字段
-            var lowTemp = data.tem2 || data.tem_night // 夜间气温/最低气温，data.tem_night 为tianqiapi返回字段
-            var airLevel = data.air_level || '' // 空气质量，air_level为alapi独有
-            var updateTime = data.update_time.split(' ') // 更新时间，alapi格式为'年-月-日 时-分-秒'，tianqiapi格式为'时-分'
-            updateTime = updateTime[updateTime.length - 1]
-            var weaInfo = '<div>最高/低气温：' + highTemp + '/' + lowTemp + '&#8451;</div>' +
-                '<div>湿度：' + data.humidity + '</div>' +
-                '<div>空气质量：' + data.air + airLevel + '</div>' +
-                '<div>风向：' + data.win + '</div>' +
-                '<div>风速：' + data.win_speed + ' ' + data.win_meter + '</div>' +
-                '<div>更新时间：' + updateTime + '</div>';
-            document.getElementById('weaTitle').innerHTML = data.city + '当前天气'
-            document.getElementById('weaImg').innerHTML = weaImg
-            document.getElementById('weaTemp').innerHTML = weaTemp
-            document.getElementById('weaInfo').innerHTML = weaInfo
+                var weaImg = '<span class="iconfont">' + img + '</span>' + '<div>天气：' + data.weather + '</div>';
+                var weaTemp = '<div class="tempNum">' + data.temp + '<div class="symbol">&#8451;</div></div>' +
+                    '<div>当前气温</div>';
+                var highTemp = data.max_temp // 日间气温/最高气温
+                var lowTemp = data.min_temp // 夜间气温/最低气温
+                var airLevel = data.air.air_level || '' // 空气质量，air_level为alapi独有
+                var updateTime = data.update_time.split(' ') // 更新时间，alapi格式为'年-月-日 时-分-秒'，tianqiapi格式为'时-分'
+                updateTime = updateTime[updateTime.length - 1]
+                var weaInfo = '<div>最高/低气温：' + highTemp + '/' + lowTemp + '&#8451;</div>' +
+                    '<div>湿度：' + data.humidity + '</div>' +
+                    '<div>空气质量：' + data.air + airLevel + '</div>' +
+                    '<div>风向：' + data.wind + '</div>' +
+                    '<div>风速：' + data.wind_speed + ' ' + data.wind_scale + '</div>' +
+                    '<div>更新时间：' + updateTime + '</div>';
+                document.getElementById('weaTitle').innerHTML = data.city + '当前天气'
+                document.getElementById('weaImg').innerHTML = weaImg
+                document.getElementById('weaTemp').innerHTML = weaTemp
+                document.getElementById('weaInfo').innerHTML = weaInfo
+            }
         }
     }
     xhr.send(null);
