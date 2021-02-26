@@ -86,11 +86,11 @@ li div {
 }
 
 #top {
-    min-height: 20%;
+    height: 20%;
     width: 100%;
     text-align: center;
     /* margin: 1.25rem; */
-    /* padding-top: 0.75rem; */
+    padding-top: 0.75rem;
     flex-shrink: 0;
 }
 
