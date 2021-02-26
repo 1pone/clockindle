@@ -214,16 +214,28 @@ li div {
     position: relative;
 }
 
-#apm {
+#apmOuterWrapper {
     font-size: 2rem;
     font-weight: 600;
     line-height: 3.75rem;
     position: absolute;
-    top: 50%;
-    left: 3%;
+    top: 0;
+    left: 5%;
     width: 4rem;
-    height: 7.5rem;
-    margin-top: -5.5rem;
+    height: 10rem;
+}
+
+#apmInnerWrapper {
+    position: relative;
+    height: 100%;
+}
+
+#apm {
+    position: absolute;
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
 }
 
 .time {

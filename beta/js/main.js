@@ -380,7 +380,7 @@ function changeBgMode() {
 }
 
 function addEvent(autoMode) {
-    document.getElementById("apm").addEventListener('click', function() {
+    document.getElementById("apmOuterWrapper").addEventListener('click', function() {
         console.log('hourCycle change')
         hour24 = !hour24
         clock(autoMode)
