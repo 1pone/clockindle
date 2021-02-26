@@ -96,13 +96,13 @@ li div {
 }
 
 #middle {
-    height: 40%;
+    height: 35%;
     width: 100%;
     text-align: center;
 }
 
 #bottom {
-    height: 40%;
+    height: 45%;
     width: 100%;
     text-align: center;
     flex-shrink: 0;
