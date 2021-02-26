@@ -152,8 +152,10 @@ li div {
     /* 兼容kindle浏览器 */
     display: -webkit-flex;
     display: flex;
-    -webkit-box-align: center;
-    -webkit-box-pack: center;
+    /* -webkit-box-align: center;
+    -webkit-box-pack: center; */
+    -webkit-justify-content: center;
+    -webkit-align-items: center;
     justify-content: center;
     align-items: center;
 }
