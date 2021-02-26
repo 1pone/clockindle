@@ -55,10 +55,6 @@
     clear: both;
 }
 
-div::-webkit-scrollbar {
-    width: 0;
-}
-
 html,
 body {
     width: 100%;
@@ -253,7 +249,7 @@ li div {
 }
 
 .weaWrapper {
-    width: 100%;
+    width: 95%;
 }
 
 #weaTitle {
