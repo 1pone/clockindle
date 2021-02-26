@@ -254,7 +254,7 @@ li div {
     /* -webkit-box-align: stretch; */
     -webkit-justify-content: space-around;
     justify-content: space-around;
-    text-align: right;
+    /* text-align: right; */
 }
 
 #weaTitle {
