@@ -95,6 +95,8 @@ li div {
 }
 
 #middle {
+    position: relative;
+    top: 0;
     height: 35%;
     width: 100%;
     text-align: center;
