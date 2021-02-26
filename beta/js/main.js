@@ -393,7 +393,6 @@ function picture() {
 //         if (!eval(TOP_MODE[top_mode] + '_data')) {
 //             eval(TOP_MODE[top_mode] + '()')
 //         }
-//         // TODO 判断 eval嵌套关系
 //         eval(TOP_MODE[top_mode] + '_timer = setInterval(TOP_MODE[top_mode] + "()", 60 * 1000 * 20)')
 //         console.log(TOP_MODE[top_mode] + '_timer created')
 //     }
@@ -468,7 +467,7 @@ function changeMode(pos) {
         if (!eval(POS_MODE[pos_mode] + '_data')) {
             eval(POS_MODE[pos_mode] + '()')
         }
-        eval(POS_MODE[pos_mode] + '_timer = setInterval(POS_MODE[pos_mode] + "()", 60 * 1000 * 1)')
+        eval(POS_MODE[pos_mode] + '_timer = setInterval(POS_MODE[pos_mode] + "()", 60 * 1000 * 20)')
         console.log(POS_MODE[pos_mode] + '_timer created')
     }
     for (var i = 0; i < POS_MODE.length; i++) {
