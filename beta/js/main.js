@@ -14,7 +14,7 @@ window.onload = function() {
 
     var morningHour = 6 // 自动模式下夜晚结束时间
     var nightHour = 19 // 自动模式下夜晚开始时间
-    var vertical = getCookie('vertical');
+    var vertical = getCookie('vertical'); // 竖屏标识
     if (vertical !== '') {
         if (vertical === 'false') {
             vertical = true
@@ -25,8 +25,6 @@ window.onload = function() {
         vertical = true
         setCookie('vertical', true, 30)
     }
-
-    var vertical = document.cookie.vertical || true // 竖屏标识
     var hour24 = false // 24小时制
     var bg_autoMode = false // 黑白背景自动切换
     var weibo_num = 3 // 微博热搜条数
