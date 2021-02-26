@@ -175,7 +175,7 @@ var weaImgs = {
 function weather() {
     console.log('weather update')
     var xhr = createXHR();
-    xhr.open('GET', 'http://v2.alapi.cn/api/tianqi?token=' + ALAPI_TOKEN + '&ip=' + cip, true);
+    xhr.open('GET', 'https://v2.alapi.cn/api/tianqi?token=' + ALAPI_TOKEN + '&ip=' + cip, true);
     // xhr.open('GET', 'https://tianqiapi.com/free/day?appid=48353766&appsecret=VjZ4oxd5', true);
     // xhr.open('GET','https://tianqiapi.com/free/day?appid=48373524&appsecret=5iHwLsS8',true);
     xhr.onreadystatechange = function() {
