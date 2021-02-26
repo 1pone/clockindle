@@ -150,7 +150,7 @@ li div {
     text-align: center;
     font-size: 1.5rem;
     /* 兼容kindle浏览器 */
-    display: -webkit-box;
+    display: -webkit-flex;
     display: flex;
     -webkit-box-align: center;
     -webkit-box-pack: center;
