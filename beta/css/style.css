@@ -249,7 +249,7 @@ li div {
 }
 
 .weaWrapper {
-    display: -webkit-box;
+    display: -webkit-flex;
     display: flex;
     /* -webkit-box-align: stretch; */
     -webkit-justify-content: space-around;
