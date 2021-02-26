@@ -12,12 +12,13 @@
     border: 1px black solid;
 }
 
-#top>div {
+#top>div,
+.hitokoto_main {
     border: 1px black dotted;
 }
 
 
-/* ---------- DEBUG BEGIN ---------- */
+/* ---------- DEBUG END ---------- */
 
 @media screen and (min-width: 500px) {
     html {
