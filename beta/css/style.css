@@ -147,26 +147,34 @@ li div {
 }
 
 .hitokoto_main {
+    position: relative;
     text-align: center;
     font-size: 1.5rem;
     /* 兼容kindle浏览器 */
-    display: -webkit-box;
+    /* display: -webkit-box;
     display: flex;
     -webkit-box-align: center;
     -webkit-box-pack: center;
     justify-content: center;
-    align-items: center;
+    align-items: center; */
 }
 
 .brackets-l {
-    align-self: start;
+    position: absolute;
+    top: 0;
+    left: 0;
+    /* align-self: start; */
 }
 
 .brackets-r {
-    align-self: flex-end;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    /* align-self: flex-end; */
 }
 
 #hitokoto {
+    display: inline-block;
     padding: 1rem;
     max-width: 80%;
 }
@@ -175,7 +183,7 @@ li div {
     text-align: right;
     font-size: 1.25rem;
     line-height: 2.5rem;
-    padding-right: 0.75rem;
+    /* padding-right: 0.75rem; */
 }
 
 .weibo_container {
