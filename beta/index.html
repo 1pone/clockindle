@@ -10,12 +10,6 @@
     <script src="https://pv.sohu.com/cityjson"></script>
     <script src="js/cookie.js"></script>
     <script src="js/main.js"></script>
-    <style type="text/css">
-        .nonetop_container,
-        .weibo_container {
-            display: none;
-        }
-    </style>
 </head>
 
 <body scroll="no">
@@ -33,9 +27,8 @@
                 </div>
                 <div id="from"></div>
             </div>
-
             <div class="weibo_container">
-                <div class="weibo_title">加载中...</div>
+                <div class="weibo_title">微博热搜加载中...</div>
                 <div class="hot_list">
                     <ul id="hot_word"></ul>
                     <ul id="hot_word_num"></ul>
@@ -57,9 +50,8 @@
 
         <div id="bottom">
             <div class="nonebtm_container"></div>
-
             <div class="weather_container">
-                <div id="weaTitle"></div>
+                <div id="weaTitle">天气加载中...</div>
                 <div class="weaWrapper">
                     <div id="weaImg"></div>
                     <div id="weaTemp"></div>
@@ -68,19 +60,6 @@
             </div>
         </div>
     </div>
-
-    <script>
-        // 重写console.log方法，将控制台信息输出至页面，测试用
-        // var logger = document.getElementById('log_container');
-        // console.log(logger)
-        // console.log = function(message) {
-        //     if (typeof message == 'object') {
-        //         logger.innerHTML += (JSON && JSON.stringify ? JSON.stringify(message) : message) + '<br />';
-        //     } else {
-        //         logger.innerHTML += message + '<br />';
-        //     }
-        // }
-    </script>
 </body>
 
 </html>

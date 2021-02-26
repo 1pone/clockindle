@@ -1,35 +1,69 @@
 window.onload = function() {
+    //读取cookie数据重新赋值
+    // vertical 竖屏标识
     if (vertical !== '') {
         if (vertical === 'false') {
-            vertical = true
+            vertical = vertical_default
             rotateScreen()
         } else
-            vertical = true
+            vertical = vertical_default
     } else {
-        vertical = true
-        setCookie('vertical', true, 30)
+        vertical = vertical_default
+        setCookie('vertical', vertical, 30)
     }
-
+    // hour24 时制标识
     if (hour24 !== '') {
         hour24 = hour24 === 'true' ? true : false
     } else {
         hour24 = hour24_default
+        setCookie('hour24', hour24, 30)
+    }
+    // 顶部组件序号
+    if (top_mode !== '') {
+        top_mode = Number(top_mode)
+        if (top_mode !== 0) {
+            eval(TOP_MODE[top_mode] + '()')
+            eval(TOP_MODE[top_mode] + '_timer = setInterval("TOP_MODE[top_mode]()", 60 * 1000 * 20)')
+            document.getElementsByClassName(TOP_MODE[top_mode] + "_container")[0].style.display = 'block'
+        }
+    } else {
+        top_mode = top_mode_default
+        setCookie('top_mode', top_mode, 30)
+    }
+    // 底部组件序号
+    if (bottom_mode !== '') {
+        bottom_mode = Number(bottom_mode)
+        if (bottom_mode !== 0) {
+            eval(BOTTOM_MODE[bottom_mode] + '()')
+            eval(BOTTOM_MODE[bottom_mode] + '_timer = setInterval("' + BOTTOM_MODE[bottom_mode] + '()", 60 * 1000 * 20)')
+            document.getElementsByClassName(BOTTOM_MODE[bottom_mode] + "_container")[0].style.display = 'block'
+        }
+    } else {
+        bottom_mode = bottom_mode_default
+        setCookie('bottom_mode', bottom_mode, 30)
+    }
+    // 背景组件序号
+    if (bg_mode !== '') {
+        bg_mode = Number(bg_mode)
+    } else {
+        bg_mode = bg_mode_default
+        setCookie('bg_mode', bg_mode, 30)
     }
 
     // 绑定12/24小时制切换、横/竖屏切换事件
     addEvent(bg_autoMode) // autoMode
 
     // 一言模块
-    hitokoto()
-    hitokoto_timer = setInterval("hitokoto()", 60 * 1000 * 60)
+    // hitokoto()
+    // hitokoto_timer = setInterval("hitokoto()", 60 * 1000 * 60)
 
     // 时钟模块
     clock(bg_autoMode)
     time_timer = setInterval('clock(' + bg_autoMode + ')', 60 * 1000)
 
     // 天气模块
-    weather()
-    weather_timer = setInterval("weather()", 60 * 1000 * 20)
+    // weather()
+    // weather_timer = setInterval("weather()", 60 * 1000 * 20)
 
     // 微博热搜模块在模块切换器中加载...
     // weibo();
@@ -40,35 +74,51 @@ window.onload = function() {
     // pic_timer = setInterval("picture()", 60 * 1000 * 60)
 
     // TODO 历史上的今天模块
+
+    // 重写console.log方法，将控制台信息输出至页面，测试用
+    // var logger = document.getElementById('log_container');
+    // console.log(logger)
+    // console.log = function(message) {
+    //     if (typeof message == 'object') {
+    //         logger.innerHTML += (JSON && JSON.stringify ? JSON.stringify(message) : message) + '<br />';
+    //     } else {
+    //         logger.innerHTML += message + '<br />';
+    //     }
+    // }
 }
 
 var ALAPI_TOKEN = 'pBsICqbRV2eVtGiI'
 var UNSPLASH_ID = 'bXwWoUhPeVw-yvSesGMgaOENnlSzhHYB43kZIQOR8cQ'
 
 // 组件容器
+// TODO 添加组件刷新频率
 var TOP_MODE = ['nonetop', 'hitokoto', 'weibo']
 var BOTTOM_MODE = ['nonebtm', 'weather']
 var BG_MODE = ['none', 'dark', 'pic']
 
-// 激活组件当前序号
-var top_mode = 1 // 顶部组件序号，默认使用“一言”
-var bottom_mode = 1 // 底部组件序号，默认使用“天气”
-var bg_mode = 0 // 背景组件序号，默认使用白底
-
+// 默认配置项
 var morningHour = 6 // 自动模式下夜晚结束时间
 var nightHour = 19 // 自动模式下夜晚开始时间
+var top_mode_default = 1 // 顶部组件默认序号，默认使用“一言”
+var bottom_mode_default = 1 // 底部组件默认序号，默认使用“天气”
+var bg_mode_default = 0 // 背景组件默认序号，默认使用白底
+var vertical_default = true // 默认使用竖屏模式
 var hour24_default = false // 默认使用十二小时制
 var bg_autoMode = false // 黑白背景自动切换
 var weibo_num = 3 // 微博热搜条数
 var cip = returnCitySN.cip // 客户端ip
 
+// cookie变量
+var top_mode = getCookie('top_mode') // 顶部组件序号，默认使用“一言”
+var bottom_mode = getCookie('bottom_mode') // 底部组件序号，默认使用“天气”
+var bg_mode = getCookie('bg_mode') // 背景组件序号，默认使用白底
 var vertical = getCookie('vertical'); // 竖屏标识
 var hour24 = getCookie('hour24'); // 24小时制
 
 // 模块缓存数据
 var hitokoto_data = null
 var weibo_data = null
-var wea_data = null
+var weather_data = null
 var pic_data = null
 
 // 定时器
@@ -229,9 +279,9 @@ function weather() {
         if (this.readyState == 4) {
             var data = JSON.parse(this.responseText)
             if (data.code === 200) {
-                wea_data = data.data
+                weather_data = data.data
                     // 获取天气图标信息
-                var imgs = weaImgs[wea_data.weather_code]
+                var imgs = weaImgs[weather_data.weather_code]
                 var img = imgs[0]
                 var date = new Date()
                 var utc8DiffMinutes = date.getTimezoneOffset() + 480
@@ -242,26 +292,26 @@ function weather() {
                     img = imgs[1]
                 }
 
-                var weaImg = '<span class="iconfont">' + img + '</span>' + '<div>天气：' + wea_data.weather + '</div>';
-                var weaTemp = '<div class="tempNum">' + wea_data.temp + '<div class="symbol">&#8451;</div></div>' +
+                var weaImg = '<span class="iconfont">' + img + '</span>' + '<div>天气：' + weather_data.weather + '</div>';
+                var weaTemp = '<div class="tempNum">' + weather_data.temp + '<div class="symbol">&#8451;</div></div>' +
                     '<div>当前气温</div>';
-                var highTemp = wea_data.max_temp // 日间气温/最高气温
-                var lowTemp = wea_data.min_temp // 夜间气温/最低气温
-                var airLevel = wea_data.air.air_level || '' // 空气质量，air_level为alapi独有
-                var updateTime = wea_data.update_time.split(' ') // 更新时间，alapi格式为'年-月-日 时-分-秒'，tianqiapi格式为'时-分'
+                var highTemp = weather_data.max_temp // 日间气温/最高气温
+                var lowTemp = weather_data.min_temp // 夜间气温/最低气温
+                var airLevel = weather_data.air.air_level || '' // 空气质量，air_level为alapi独有
+                var updateTime = weather_data.update_time.split(' ') // 更新时间，alapi格式为'年-月-日 时-分-秒'，tianqiapi格式为'时-分'
                 updateTime = updateTime[updateTime.length - 1]
                 var weaInfo = '<div>最高/低气温：' + highTemp + '/' + lowTemp + '&#8451;</div>' +
-                    '<div>湿度：' + wea_data.humidity + '</div>' +
-                    '<div>空气质量：' + wea_data.air + airLevel + '</div>' +
-                    '<div>风向：' + wea_data.wind + '</div>' +
-                    '<div>风速：' + wea_data.wind_speed + ' ' + wea_data.wind_scale + '</div>' +
+                    '<div>湿度：' + weather_data.humidity + '</div>' +
+                    '<div>空气质量：' + weather_data.air + airLevel + '</div>' +
+                    '<div>风向：' + weather_data.wind + '</div>' +
+                    '<div>风速：' + weather_data.wind_speed + ' ' + weather_data.wind_scale + '</div>' +
                     '<div>更新时间：' + updateTime + '</div>';
-                document.getElementById('weaTitle').innerHTML = wea_data.city + '当前天气'
+                document.getElementById('weaTitle').innerHTML = weather_data.city + '当前天气'
                 document.getElementById('weaImg').innerHTML = weaImg
                 document.getElementById('weaTemp').innerHTML = weaTemp
                 document.getElementById('weaInfo').innerHTML = weaInfo
             } else {
-                console.error('天气数据获取失败: ' + wea_data.msg)
+                console.error('天气数据获取失败: ' + weather_data.msg)
                 document.getElementById("weaTitle").innerHTML = '数据获取失败，请稍后再试～';
             }
         }
@@ -328,59 +378,111 @@ function picture() {
 // 可能存在的问题：
 // 如果在定时器周期内来回切换组件将因为重置定时器导致数据不会得到更新，
 // 如要更新数据需使用当前组件超过定时器周期时长，或刷新页面
-function changeTopMode() {
-    console.log('# change top mode')
-    if (top_mode !== 0 && eval(TOP_MODE[top_mode] + '_timer')) {
-        clearInterval(eval(TOP_MODE[top_mode] + '_timer'))
-        eval(TOP_MODE[top_mode] + '_timer = null')
-        console.log(TOP_MODE[top_mode] + '_timer destroyed')
-    }
-    top_mode++
-    if (top_mode === TOP_MODE.length) top_mode = 0
+// function changeTopMode() {
+//     console.log('# change top mode')
+//     if (top_mode !== 0 && eval(TOP_MODE[top_mode] + '_timer')) {
+//         clearInterval(eval(TOP_MODE[top_mode] + '_timer'))
+//         eval(TOP_MODE[top_mode] + '_timer = null')
+//         console.log(TOP_MODE[top_mode] + '_timer destroyed')
+//     }
+//     top_mode++
+//     if (top_mode === TOP_MODE.length) top_mode = 0
+//     setCookie('top_mode', top_mode, 30)
 
-    for (var i = 0; i < TOP_MODE.length; i++) {
-        document.getElementsByClassName(TOP_MODE[i] + "_container")[0].style.display = 'none'
-    }
+//     if (top_mode !== 0) {
+//         if (!eval(TOP_MODE[top_mode] + '_data')) {
+//             eval(TOP_MODE[top_mode] + '()')
+//         }
+//         // TODO 判断 eval嵌套关系
+//         eval(TOP_MODE[top_mode] + '_timer = setInterval(TOP_MODE[top_mode] + "()", 60 * 1000 * 20)')
+//         console.log(TOP_MODE[top_mode] + '_timer created')
+//     }
+//     for (var i = 0; i < TOP_MODE.length; i++) {
+//         document.getElementsByClassName(TOP_MODE[i] + "_container")[0].style.display = 'none'
+//     }
+//     document.getElementsByClassName(TOP_MODE[top_mode] + "_container")[0].style.display = 'block'
 
-    if (top_mode !== 0) {
-        if (!eval(TOP_MODE[top_mode] + '_data')) {
-            eval(TOP_MODE[top_mode] + '()')
+// }
+
+// function changeBottomMode() {
+//     console.log('# change bottom mode')
+
+//     // if (bottom_mode === 0) {
+//     //     bottom_mode = 1
+//     //     setCookie('bottom_mode', bottom_mode, 30)
+//     //     if (!weather_data) {
+//     //         weather()
+//     //     }
+//     //     weather_timer = setInterval('weather()', 60 * 1000 * 20)
+//     //     console.log('weather_timer created')
+//     //     document.getElementsByClassName("nonebtm_container")[0].style.display = 'none'
+//     //     document.getElementsByClassName("weather_container")[0].style.display = 'block'
+//     // } else if (bottom_mode === 1) {
+//     //     bottom_mode = 0
+//     //     setCookie('bottom_mode', bottom_mode, 30)
+//     //     clearInterval(weather_timer)
+//     //     weather_timer = null
+//     //     console.log('weather_timer destroyed')
+//     //     document.getElementsByClassName("nonebtm_container")[0].style.display = 'block'
+//     //     document.getElementsByClassName("weather_container")[0].style.display = 'none'
+//     // }
+
+//     if (bottom_mode !== 0 && eval(BOTTOM_MODE[bottom_mode] + '_timer')) {
+//         clearInterval(eval(BOTTOM_MODE[bottom_mode] + '_timer'))
+//         eval(BOTTOM_MODE[bottom_mode] + '_timer = null')
+//         console.log(BOTTOM_MODE[bottom_mode] + '_timer destroyed')
+//     }
+//     bottom_mode++
+//     if (bottom_mode === BOTTOM_MODE.length) bottom_mode = 0
+//     setCookie('bottom_mode', bottom_mode, 30)
+
+//     if (bottom_mode !== 0) {
+//         if (!eval(BOTTOM_MODE[bottom_mode] + '_data')) {
+//             eval(BOTTOM_MODE[bottom_mode] + '()')
+//         }
+//         eval(BOTTOM_MODE[bottom_mode] + '_timer = setInterval(BOTTOM_MODE[bottom_mode] + "()", 60 * 1000 * 20)')
+//         console.log(BOTTOM_MODE[bottom_mode] + '_timer created')
+//     }
+//     for (var i = 0; i < BOTTOM_MODE.length; i++) {
+//         document.getElementsByClassName(BOTTOM_MODE[i] + "_container")[0].style.display = 'none'
+//     }
+//     document.getElementsByClassName(BOTTOM_MODE[bottom_mode] + "_container")[0].style.display = 'block'
+// }
+
+// TODO 合并changeMode方法
+function changeMode(pos) {
+    console.log('# change ' + pos + ' mode')
+    var pos_mode = eval(pos + '_mode')
+    var POS_MODE = eval(pos.toUpperCase() + '_MODE')
+    if (pos_mode !== 0 && eval(POS_MODE[pos_mode] + '_timer')) {
+        clearInterval(eval(POS_MODE[pos_mode] + '_timer'))
+        eval(POS_MODE[pos_mode] + '_timer = null')
+        console.log(POS_MODE[pos_mode] + '_timer destroyed')
+    }
+    pos_mode++
+    if (pos_mode === POS_MODE.length) pos_mode = 0
+    eval(pos + '_mode = pos_mode')
+    setCookie(pos + '_mode', pos_mode, 30)
+
+    if (pos_mode !== 0) {
+        if (!eval(POS_MODE[pos_mode] + '_data')) {
+            eval(POS_MODE[pos_mode] + '()')
         }
-        eval(TOP_MODE[top_mode] + '_timer = setInterval(TOP_MODE[top_mode] + "()", 60 * 1000 * 20)')
-        console.log(TOP_MODE[top_mode] + '_timer created')
+        eval(POS_MODE[pos_mode] + '_timer = setInterval(POS_MODE[pos_mode] + "()", 60 * 1000 * 20)')
+        console.log(POS_MODE[pos_mode] + '_timer created')
     }
+    for (var i = 0; i < POS_MODE.length; i++) {
+        document.getElementsByClassName(POS_MODE[i] + "_container")[0].style.display = 'none'
+    }
+    document.getElementsByClassName(POS_MODE[pos_mode] + "_container")[0].style.display = 'block'
+}
 
-    document.getElementsByClassName(TOP_MODE[top_mode] + "_container")[0].style.display = 'block'
-
+function changeTopMode() {
+    changeMode('top')
 }
 
 function changeBottomMode() {
-    console.log('# change bottom mode')
-    if (bottom_mode === 0) {
-        bottom_mode = 1
-        if (!wea_data) {
-            weather()
-        }
-        weather_timer = setInterval('weather()', 60 * 1000 * 20)
-        console.log('weather_timer created')
-        document.getElementsByClassName("nonebtm_container")[0].style.display = 'none'
-        document.getElementsByClassName("weather_container")[0].style.display = 'block'
-    } else if (bottom_mode === 1) {
-        bottom_mode = 0
-        clearInterval(weather_timer)
-        weather_timer = null
-        console.log('weather_timer destroyed')
-        document.getElementsByClassName("nonebtm_container")[0].style.display = 'block'
-        document.getElementsByClassName("weather_container")[0].style.display = 'none'
-    }
-
-    // bottom_mode++
-    // if (bottom_mode === BOTTOM_MODE.length) bottom_mode = 0
-
-    // for (var i = 0; i < BOTTOM_MODE.length; i++) {
-    //     document.getElementsByClassName(BOTTOM_MODE[i] + "_container")[0].style.display = 'none'
-    // }
-    // document.getElementsByClassName(BOTTOM_MODE[bottom_mode] + "_container")[0].style.display = 'block'
+    changeMode('bottom')
 }
 
 function rotateScreen() {

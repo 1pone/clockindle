@@ -132,8 +132,12 @@ li div {
     -webkit-transform: translateY(-50%);
 }
 
-.nonetop_container {
-    height: 100%;
+.nonetop_container,
+.hitokoto_container,
+.weibo_container,
+.nonebtm_container,
+.weather_container {
+    display: none;
 }
 
 .hitokoto_container {
