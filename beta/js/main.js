@@ -449,7 +449,7 @@ function picture() {
 //     document.getElementsByClassName(BOTTOM_MODE[bottom_mode] + "_container")[0].style.display = 'block'
 // }
 
-// TODO 合并changeMode方法
+// 合并changeMode方法
 function changeMode(pos) {
     console.log('# change ' + pos + ' mode')
     var pos_mode = eval(pos + '_mode')
@@ -468,7 +468,7 @@ function changeMode(pos) {
         if (!eval(POS_MODE[pos_mode] + '_data')) {
             eval(POS_MODE[pos_mode] + '()')
         }
-        eval(POS_MODE[pos_mode] + '_timer = setInterval(POS_MODE[pos_mode] + "()", 60 * 1000 * 20)')
+        eval(POS_MODE[pos_mode] + '_timer = setInterval(POS_MODE[pos_mode] + "()", 60 * 1000 * 1)')
         console.log(POS_MODE[pos_mode] + '_timer created')
     }
     for (var i = 0; i < POS_MODE.length; i++) {
