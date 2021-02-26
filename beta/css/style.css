@@ -120,11 +120,13 @@ li div {
     flex-shrink: 0;
 }
 
+#top>div,
 #middle>div,
 #bottom>div {
     position: relative;
     top: 50%;
     transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
 }
 
 .nonetop_container {
