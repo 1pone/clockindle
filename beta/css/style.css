@@ -194,13 +194,14 @@ li div {
 
 .time {
     font-size: 12.5rem;
-    line-height: 12rem;
+    line-height: 10rem;
     font-weight: normal;
     text-align: center;
 }
 
 .date {
     font-size: 3rem;
+    line-height: 4rem;
 }
 
 .weather_container {
