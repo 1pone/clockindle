@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <!-- 查询客户端ip用于天气查询 -->
     <script src="https://pv.sohu.com/cityjson"></script>
+    <script src="js/cookie.js"></script>
     <script src="js/main.js"></script>
     <style type="text/css">
         .nonetop_container,
@@ -49,8 +50,8 @@
                         <div id="apm"></div>
                     </div>
                 </div>
-                <div class="time" id="time">00:00</div>
-                <div class="date" id="date">1月1日 星期一</div>
+                <div class="time" id="time"></div>
+                <div class="date" id="date"></div>
             </div>
         </div>
 
@@ -69,6 +70,7 @@
     </div>
 
     <script>
+        // 重写console.log方法，将控制台信息输出至页面，测试用
         // var logger = document.getElementById('log_container');
         // console.log(logger)
         // console.log = function(message) {
@@ -78,33 +80,6 @@
         //         logger.innerHTML += message + '<br />';
         //     }
         // }
-
-        bg_autoMode = false
-
-        // 绑定12/24小时制切换、横/竖屏切换事件
-        addEvent(bg_autoMode) // autoMode
-
-        // 一言模块
-        hitokoto()
-        hitokoto_timer = setInterval("hitokoto()", 60 * 1000 * 60)
-
-        // TODO 历史上的今天模块
-
-        // 微博热搜模块
-        // weibo();
-        // weibo_timer = setInterval("weibo()", 60 * 1000 * 20);
-
-        // 时钟模块
-        clock(bg_autoMode)
-        time_timer = setInterval('clock(' + bg_autoMode + ')', 60 * 1000)
-
-        // 天气模块
-        weather()
-        weather_timer = setInterval("weather()", 60 * 1000 * 20)
-
-        // 图片背景模块在模块切换器中加载...
-        // picture()
-        // pic_timer = setInterval("picture()", 60 * 1000 * 60)
     </script>
 </body>
 
