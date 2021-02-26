@@ -112,8 +112,6 @@ li div {
     height: 27%;
     width: 100%;
     text-align: center;
-    /* margin: 1.25rem; */
-    /* padding-top: 0.75rem; */
     flex-shrink: 0;
 }
 
@@ -250,7 +248,12 @@ li div {
     line-height: 3rem;
 }
 
-.weather_container {}
+.weaWrapper {
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-align: stretch;
+    justify-content: space-around;
+}
 
 #weaTitle {
     font-size: 1.5rem;
