@@ -92,10 +92,11 @@ li div {
     /* margin: 1.25rem; */
     padding-top: 0.75rem;
     flex-shrink: 0;
+    border: 1px black solid;
 }
 
 #top>div {
-    border: 1px black solid;
+    border: 1px black dotted;
 }
 
 #middle {
