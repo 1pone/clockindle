@@ -249,7 +249,12 @@ li div {
 }
 
 .weaWrapper {
-    width: 100%;
+    display: -webkit-box;
+    display: flex;
+    /* -webkit-box-align: stretch; */
+    -webkit-justify-content: space-around;
+    justify-content: space-around;
+    text-align: right;
 }
 
 #weaTitle {
@@ -265,6 +270,7 @@ li div {
 #weaImg>div,
 #weaTemp>div:last-child {
     margin-top: 0.75rem;
+    text-align: center;
 }
 
 #weaTemp {
@@ -288,7 +294,6 @@ li div {
 
 #weaInfo {
     display: inline-block;
-    text-align: right;
     font-size: 1.5rem;
     line-height: 1.75rem;
     margin-top: 0.25rem;
