@@ -6,7 +6,8 @@
 
 /* show border */
 
-#top,
+
+/* #top,
 #middle,
 #bottom {
     border: 1px black solid;
@@ -15,7 +16,7 @@
 #top>div,
 .hitokoto_main {
     border: 1px black dotted;
-}
+} */
 
 
 /* ---------- DEBUG END ---------- */
@@ -96,6 +97,9 @@ li div {
     position: relative;
     width: 100%;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #log_container {
@@ -108,6 +112,7 @@ li div {
     height: 27%;
     width: 100%;
     text-align: center;
+    flex-shrink: 0;
 }
 
 #middle {
@@ -120,6 +125,7 @@ li div {
     height: 38%;
     width: 100%;
     text-align: center;
+    flex-shrink: 0;
 }
 
 #top>div,
@@ -243,7 +249,7 @@ li div {
 }
 
 .weaWrapper {
-    width: 95%;
+    width: 100%;
 }
 
 #weaTitle {
