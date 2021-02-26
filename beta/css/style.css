@@ -86,10 +86,10 @@ li div {
 }
 
 #top {
-    height: 20%;
+    height: 25%;
     width: 100%;
     text-align: center;
-    margin: 1.25rem;
+    /* margin: 1.25rem; */
     /* padding-top: 0.75rem; */
     flex-shrink: 0;
 }
@@ -101,7 +101,7 @@ li div {
 }
 
 #bottom {
-    height: 45%;
+    height: 40%;
     width: 100%;
     text-align: center;
     flex-shrink: 0;
@@ -120,7 +120,8 @@ li div {
 }
 
 .hitokoto_container {
-    margin: 0 1rem;
+    margin: 0 auto;
+    width: 95%;
 }
 
 .hitokoto_main {
