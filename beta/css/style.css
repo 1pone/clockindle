@@ -6,7 +6,8 @@
 
 /* show border */
 
-#top,
+
+/* #top,
 #middle,
 #bottom {
     border: 1px black solid;
@@ -15,7 +16,7 @@
 #top>div,
 .hitokoto_main {
     border: 1px black dotted;
-}
+} */
 
 
 /* ---------- DEBUG END ---------- */
@@ -248,7 +249,7 @@ li div {
 }
 
 .weaWrapper {
-    width: 95%;
+    width: 100%;
 }
 
 #weaTitle {
