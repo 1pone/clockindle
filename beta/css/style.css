@@ -109,7 +109,7 @@ li div {
 }
 
 #top {
-    height: 25%;
+    height: 27%;
     width: 100%;
     text-align: center;
     /* margin: 1.25rem; */
@@ -118,15 +118,13 @@ li div {
 }
 
 #middle {
-    position: relative;
-    top: 0;
     height: 35%;
     width: 100%;
     text-align: center;
 }
 
 #bottom {
-    height: 40%;
+    height: 38%;
     width: 100%;
     text-align: center;
     flex-shrink: 0;
