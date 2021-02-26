@@ -94,6 +94,10 @@ li div {
     flex-shrink: 0;
 }
 
+#top>div {
+    border: 1px black solid;
+}
+
 #middle {
     position: relative;
     top: 0;
