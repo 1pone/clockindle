@@ -251,8 +251,10 @@ li div {
 .weaWrapper {
     display: -webkit-box;
     display: flex;
-    -webkit-box-align: stretch;
+    /* -webkit-box-align: stretch; */
+    -webkit-justify-content: space-around;
     justify-content: space-around;
+    text-align: right;
 }
 
 #weaTitle {
@@ -268,6 +270,7 @@ li div {
 #weaImg>div,
 #weaTemp>div:last-child {
     margin-top: 0.75rem;
+    text-align: center;
 }
 
 #weaTemp {
@@ -278,19 +281,22 @@ li div {
 
 .tempNum {
     display: inline-block;
-    font-size: 6.875rem;
+    font-size: 7rem;
     font-weight: 400;
+    line-height: 8.125rem;
 }
 
 .symbol {
     display: inline-block;
     font-size: 3rem;
+    line-height: 3rem;
 }
 
 #weaInfo {
     display: inline-block;
     font-size: 1.5rem;
     line-height: 1.75rem;
+    margin-top: 0.25rem;
 }
 
 .pic {
