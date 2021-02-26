@@ -1,3 +1,5 @@
+/* kindle浏览器为webkit内核，使用css3时需手动添加-webkit-* */
+
 @media screen and (min-width: 500px) {
     html {
         font-size: 16px;
@@ -97,7 +99,9 @@ li div {
 
 /* show border */
 
-#top {
+#top,
+#middle,
+#bottom {
     border: 1px black solid;
 }
 
