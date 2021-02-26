@@ -110,20 +110,20 @@ li div {
 
 #top {
     height: 27%;
-    width: 100%;
+    width: 99%;
     text-align: center;
     flex-shrink: 0;
 }
 
 #middle {
     height: 35%;
-    width: 100%;
+    width: 99%;
     text-align: center;
 }
 
 #bottom {
     height: 38%;
-    width: 100%;
+    width: 99%;
     text-align: center;
     flex-shrink: 0;
 }
