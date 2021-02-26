@@ -91,6 +91,7 @@ li div {
     width: 100%;
     text-align: center;
     margin: 1.25rem;
+    padding-top: 0.75rem;
     flex-shrink: 0;
 }
 
@@ -113,7 +114,6 @@ li div {
 
 .hitokoto_container {
     margin: 0 1rem;
-    /* padding: 0.5rem 0; */
 }
 
 .hitokoto_main {
@@ -194,6 +194,7 @@ li div {
 
 .time {
     font-size: 12.5rem;
+    line-height: 12rem;
     font-weight: normal;
     text-align: center;
 }
@@ -204,6 +205,7 @@ li div {
 
 .weather_container {
     margin-top: 2rem;
+    margin-bottom: 1rem;
 }
 
 #weaTitle {
