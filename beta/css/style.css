@@ -86,7 +86,7 @@ li div {
 }
 
 #top {
-    height: 25%;
+    min-height: 20%;
     width: 100%;
     text-align: center;
     /* margin: 1.25rem; */
