@@ -90,6 +90,8 @@ function hitokoto() {
     xhr.onreadystatechange = function() {
         if (this.readyState == 4) {
             hitokoto_data = JSON.parse(this.responseText)
+            document.getElementById('brackets-l').innerHTML = "『"
+            document.getElementById('brackets-r').innerHTML = "』"
             document.getElementById('hitokoto').innerHTML = hitokoto_data.hitokoto
             document.getElementById('from').innerHTML = hitokoto_data.from_who ? "「" + hitokoto_data.from + " " + hitokoto_data.from_who + "」" :
                 "「" + hitokoto_data.from + "」"
@@ -232,11 +234,13 @@ function weibo() {
     xhr.onreadystatechange = function() {
         if (this.readyState == 4) {
             var data = JSON.parse(this.responseText);
+            var weibo_title = document.getElementsByClassName("weibo_title")[0];
+            var hot_word = document.getElementById("hot_word");
+            var hot_word_num = document.getElementById("hot_word_num");
             if (data.code === 200) {
                 // var hots = data.newslist; // tianapi
                 weibo_data = data.data; // alapi
-                var hot_word = document.getElementById("hot_word");
-                var hot_word_num = document.getElementById("hot_word_num");
+                weibo_title.innerHTML = "微博实时热搜";
                 hot_word.innerHTML = "";
                 hot_word_num.innerHTML = "";
                 for (var i = 0; i < weibo_num; i++) {
@@ -248,7 +252,7 @@ function weibo() {
                 }
             } else {
                 console.error('微博热搜数据获取失败: ' + data.msg)
-                document.getElementById("hot_word").innerHTML = '数据获取失败，请稍后再试～';
+                weibo_title.innerHTML = '数据获取失败，请稍后再试～';
             }
         }
     };

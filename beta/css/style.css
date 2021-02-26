@@ -159,14 +159,14 @@ li div {
     align-items: center; */
 }
 
-.brackets-l {
+#brackets-l {
     position: absolute;
     top: 0;
     left: 0;
     /* align-self: start; */
 }
 
-.brackets-r {
+#brackets-r {
     position: absolute;
     bottom: 0;
     right: 0;
