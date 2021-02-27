@@ -74,9 +74,6 @@ body {
 .rotate-90 {
     transform: rotate(90deg);
     -webkit-transform: rotate(90deg);
-    -ms-transform: rotate(90deg);
-    -moz-transform: rotate(90deg);
-    -o-transform: rotate(90deg);
     transform-origin: center center;
     -webkit-transform-origin: center center;
 }
@@ -84,9 +81,6 @@ body {
 .rotate-180 {
     transform: rotate(180deg);
     -webkit-transform: rotate(180deg);
-    -ms-transform: rotate(180deg);
-    -moz-transform: rotate(180deg);
-    -o-transform: rotate(180deg);
     transform-origin: center center;
     -webkit-transform-origin: center center;
 }
@@ -94,9 +88,6 @@ body {
 .rotate-270 {
     transform: rotate(270deg);
     -webkit-transform: rotate(270deg);
-    -ms-transform: rotate(270deg);
-    -moz-transform: rotate(270deg);
-    -o-transform: rotate(270deg);
     transform-origin: center center;
     -webkit-transform-origin: center center;
 }
@@ -119,6 +110,30 @@ li div {
     position: relative;
     width: 100%;
     height: 100%;
+}
+
+#light_dark_icon {
+    visibility: hidden;
+    display: black;
+    position: absolute;
+    left: 50%;
+    top: 45%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translateX(-50%, -50%);
+    font-size: 15rem;
+    width: 15rem;
+}
+
+.fadeout {
+    -webkit-transition: opacity 1s;
+    transition: opacity 1s;
+    opacity: 0;
+}
+
+.fadein {
+    -webkit-transition: opacity 2s;
+    transition: opacity 2s;
+    opacity: 1;
 }
 
 #log_container {
@@ -323,16 +338,22 @@ li div {
     /* -webkit-filter: grayscale(100%); */
     /*background-image: url('https://source.unsplash.com/random/1072x1448');*/
     font-weight: 800;
+    -webkit-transition: color 1s;
+    transition: color 1s;
 }
 
-.white {
+.light {
     color: #000000;
     background-color: #ffffff;
     background-image: none !important;
+    -webkit-transition: color, background-color 1s;
+    transition: color, background-color 1s;
 }
 
 .dark {
     color: #ffffff;
     background-color: #000000;
     background-image: none !important;
+    -webkit-transition: color, background-color 1s;
+    transition: color, background-color 1s;
 }

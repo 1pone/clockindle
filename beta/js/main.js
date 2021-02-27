@@ -85,7 +85,7 @@ var UNSPLASH_ID = 'bXwWoUhPeVw-yvSesGMgaOENnlSzhHYB43kZIQOR8cQ'
 // TODO 添加组件刷新频率
 var TOP_MODE = ['nonetop', 'hitokoto', 'weibo']
 var BOTTOM_MODE = ['nonebtm', 'weather']
-var BG_MODE = ['none', 'dark', 'pic']
+var BG_MODE = ['none', 'dark', 'auto', 'pic']
 
 // 默认配置项
 var morningHour = 6 // 自动模式下夜晚结束时间
@@ -132,7 +132,10 @@ var weaImgs = {
     yin: ['&#xe64a;', '&#xe652;'],
     qing: ['&#xe649;', '&#xe764;'],
     weizhi: ['&#xe6f2;', '&#xe6f2;']
-}
+};
+
+// 背景自动模式图标
+var autoModeImg = '&#xe8e3'
 
 /** 
  * 判断浏览器是否支持某一个CSS3属性 
@@ -533,20 +536,55 @@ function changeBgMode() {
     bg_mode = bg_mode === BG_MODE.length - 1 ? 0 : bg_mode + 1
     setCookie("bg_mode", bg_mode, 30)
     if (bg_mode === 0) {
+        // light bg
         clearInterval(pic_timer)
         pic_timer = null
         pageClasses.remove('pic')
         console.log('picture close')
-        pageClasses.add('white')
+        pageClasses.add('light')
     } else if (bg_mode === 1) {
-        pageClasses.remove('white')
+        // dark bg
+        pageClasses.remove('light')
         pageClasses.add('dark')
+    } else if (bg_mode === 2) {
+        // auto bg
+        var date = new Date()
+        var utc8DiffMinutes = date.getTimezoneOffset() + 480
+        date.setMinutes(date.getMinutes() + utc8DiffMinutes)
+        var hour = date.getHours()
+        if (hour > nightHour || hour < morningHour) {
+            pageClasses.remove('light')
+            pageClasses.add('dark')
+        } else {
+            pageClasses.remove('dark')
+            pageClasses.add('light')
+        }
+        var icon = document.getElementById('light_dark_icon')
+        var middle = document.getElementById('middle')
+        var iconClasses = icon.classList
+        var middleClasses = middle.classList
+        icon.style.visibility = 'visible'
+        iconClasses.add('fadein')
+        middleClasses.add('fadeout')
+        setTimeout(function() {
+            iconClasses.remove('fadein')
+            middleClasses.remove('fadeout')
+            iconClasses.add('fadeout')
+            middleClasses.add('fadein')
+        }, 2000)
+        setTimeout(function() {
+            iconClasses.remove('fadeout')
+            middleClasses.remove('fadein')
+            icon.style.visibility = 'hidden'
+        }, 3000)
     } else {
+        // picture bg
         console.log('picture open')
         if (!pic_data) {
             picture()
         }
         pic_timer = setInterval("picture()", 60 * 1000 * 60)
+        pageClasses.remove('light')
         pageClasses.remove('dark')
         pageClasses.add('pic')
     }
