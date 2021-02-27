@@ -68,41 +68,15 @@ body {
     background-color: #ffffff;
     overflow-x: hidden;
     overflow-y: hidden;
-    position: relative;
 }
 
-.rotate-90 {
+.horizontal {
     transform: rotate(90deg);
     -webkit-transform: rotate(90deg);
     -ms-transform: rotate(90deg);
     -moz-transform: rotate(90deg);
     -o-transform: rotate(90deg);
     transform-origin: center center;
-    -webkit-transform-origin: center center;
-}
-
-.rotate-180 {
-    transform: rotate(180deg);
-    -webkit-transform: rotate(180deg);
-    -ms-transform: rotate(180deg);
-    -moz-transform: rotate(180deg);
-    -o-transform: rotate(180deg);
-    transform-origin: center center;
-    -webkit-transform-origin: center center;
-}
-
-.rotate-270 {
-    /* ? */
-    position: relative;
-    top: 12.5rem;
-    /* ? */
-    transform: rotate(-90deg);
-    -webkit-transform: rotate(-90deg);
-    -ms-transform: rotate(-90deg);
-    -moz-transform: rotate(-90deg);
-    -o-transform: rotate(-90deg);
-    transform-origin: center center;
-    -webkit-transform-origin: center center;
 }
 
 ul {
