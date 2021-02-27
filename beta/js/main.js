@@ -1,13 +1,15 @@
 window.onload = function() {
     //读取cookie数据重新赋值
-    // rotation_mode 屏幕旋转标识
-    if (rotation_mode !== '') {
-        rotation_mode = Number(rotation_mode)
-        rotation_mode = rotation_mode === 0 ? 3 : rotation_mode - 1
-        rotateScreen()
+    // vertical 竖屏标识
+    if (vertical !== '') {
+        if (vertical === 'false') {
+            vertical = vertical_default
+            rotateScreen()
+        } else
+            vertical = vertical_default
     } else {
-        rotation_mode = rotation_mode_default
-        setCookie('rotation_mode', rotation_mode, 30)
+        vertical = vertical_default
+        setCookie('vertical', vertical, 30)
     }
     // hour24 时制标识
     if (hour24 !== '') {
@@ -100,7 +102,7 @@ var nightHour = 19 // 自动模式下夜晚开始时间
 var top_mode_default = 1 // 顶部组件默认序号，默认使用“一言”
 var bottom_mode_default = 1 // 底部组件默认序号，默认使用“天气”
 var bg_mode_default = 0 // 背景组件默认序号，默认使用白底
-var rotation_mode_default = 0 // 默认使用0-竖屏模式 0=0°，1=90°，2=180°，3=270°
+var vertical_default = true // 默认使用竖屏模式
 var hour24_default = false // 默认使用十二小时制
 var bg_autoMode = false // 黑白背景自动切换
 var weibo_num = 3 // 微博热搜条数
@@ -110,7 +112,7 @@ var cip = returnCitySN.cip // 客户端ip
 var top_mode = getCookie('top_mode') // 顶部组件序号，默认使用“一言”
 var bottom_mode = getCookie('bottom_mode') // 底部组件序号，默认使用“天气”
 var bg_mode = getCookie('bg_mode') // 背景组件序号，默认使用白底
-var rotation_mode = getCookie('rotation_mode'); // 竖屏标识
+var vertical = getCookie('vertical'); // 竖屏标识
 var hour24 = getCookie('hour24'); // 24小时制
 
 // 模块缓存数据
@@ -295,12 +297,15 @@ function weather() {
                     '<div>当前气温</div>';
                 var highTemp = weather_data.max_temp // 日间气温/最高气温
                 var lowTemp = weather_data.min_temp // 夜间气温/最低气温
-                var airLevel = weather_data.air.air_level || '' // 空气质量，air_level为alapi独有
+                var air = weather_data.aqi.air
+                    // air = air ? air : '未知'
+                var airLevel = weather_data.aqi.air_level // 空气质量，air_level为alapi独有
+                    // airLevel = airLevel ? airLevel : ''
                 var updateTime = weather_data.update_time.split(' ') // 更新时间，alapi格式为'年-月-日 时-分-秒'，tianqiapi格式为'时-分'
                 updateTime = updateTime[updateTime.length - 1]
                 var weaInfo = '<div>最高/低气温：' + highTemp + '/' + lowTemp + '&#8451;</div>' +
                     '<div>湿度：' + weather_data.humidity + '</div>' +
-                    '<div>空气质量：' + weather_data.air + airLevel + '</div>' +
+                    '<div>空气质量：' + air + airLevel + '</div>' +
                     '<div>风向：' + weather_data.wind + '</div>' +
                     '<div>风速：' + weather_data.wind_speed + ' ' + weather_data.wind_scale + '</div>' +
                     '<div>更新时间：' + updateTime + '</div>';
@@ -447,8 +452,18 @@ function picture() {
 // }
 
 // 合并changeMode方法
-function changeMode(pos) {
-
+function changeComponentMode(e) {
+    var pos
+    for (var p of e.path) {
+        var id = p.id
+        if (id === 'top') {
+            pos = id
+            break
+        } else if (id === 'bottom') {
+            pos = id
+            break
+        }
+    }
     console.log('# change ' + pos + ' mode')
     var pos_mode = eval(pos + '_mode')
     var POS_MODE = eval(pos.toUpperCase() + '_MODE')
@@ -475,13 +490,13 @@ function changeMode(pos) {
     document.getElementsByClassName(POS_MODE[pos_mode] + "_container")[0].style.display = 'block'
 }
 
-function changeTopMode() {
-    changeMode('top')
-}
+// function changeTopMode() {
+//     changeMode('top')
+// }
 
-function changeBottomMode() {
-    changeMode('bottom')
-}
+// function changeBottomMode() {
+//     changeMode('bottom')
+// }
 
 function rotateScreen() {
     console.log('# rotate screen')
@@ -490,27 +505,17 @@ function rotateScreen() {
     var page = document.getElementsByClassName("page")[0]
     var w = document.documentElement.clientWidth || document.body.clientWidth;
     var h = document.documentElement.clientHeight || document.body.clientHeight;
-    if (rotation_mode === 0) {
-        body.classList.add('rotate-90')
+    if (vertical) {
+        body.classList.add('horizontal')
         body.style.height = w + "px"
         page.style.width = h + "px"
-    } else if (rotation_mode === 1) {
-        body.classList.remove('rotate-90')
-        body.classList.add('rotate-180')
-        body.style.height = h + "px"
-        page.style.width = w + "px"
-    } else if (rotation_mode === 2) {
-        body.classList.remove('rotate-180')
-        body.classList.add('rotate-270')
-        body.style.height = w + "px"
-        page.style.width = h + "px"
-    } else if (rotation_mode === 3) {
-        body.classList.remove('rotate-270')
+    } else {
+        body.classList.remove('horizontal')
         body.style.height = h + "px"
         page.style.width = w + "px"
     }
-    rotation_mode = rotation_mode === 3 ? 0 : rotation_mode + 1
-    setCookie("rotation_mode", rotation_mode, 30)
+    vertical = !vertical
+    setCookie("vertical", vertical, 30)
 }
 
 function changeBgMode() {
@@ -547,7 +552,7 @@ function addEvent(autoMode) {
         clock(autoMode)
     })
     document.getElementsByClassName("time")[0].addEventListener('click', rotateScreen)
-    document.getElementById("top").addEventListener('click', changeTopMode)
-    document.getElementById("bottom").addEventListener('click', changeBottomMode)
+    document.getElementById("top").addEventListener('click', changeComponentMode)
+    document.getElementById("bottom").addEventListener('click', changeComponentMode)
     document.getElementById("date").addEventListener('click', changeBgMode)
 }
