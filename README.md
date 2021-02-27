@@ -16,6 +16,14 @@
 
 <div align=center><img src="https://github.com/1pone/1pone.github.io/raw/master/images/～ds.png" alt="～ds.png" width="400"/><p>「 输入 ～ds 保持屏幕常亮 」</p></div>
 
+
+
+## V2.0
+
+
+
+## V1.0
+
 ### 更多功能 🤩
 
 ​		你可以根据你的喜好需求选择 `模式` `功能` 对应下的路径，将至添加到主页 https://1pone.github.io 之后，即可访问相应页面，如，`深色模式` `时钟` 页面的路径为 https://1pone.github.io/clockDark ，路径省略时默认路径为`/index`，即 `浅色模式`，`一言 + 时钟 + 天气`功能。

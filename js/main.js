@@ -68,7 +68,7 @@ var weibo_timer = null;
 var time_timer = null;
 var weather_timer = null;
 var pic_timer = null;
-var weaImgs = { xue: ["&#xe645;", "&#xe645;"], lei: ["&#xe643;", "&#xe643;"], shachen: ["&#xe646;", "&#xe646;"], wu: ["&#xe647;", "&#xe647;"], bingbao: ["&#xe667;", "&#xe667;"], yun: ["&#xe648;", "&#xe648;"], yu: ["&#xe64b;", "&#xe64b;"], yin: ["&#xe64a;", "&#xe652;"], qing: ["&#xe649;", "&#xe764;"], weizhi: ["&#xe6f2;", "&#xe6f2;"] };
+var weaImgs = { xue: ["&#xe645;", "&#xe645;"], lei: ["&#xe643;", "&#xe643;"], shachen: ["&#xe646;", "&#xe646;"], wu: ["&#xe647;", "&#xe647;"], bingbao: ["&#xe667;", "&#xe667;"], yun: ["&#xe648;", "&#xe648;"], duoyun: ["&#xe648;", "&#xe648;"], yu: ["&#xe64b;", "&#xe64b;"], yin: ["&#xe64a;", "&#xe652;"], qing: ["&#xe649;", "&#xe764;"], weizhi: ["&#xe6f2;", "&#xe6f2;"] };
 var autoModeImg = "&#xe8e3";
 
 function supportCss3(style) {
