@@ -502,23 +502,27 @@ function rotateScreen() {
     var w = document.documentElement.clientWidth || document.body.clientWidth;
     var h = document.documentElement.clientHeight || document.body.clientHeight;
     if (rotation_mode === 0) {
+        console.log('# rotate 90')
         body.classList.add('rotate-90')
         body.style.height = w + "px"
         page.style.width = h + "px"
         page.style.height = w + "px"
     } else if (rotation_mode === 1) {
+        console.log('# rotate 180')
         body.classList.remove('rotate-90')
         body.classList.add('rotate-180')
         body.style.height = h + "px"
         page.style.width = w + "px"
         page.style.height = h + "px"
     } else if (rotation_mode === 2) {
+        console.log('# rotate 270')
         body.classList.remove('rotate-180')
         body.classList.add('rotate-270')
         body.style.width = h + "px"
         page.style.height = w + "px"
         page.style.width = "auto"
     } else if (rotation_mode === 3) {
+        console.log('# rotate 0')
         body.classList.remove('rotate-270')
         body.style.width = "auto"
         body.style.height = h + "px"
