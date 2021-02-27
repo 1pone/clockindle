@@ -451,6 +451,19 @@ function picture() {
 
 // 合并changeMode方法
 function changeMode(pos) {
+    // Kindle似乎对e事件接收存在问题，故需采用额外函数判断事件触发者
+    // var pos
+    //   console.log(e.path)
+    //   for (var p of e.path) {
+    //       var id = p.id
+    //       if (id === 'top') {
+    //           pos = id
+    //           break
+    //       } else if (id === 'bottom') {
+    //           pos = id
+    //           break
+    //       }
+    //   }
     console.log('# change ' + pos + ' mode')
     var pos_mode = eval(pos + '_mode')
     var POS_MODE = eval(pos.toUpperCase() + '_MODE')

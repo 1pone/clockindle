@@ -93,14 +93,14 @@ body {
 
 .rotate-270 {
     /* ? */
-    position: relative;
-    top: 12.5rem;
+    /* position: relative;
+    top: 12.5rem; */
     /* ? */
-    transform: rotate(-90deg);
-    -webkit-transform: rotate(-90deg);
-    -ms-transform: rotate(-90deg);
-    -moz-transform: rotate(-90deg);
-    -o-transform: rotate(-90deg);
+    transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
     transform-origin: center center;
     -webkit-transform-origin: center center;
 }
