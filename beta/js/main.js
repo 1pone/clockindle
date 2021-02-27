@@ -296,9 +296,9 @@ function weather() {
                 var highTemp = weather_data.max_temp // 日间气温/最高气温
                 var lowTemp = weather_data.min_temp // 夜间气温/最低气温
                 var air = weather_data.aqi.air
-                air = air ? air : '未知'
+                    // air = air ? air : '未知'
                 var airLevel = weather_data.aqi.air_level // 空气质量，air_level为alapi独有
-                airLevel = airLevel ? airLevel : ''
+                    // airLevel = airLevel ? airLevel : ''
                 var updateTime = weather_data.update_time.split(' ') // 更新时间，alapi格式为'年-月-日 时-分-秒'，tianqiapi格式为'时-分'
                 updateTime = updateTime[updateTime.length - 1]
                 var weaInfo = '<div>最高/低气温：' + highTemp + '/' + lowTemp + '&#8451;</div>' +
