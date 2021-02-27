@@ -67,15 +67,15 @@ window.onload = function() {
     // TODO 历史上的今天模块
 
     // 重写console.log方法，将控制台信息输出至页面，测试用
-    // var logger = document.getElementById('log_container');
-    // console.log(logger)
-    // console.log = function(message) {
-    //     if (typeof message == 'object') {
-    //         logger.innerHTML += (JSON && JSON.stringify ? JSON.stringify(message) : message) + '<br />';
-    //     } else {
-    //         logger.innerHTML += message + '<br />';
-    //     }
-    // }
+    var logger = document.getElementById('log_container');
+    console.log(logger)
+    console.log = function(message) {
+        if (typeof message == 'object') {
+            logger.innerHTML += (JSON && JSON.stringify ? JSON.stringify(message) : message) + '<br />';
+        } else {
+            logger.innerHTML += message + '<br />';
+        }
+    }
 }
 
 var ALAPI_TOKEN = 'pBsICqbRV2eVtGiI'
