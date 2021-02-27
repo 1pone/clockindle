@@ -561,22 +561,24 @@ function changeBgMode() {
         }
         var icon = document.getElementById('light_dark_icon')
         var middle = document.getElementById('middle')
-        var iconClasses = icon.classList
-        var middleClasses = middle.classList
-        icon.style.visibility = 'visible'
-        iconClasses.add('fadein')
-        middleClasses.add('fadeout')
+            // var iconClasses = icon.classList
+            // var middleClasses = middle.classList
+        icon.style.visibility = 'visible';
+        middle.style.visibility = 'hidden';
+        // iconClasses.add('fadein')
+        // middleClasses.add('fadeout')
+        // setTimeout(function() {
+        //     iconClasses.remove('fadein')
+        //     middleClasses.remove('fadeout')
+        //     iconClasses.add('fadeout')
+        //     middleClasses.add('fadein')
+        // }, 1000)
         setTimeout(function() {
-            iconClasses.remove('fadein')
-            middleClasses.remove('fadeout')
-            iconClasses.add('fadeout')
-            middleClasses.add('fadein')
-        }, 2000)
-        setTimeout(function() {
-            iconClasses.remove('fadeout')
-            middleClasses.remove('fadein')
+            // iconClasses.remove('fadeout')
+            // middleClasses.remove('fadein')
             icon.style.visibility = 'hidden'
-        }, 3000)
+            middle.style.visibility = 'visible'
+        }, 1000)
     } else {
         // picture bg
         console.log('picture open')

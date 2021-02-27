@@ -119,7 +119,7 @@ li div {
     left: 50%;
     top: 45%;
     transform: translate(-50%, -50%);
-    -webkit-transform: translateX(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
     font-size: 15rem;
     width: 15rem;
 }
@@ -331,6 +331,7 @@ li div {
 
 .pic {
     color: #ffffff;
+    background-color: #ffffff;
     -webkit-text-stroke: 1px #000;
     background-position: center;
     background-size: cover;
@@ -338,22 +339,22 @@ li div {
     /* -webkit-filter: grayscale(100%); */
     /*background-image: url('https://source.unsplash.com/random/1072x1448');*/
     font-weight: 800;
-    -webkit-transition: color 1s;
-    transition: color 1s;
+    /* -webkit-transition: color, background-color 1s;
+    transition: color, background-color 1s; */
 }
 
 .light {
     color: #000000;
     background-color: #ffffff;
     background-image: none !important;
-    -webkit-transition: color, background-color 1s;
-    transition: color, background-color 1s;
+    /* -webkit-transition: color, background-color 1s;
+    transition: color, background-color 1s; */
 }
 
 .dark {
     color: #ffffff;
     background-color: #000000;
     background-image: none !important;
-    -webkit-transition: color, background-color 1s;
-    transition: color, background-color 1s;
+    /* -webkit-transition: color, background-color 1s;
+    transition: color, background-color 1s; */
 }
