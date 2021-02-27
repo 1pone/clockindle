@@ -3,6 +3,7 @@ window.onload = function() {
     // rotation_mode 屏幕旋转标识
     if (rotation_mode !== '') {
         rotation_mode = Number(rotation_mode)
+            // 标识号退一再调用一次组件方法，实现组件的初始化
         rotation_mode = rotation_mode === 0 ? 3 : rotation_mode - 1
         rotateScreen()
     } else {
@@ -19,11 +20,14 @@ window.onload = function() {
     // 顶部组件序号
     if (top_mode !== '') {
         top_mode = Number(top_mode)
-        if (top_mode !== 0) {
-            eval(TOP_MODE[top_mode] + '()')
-            eval(TOP_MODE[top_mode] + '_timer = setInterval("TOP_MODE[top_mode]()", 60 * 1000 * 20)')
-            document.getElementsByClassName(TOP_MODE[top_mode] + "_container")[0].style.display = 'block'
-        }
+        top_mode = top_mode === 0 ? TOP_MODE.length - 1 : top_mode - 1
+        changeTopMode()
+            // 等价前两行
+            // if (top_mode !== 0) {
+            //     eval(TOP_MODE[top_mode] + '()')
+            //     eval(TOP_MODE[top_mode] + '_timer = setInterval("TOP_MODE[top_mode]()", 60 * 1000 * 20)')
+            //     document.getElementsByClassName(TOP_MODE[top_mode] + "_container")[0].style.display = 'block'
+            // }
     } else {
         top_mode = top_mode_default
         setCookie('top_mode', top_mode, 30)
@@ -31,11 +35,14 @@ window.onload = function() {
     // 底部组件序号
     if (bottom_mode !== '') {
         bottom_mode = Number(bottom_mode)
-        if (bottom_mode !== 0) {
-            eval(BOTTOM_MODE[bottom_mode] + '()')
-            eval(BOTTOM_MODE[bottom_mode] + '_timer = setInterval("' + BOTTOM_MODE[bottom_mode] + '()", 60 * 1000 * 20)')
-            document.getElementsByClassName(BOTTOM_MODE[bottom_mode] + "_container")[0].style.display = 'block'
-        }
+        bottom_mode = bottom_mode === 0 ? BOTTOM_MODE.length - 1 : bottom_mode - 1
+        changeBottomMode()
+            // 等价前两行
+            // if (bottom_mode !== 0) {
+            //     eval(BOTTOM_MODE[bottom_mode] + '()')
+            //     eval(BOTTOM_MODE[bottom_mode] + '_timer = setInterval("' + BOTTOM_MODE[bottom_mode] + '()", 60 * 1000 * 20)')
+            //     document.getElementsByClassName(BOTTOM_MODE[bottom_mode] + "_container")[0].style.display = 'block'
+            // }
     } else {
         bottom_mode = bottom_mode_default
         setCookie('bottom_mode', bottom_mode, 30)
@@ -43,6 +50,8 @@ window.onload = function() {
     // 背景组件序号
     if (bg_mode !== '') {
         bg_mode = Number(bg_mode)
+        bg_mode = bg_mode === 0 ? BG_MODE.length - 1 : bg_mode - 1
+        changeBgMode()
     } else {
         bg_mode = bg_mode_default
         setCookie('bg_mode', bg_mode, 30)
@@ -51,25 +60,9 @@ window.onload = function() {
     // 绑定12/24小时制切换、横/竖屏切换事件
     addEvent(bg_autoMode) // autoMode
 
-    // 一言模块
-    // hitokoto()
-    // hitokoto_timer = setInterval("hitokoto()", 60 * 1000 * 60)
-
     // 时钟模块
     clock(bg_autoMode)
     time_timer = setInterval('clock(' + bg_autoMode + ')', 60 * 1000)
-
-    // 天气模块
-    // weather()
-    // weather_timer = setInterval("weather()", 60 * 1000 * 20)
-
-    // 微博热搜模块在模块切换器中加载...
-    // weibo();
-    // weibo_timer = setInterval("weibo()", 60 * 1000 * 20);
-
-    // 图片背景模块在模块切换器中加载...
-    // picture()
-    // pic_timer = setInterval("picture()", 60 * 1000 * 60)
 
     // TODO 历史上的今天模块
 
@@ -537,8 +530,8 @@ function changeBgMode() {
     console.log('# change background')
     var page = document.getElementsByClassName('page')[0]
     var pageClasses = page.classList
-    bg_mode++
-    if (bg_mode === BG_MODE.length) bg_mode = 0
+    bg_mode = bg_mode === BG_MODE.length - 1 ? 0 : bg_mode + 1
+    setCookie("bg_mode", bg_mode, 30)
     if (bg_mode === 0) {
         clearInterval(pic_timer)
         pic_timer = null
