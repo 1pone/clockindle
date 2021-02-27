@@ -447,19 +447,7 @@ function picture() {
 // }
 
 // 合并changeMode方法
-function changeComponentMode(e) {
-    var pos
-    console.log(e.path)
-    for (var p of e.path) {
-        var id = p.id
-        if (id === 'top') {
-            pos = id
-            break
-        } else if (id === 'bottom') {
-            pos = id
-            break
-        }
-    }
+function changeMode(pos) {
 
     console.log('# change ' + pos + ' mode')
     var pos_mode = eval(pos + '_mode')
@@ -485,6 +473,14 @@ function changeComponentMode(e) {
         document.getElementsByClassName(POS_MODE[i] + "_container")[0].style.display = 'none'
     }
     document.getElementsByClassName(POS_MODE[pos_mode] + "_container")[0].style.display = 'block'
+}
+
+function changeTopMode() {
+    changeMode('top')
+}
+
+function changeBottomMode() {
+    changeMode('bottom')
 }
 
 function rotateScreen() {
@@ -551,7 +547,7 @@ function addEvent(autoMode) {
         clock(autoMode)
     })
     document.getElementsByClassName("time")[0].addEventListener('click', rotateScreen)
-    document.getElementById("top").addEventListener('click', changeComponentMode)
-    document.getElementById("bottom").addEventListener('click', changeComponentMode)
+    document.getElementById("top").addEventListener('click', changeTopMode)
+    document.getElementById("bottom").addEventListener('click', changeBottomMode)
     document.getElementById("date").addEventListener('click', changeBgMode)
 }
