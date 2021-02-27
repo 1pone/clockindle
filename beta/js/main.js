@@ -495,7 +495,7 @@ function changeBottomMode() {
 }
 
 function rotateScreen() {
-    console.log('# rotate screen')
+    console.log('# rotate screen ' + rotation_mode)
 
     var body = document.getElementsByTagName('body')[0]
     var page = document.getElementsByClassName("page")[0]
