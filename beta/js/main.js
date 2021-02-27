@@ -67,15 +67,15 @@ window.onload = function() {
     // TODO 历史上的今天模块
 
     // 重写console.log方法，将控制台信息输出至页面，测试用
-    var logger = document.getElementById('log_container');
-    console.log(logger)
-    console.log = function(message) {
-        if (typeof message == 'object') {
-            logger.innerHTML += (JSON && JSON.stringify ? JSON.stringify(message) : message) + '<br />';
-        } else {
-            logger.innerHTML += message + '<br />';
-        }
-    }
+    // var logger = document.getElementById('log_container');
+    // console.log(logger)
+    // console.log = function(message) {
+    //     if (typeof message == 'object') {
+    //         logger.innerHTML += (JSON && JSON.stringify ? JSON.stringify(message) : message) + '<br />';
+    //     } else {
+    //         logger.innerHTML += message + '<br />';
+    //     }
+    // }
 }
 
 var ALAPI_TOKEN = 'pBsICqbRV2eVtGiI'
@@ -292,9 +292,9 @@ function weather() {
                 var highTemp = weather_data.max_temp // 日间气温/最高气温
                 var lowTemp = weather_data.min_temp // 夜间气温/最低气温
                 var air = weather_data.aqi.air
-                    // air = air ? air : '未知'
+                air = air ? air : '未知'
                 var airLevel = weather_data.aqi.air_level // 空气质量，air_level为alapi独有
-                    // airLevel = airLevel ? airLevel : ''
+                airLevel = airLevel && air ? airLevel : ''
                 var updateTime = weather_data.update_time.split(' ') // 更新时间，alapi格式为'年-月-日 时-分-秒'，tianqiapi格式为'时-分'
                 updateTime = updateTime[updateTime.length - 1]
                 var weaInfo = '<div>最高/低气温：' + highTemp + '/' + lowTemp + '&#8451;</div>' +
@@ -502,27 +502,23 @@ function rotateScreen() {
     var w = document.documentElement.clientWidth || document.body.clientWidth;
     var h = document.documentElement.clientHeight || document.body.clientHeight;
     if (rotation_mode === 0) {
-        console.log('# rotate 90')
         body.classList.add('rotate-90')
         body.style.height = w + "px"
         page.style.width = h + "px"
         page.style.height = w + "px"
     } else if (rotation_mode === 1) {
-        console.log('# rotate 180')
         body.classList.remove('rotate-90')
         body.classList.add('rotate-180')
         body.style.height = h + "px"
         page.style.width = w + "px"
         page.style.height = h + "px"
     } else if (rotation_mode === 2) {
-        console.log('# rotate 270')
         body.classList.remove('rotate-180')
         body.classList.add('rotate-270')
         body.style.width = h + "px"
         page.style.height = w + "px"
         page.style.width = "auto"
     } else if (rotation_mode === 3) {
-        console.log('# rotate 0')
         body.classList.remove('rotate-270')
         body.style.width = "auto"
         body.style.height = h + "px"
