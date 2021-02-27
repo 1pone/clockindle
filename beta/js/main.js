@@ -509,20 +509,25 @@ function rotateScreen() {
         body.classList.add('rotate-90')
         body.style.height = w + "px"
         page.style.width = h + "px"
+        page.style.height = w + "px"
     } else if (rotation_mode === 1) {
         body.classList.remove('rotate-90')
         body.classList.add('rotate-180')
         body.style.height = h + "px"
         page.style.width = w + "px"
+        page.style.height = h + "px"
     } else if (rotation_mode === 2) {
         body.classList.remove('rotate-180')
         body.classList.add('rotate-270')
-        body.style.height = w + "px"
-        page.style.width = h + "px"
+        body.style.width = h + "px"
+        page.style.height = w + "px"
+        page.style.width = "auto"
     } else if (rotation_mode === 3) {
         body.classList.remove('rotate-270')
+        body.style.width = "auto"
         body.style.height = h + "px"
         page.style.width = w + "px"
+        page.style.height = h + "px"
     }
     rotation_mode = rotation_mode === 3 ? 0 : rotation_mode + 1
     setCookie("rotation_mode", rotation_mode, 30)

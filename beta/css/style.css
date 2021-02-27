@@ -92,10 +92,6 @@ body {
 }
 
 .rotate-270 {
-    /* ? */
-    /* position: relative;
-    top: 12.5rem; */
-    /* ? */
     transform: rotate(270deg);
     -webkit-transform: rotate(270deg);
     -ms-transform: rotate(270deg);
