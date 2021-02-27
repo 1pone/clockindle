@@ -3,7 +3,9 @@ window.onload = function() {
     // rotation_mode 屏幕旋转标识
     if (rotation_mode !== '') {
         rotation_mode = Number(rotation_mode)
-        rotation_mode = rotation_mode === 0 ? 3 : rotation_mode - 1
+        if (rotation_mode === 0) rotation_mode = 3
+        else rotation_mode--;
+        // rotation_mode = rotation_mode === 0 ? 3 : rotation_mode - 1
         rotateScreen()
     } else {
         rotation_mode = rotation_mode_default
@@ -11,7 +13,9 @@ window.onload = function() {
     }
     // hour24 时制标识
     if (hour24 !== '') {
-        hour24 = hour24 === 'true' ? true : false
+        if (hour24 === 'true') hour24 = true
+        else hour24 = false;
+        // hour24 = hour24 === 'true' ? true : false
     } else {
         hour24 = hour24_default
         setCookie('hour24', hour24, 30)
@@ -202,8 +206,11 @@ function hitokoto() {
             document.getElementById('brackets-l').innerHTML = "『"
             document.getElementById('brackets-r').innerHTML = "』"
             document.getElementById('hitokoto').innerHTML = hitokoto_data.hitokoto
-            document.getElementById('from').innerHTML = hitokoto_data.from_who ? "「" + hitokoto_data.from + " " + hitokoto_data.from_who + "」" :
-                "「" + hitokoto_data.from + "」"
+            if (hitokoto_data.from_who) document.getElementById('from').innerHTML = "「" + hitokoto_data.from + " " + hitokoto_data.from_who + "」"
+            else document.getElementById('from').innerHTML = "「" + hitokoto_data.from + "」"
+
+            // document.getElementById('from').innerHTML = hitokoto_data.from_who ? "「" + hitokoto_data.from + " " + hitokoto_data.from_who + "」" :
+            //     "「" + hitokoto_data.from + "」"
         }
     }
     xhr.send(null);
@@ -516,8 +523,10 @@ function rotateScreen() {
         body.style.height = h + "px"
         page.style.width = w + "px"
     }
-    rotation_mode = rotation_mode === 3 ? 0 : rotation_mode + 1
-    setCookie("rotation_mode", rotation_mode, 30)
+    if (rotation_mode === 3) rotation_mode = 0
+    else rotation_mode++
+        // rotation_mode = rotation_mode === 3 ? 0 : rotation_mode + 1
+        setCookie("rotation_mode", rotation_mode, 30)
 }
 
 function changeBgMode() {
