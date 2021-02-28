@@ -6,18 +6,20 @@
 
 ​		现在就在你的Kindle浏览器中打开Kindle实用工具网站主页 https://1pone.github.io 吧！
 
-<div align=center><img src="./images/index.png" alt="index.png" width="400"/><p>「 首页 」</p>
+<div align=center><img src="https://raw.githubusercontent.com/1pone/1pone.github.io/master/images/index.png" alt="index.png" width="400"/><p>「 首页 」</p>
   </p></div>
+
 
 
 ### 一点技巧 🥳
 
 * 为了让屏幕关闭自动锁屏保持常亮，请在Kindle主页搜索栏输入`~ds` 并回车，这时并不会有明显的反应，但是当你尝试按锁屏键时已无法锁屏，即已生效。当你想要恢复正常锁屏重启Kindle即可。
 
-<div align=center><img src="https://github.com/1pone/1pone.github.io/raw/master/images/～ds.png" alt="～ds.png" width="400"/><p>「 输入 ～ds 保持屏幕常亮 」</p></div>
+<div align=center><img src="https://raw.githubusercontent.com/1pone/1pone.github.io/master/images/%EF%BD%9Eds.png" alt="～ds.png" width="400"/><p>「 输入 ～ds 保持屏幕常亮 」</p></div>
 
-* 当页面布局缩放有偏差或当页面滚动条时请尝试`双指捏合页面`或`双击页面`，滚动条的存在可能将影响页面旋转后的布局
-* <img src="images/tip2.JPG" alt="tip2" style="zoom: 50%;" />。
+* 当页面`布局缩放`有偏差或当页面出现`滚动条`时请尝试`双指捏合页面`或`双击页面`，滚动条的存在可能将影响页面旋转后的布局
+
+  <div align=center><img src="https://raw.githubusercontent.com/1pone/1pone.github.io/master/images/tip2.JPG" alt="tip2.png" width="800"/><p>「 双指捏合或双击页面 」</p></div>
 
 ## V2.0	化繁为简 由我做主
 
@@ -27,15 +29,11 @@
 * 千呼万唤的横屏模式，现已支持四个方向的页面旋转，这下可以一直充电啦
 * 功能模块组合与其他配置都将储存，下次打开自动显示为上一次使用的配置
 
-<img src="images/feature.png" alt="feature" style="zoom: 50%;" />
+<div align=center><img src="https://raw.githubusercontent.com/1pone/1pone.github.io/master/images/feature.png" alt="feature.png" width="600"/><p>「 点击不同组件进行功能配置切换 」</p></div>
 
-<img src="images/bye.png" alt="bye" style="zoom: 50%;" />
+<div align=center><img src="https://raw.githubusercontent.com/1pone/1pone.github.io/master/images/bye.png" alt="b ye.png" width="600"/><p>「 和烦恼的功能配置路径说拜拜 」</p></div>
 
-
-
-<img src="images/screenshot_2021_02_27T21_22_00+0800.png" alt="screenshot_2021_02_27T21_22_00+0800" style="zoom: 33%;" />
-
-横屏模式
+<div align=center><img src="https://raw.githubusercontent.com/1pone/1pone.github.io/master/images/landscape.png" alt="landscape.png" width="600"/><p>「 屏一横，线一插，从此再也没有看过书 」</p></div>
 
 
 
