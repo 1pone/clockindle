@@ -31,11 +31,17 @@
 
 <div align=center><img src="https://raw.githubusercontent.com/1pone/1pone.github.io/master/images/feature.png" alt="feature.png" width="600"/><p>「 点击不同组件进行功能配置切换 」</p></div>
 
+
+
 <div align=center><img src="https://raw.githubusercontent.com/1pone/1pone.github.io/master/images/bye.png" alt="b ye.png" width="600"/><p>「 和烦恼的功能配置路径说拜拜 」</p></div>
 
 
 
 <div align=center><img src="https://raw.githubusercontent.com/1pone/1pone.github.io/master/images/landscape.png" alt="landscape.png" width="600"/><p>「 屏一横，线一插，从此再也没有看过书 」</p></div>
+
+
+
+<div align=center><img src="https://raw.githubusercontent.com/1pone/1pone.github.io/master/images/cookie.png" alt="cookie.png" width="600"/><p>「 下一次打开自动显示上一次的配置 」</p></div>
 
 
 
