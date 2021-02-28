@@ -6,7 +6,7 @@
 
 ​		现在就在你的Kindle浏览器中打开Kindle实用工具网站主页 https://1pone.github.io 吧！
 
-<div align=center><img src="https://raw.githubusercontent.com/1pone/1pone.github.io/master/images/index.png" alt="index.png" width="400"/><p>「 首页 」</p>
+<div align=center><img src="https://raw.githubusercontent.com/1pone/1pone.github.io/master/images/banner.png" alt="banner.png" width="800"/><p>「 首页 」</p>
   </p></div>
 
 
