@@ -33,13 +33,13 @@
 
 <div align=center><img src="https://raw.githubusercontent.com/1pone/1pone.github.io/master/images/bye.png" alt="b ye.png" width="600"/><p>「 和烦恼的功能配置路径说拜拜 」</p></div>
 
+
+
 <div align=center><img src="https://raw.githubusercontent.com/1pone/1pone.github.io/master/images/landscape.png" alt="landscape.png" width="600"/><p>「 屏一横，线一插，从此再也没有看过书 」</p></div>
 
 
 
 ## V1.0
-
-### 更多功能 🤩
 
 ​		你可以根据你的喜好需求选择 `模式` `功能` 对应下的路径，将至添加到主页 https://1pone.github.io 之后，即可访问相应页面，如，`深色模式` `时钟` 页面的路径为 https://1pone.github.io/clockDark ，路径省略时默认路径为`/index`，即 `浅色模式`，`一言 + 时钟 + 天气`功能。
 
