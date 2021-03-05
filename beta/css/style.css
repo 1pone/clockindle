@@ -213,6 +213,21 @@ li div {
     /* padding-right: 0.75rem; */
 }
 
+.poem_container {
+    text-align: center;
+    font-size: 2rem;
+    padding: 1rem;
+}
+
+#poem_sentence {
+    line-height: 4rem;
+}
+
+#poem_info {
+    font-size: 1.25rem;
+    text-align: right;
+}
+
 .weibo_container {
     font-size: 1.5rem;
 }
@@ -337,7 +352,7 @@ li div {
     background-size: cover;
     background-repeat: no-repeat;
     /* -webkit-filter: grayscale(100%); */
-    /*background-image: url('https://source.unsplash.com/random/1072x1448');*/
+    background-image: url('https://source.unsplash.com/random');
     font-weight: 800;
     /* -webkit-transition: color, background-color 1s;
     transition: color, background-color 1s; */

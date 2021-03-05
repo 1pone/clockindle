@@ -1,5 +1,14 @@
+// TODO 配置参数、API抽离
+
 window.onload = function() {
     //读取cookie数据重新赋值
+    if (timezoneOffset !== '') {
+        timezoneOffset = Number(timezoneOffset)
+        clock(bg_autoMode)
+        time_timer = setInterval('clock(' + bg_autoMode + ')', 60 * 1000)
+    } else {
+        getTimezoneOffset()
+    }
     // rotation_mode 屏幕旋转标识
     if (rotation_mode !== '') {
         rotation_mode = Number(rotation_mode)
@@ -61,8 +70,8 @@ window.onload = function() {
     addEvent(bg_autoMode) // autoMode
 
     // 时钟模块
-    clock(bg_autoMode)
-    time_timer = setInterval('clock(' + bg_autoMode + ')', 60 * 1000)
+    // clock(bg_autoMode)
+    // time_timer = setInterval('clock(' + bg_autoMode + ')', 60 * 1000)
 
     // TODO 历史上的今天模块
 
@@ -83,7 +92,7 @@ var UNSPLASH_ID = 'bXwWoUhPeVw-yvSesGMgaOENnlSzhHYB43kZIQOR8cQ'
 
 // 组件容器
 // TODO 添加组件刷新频率
-var TOP_MODE = ['nonetop', 'hitokoto', 'weibo']
+var TOP_MODE = ['nonetop', 'hitokoto', 'poem', 'weibo']
 var BOTTOM_MODE = ['nonebtm', 'weather']
 var BG_MODE = ['none', 'dark', 'auto', 'pic']
 
@@ -105,15 +114,18 @@ var bottom_mode = getCookie('bottom_mode') // 底部组件序号，默认使用�
 var bg_mode = getCookie('bg_mode') // 背景组件序号，默认使用白底
 var rotation_mode = getCookie('rotation_mode'); // 竖屏标识
 var hour24 = getCookie('hour24'); // 24小时制
+var timezoneOffset = getCookie('timezoneOffset'); // 时区偏移分钟
 
 // 模块缓存数据
 var hitokoto_data = null
 var weibo_data = null
+var poem_data = null
 var weather_data = null
 var pic_data = null
 
 // 定时器
 var hitokoto_timer = null // 一言模块定时器
+var poem_timer = null // 每日诗词定时器
 var weibo_timer = null // 微博模块定时器
 var time_timer = null // 时钟模块定时器
 var weather_timer = null // 天气模块定时器
@@ -206,13 +218,38 @@ function hitokoto() {
     xhr.send(null);
 }
 
+// 每日诗词
+function poem() {
+    console.log('poem update')
+    jinrishici.load(function(result) {
+        poem_data = result.data
+        var sentence = document.querySelector("#poem_sentence")
+        var info = document.querySelector("#poem_info")
+        sentence.innerHTML = poem_data.content
+        info.innerHTML = '【' + poem_data.origin.dynasty + '】' + poem_data.origin.author + '《' + poem_data.origin.title + '》'
+    });
+}
+
+// 获取所在时区
+function getTimezoneOffset() {
+    var xhr = createXHR();
+    xhr.open('GET', 'http://worldtimeapi.org/api/ip', true);
+    xhr.onreadystatechange = function() {
+        if (this.readyState == 4) {
+            timezoneOffset = JSON.parse(this.responseText).raw_offset / 60
+            setCookie("timezoneOffset", timezoneOffset, 30)
+            clock()
+        }
+    }
+    xhr.send(null);
+}
 
 // 时钟模块
 function clock(autoMode) {
 
     var date = new Date()
 
-    var utc8DiffMinutes = date.getTimezoneOffset() + 480 // Kindle上new Date()为标准时间且getTimezoneOffset() === 0
+    var utc8DiffMinutes = date.getTimezoneOffset() + timezoneOffset // Kindle上new Date()为标准时间且getTimezoneOffset() === 0
     date.setMinutes(date.getMinutes() + utc8DiffMinutes)
 
     var MM = date.getMonth() + 1
@@ -354,17 +391,18 @@ function weibo() {
 
 // 图片背景模块 目前API处于开发阶段，请求频率受限，每小时50次
 function picture() {
-    console.log('picture update')
-    var xhr = createXHR();
-    xhr.open('GET', 'https://api.unsplash.com/photos/random?client_id=' + UNSPLASH_ID, true);
-    xhr.onreadystatechange = function() {
-        if (this.readyState == 4) {
-            var data = JSON.parse(this.responseText)
-            pic_data = data
-            document.getElementsByClassName('page')[0].style.backgroundImage = 'url(' + pic_data.urls.regular + ')'
-        }
-    }
-    xhr.send(null);
+    console.log('picture update');
+    // var xhr = createXHR();
+    // xhr.open('GET', 'https://api.unsplash.com/photos/random?client_id=' + UNSPLASH_ID, true);
+    // xhr.onreadystatechange = function() {
+    //     if (this.readyState == 4) {
+    //         var data = JSON.parse(this.responseText)
+    //         pic_data = data
+    //         document.getElementsByClassName('page')[0].style.backgroundImage = 'url(' + pic_data.urls.regular + ')'
+    //     }
+    // }
+    // xhr.send(null);
+
     // ACG picture
     // document.getElementsByClassName('page')[0].style.backgroundImage = 'url(https://v1.alapi.cn/api/acg)'
     // Bing picture
@@ -376,77 +414,8 @@ function picture() {
 // 可能存在的问题：
 // 如果在定时器周期内来回切换组件将因为重置定时器导致数据不会得到更新，
 // 如要更新数据需使用当前组件超过定时器周期时长，或刷新页面
-// function changeTopMode() {
-//     console.log('# change top mode')
-//     if (top_mode !== 0 && eval(TOP_MODE[top_mode] + '_timer')) {
-//         clearInterval(eval(TOP_MODE[top_mode] + '_timer'))
-//         eval(TOP_MODE[top_mode] + '_timer = null')
-//         console.log(TOP_MODE[top_mode] + '_timer destroyed')
-//     }
-//     top_mode++
-//     if (top_mode === TOP_MODE.length) top_mode = 0
-//     setCookie('top_mode', top_mode, 30)
 
-//     if (top_mode !== 0) {
-//         if (!eval(TOP_MODE[top_mode] + '_data')) {
-//             eval(TOP_MODE[top_mode] + '()')
-//         }
-//         eval(TOP_MODE[top_mode] + '_timer = setInterval(TOP_MODE[top_mode] + "()", 60 * 1000 * 20)')
-//         console.log(TOP_MODE[top_mode] + '_timer created')
-//     }
-//     for (var i = 0; i < TOP_MODE.length; i++) {
-//         document.getElementsByClassName(TOP_MODE[i] + "_container")[0].style.display = 'none'
-//     }
-//     document.getElementsByClassName(TOP_MODE[top_mode] + "_container")[0].style.display = 'block'
-
-// }
-
-// function changeBottomMode() {
-//     console.log('# change bottom mode')
-
-//     // if (bottom_mode === 0) {
-//     //     bottom_mode = 1
-//     //     setCookie('bottom_mode', bottom_mode, 30)
-//     //     if (!weather_data) {
-//     //         weather()
-//     //     }
-//     //     weather_timer = setInterval('weather()', 60 * 1000 * 20)
-//     //     console.log('weather_timer created')
-//     //     document.getElementsByClassName("nonebtm_container")[0].style.display = 'none'
-//     //     document.getElementsByClassName("weather_container")[0].style.display = 'block'
-//     // } else if (bottom_mode === 1) {
-//     //     bottom_mode = 0
-//     //     setCookie('bottom_mode', bottom_mode, 30)
-//     //     clearInterval(weather_timer)
-//     //     weather_timer = null
-//     //     console.log('weather_timer destroyed')
-//     //     document.getElementsByClassName("nonebtm_container")[0].style.display = 'block'
-//     //     document.getElementsByClassName("weather_container")[0].style.display = 'none'
-//     // }
-
-//     if (bottom_mode !== 0 && eval(BOTTOM_MODE[bottom_mode] + '_timer')) {
-//         clearInterval(eval(BOTTOM_MODE[bottom_mode] + '_timer'))
-//         eval(BOTTOM_MODE[bottom_mode] + '_timer = null')
-//         console.log(BOTTOM_MODE[bottom_mode] + '_timer destroyed')
-//     }
-//     bottom_mode++
-//     if (bottom_mode === BOTTOM_MODE.length) bottom_mode = 0
-//     setCookie('bottom_mode', bottom_mode, 30)
-
-//     if (bottom_mode !== 0) {
-//         if (!eval(BOTTOM_MODE[bottom_mode] + '_data')) {
-//             eval(BOTTOM_MODE[bottom_mode] + '()')
-//         }
-//         eval(BOTTOM_MODE[bottom_mode] + '_timer = setInterval(BOTTOM_MODE[bottom_mode] + "()", 60 * 1000 * 20)')
-//         console.log(BOTTOM_MODE[bottom_mode] + '_timer created')
-//     }
-//     for (var i = 0; i < BOTTOM_MODE.length; i++) {
-//         document.getElementsByClassName(BOTTOM_MODE[i] + "_container")[0].style.display = 'none'
-//     }
-//     document.getElementsByClassName(BOTTOM_MODE[bottom_mode] + "_container")[0].style.display = 'block'
-// }
-
-// 合并changeMode方法
+// 切换功能组件方法
 function changeMode(pos) {
     // Kindle似乎对e事件接收存在问题，故需采用额外函数判断事件触发者
     // var pos
