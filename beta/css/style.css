@@ -308,7 +308,7 @@ li div {
 
 #weaImg {
     display: inline-block;
-    margin-right: 2.5rem;
+    margin-right: 10%;
     font-size: 1.5rem;
 }
 
@@ -319,7 +319,7 @@ li div {
 
 #weaTemp {
     display: inline-block;
-    margin-right: 2.5rem;
+    margin-right: 10%;
     font-size: 1.5rem;
 }
 
