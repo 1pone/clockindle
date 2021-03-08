@@ -233,7 +233,7 @@ function poem() {
 // 获取所在时区
 function getTimezoneOffset() {
     var xhr = createXHR();
-    xhr.open('GET', 'http://worldtimeapi.org/api/ip', true);
+    xhr.open('GET', 'https://worldtimeapi.org/api/ip', true);
     xhr.onreadystatechange = function() {
         if (this.readyState == 4) {
             timezoneOffset = JSON.parse(this.responseText).raw_offset / 60
