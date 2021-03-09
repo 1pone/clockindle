@@ -340,7 +340,7 @@ li div {
 
 #weaInfo {
     display: inline-block;
-    text-align: right;
+    /* text-align: right; */
     font-size: 1.5rem;
     line-height: 1.75rem;
     margin-top: 0.25rem;
