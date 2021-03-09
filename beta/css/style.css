@@ -74,7 +74,6 @@ body {
     overflow-x: hidden;
     overflow-y: hidden;
     position: relative;
-    font-family: 'DottedSongtiSquareRegular';
 }
 
 .rotate-90 {
@@ -158,6 +157,7 @@ li div {
     height: 35%;
     width: 100%;
     text-align: center;
+    font-family: 'DottedSongtiSquareRegular';
 }
 
 #bottom {
