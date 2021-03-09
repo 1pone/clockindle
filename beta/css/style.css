@@ -39,6 +39,11 @@
     src: url("./font/iconfont.eot?#iefix") format("embedded-opentype"), url("./font/iconfont.woff2") format("woff2"), url("./font/iconfont.woff") format("woff"), url("./font/iconfont.ttf") format("truetype"), url("./font/iconfont.svg#iconfont") format("svg");
 }
 
+@font-face {
+    font-family: 'DottedSongtiSquareRegular';
+    src: url('./font/DottedSongtiSquareRegular-subfont.ttf');
+}
+
 .iconfont {
     font-family: "iconfont" !important;
     font-size: 7.5rem;
@@ -69,6 +74,7 @@ body {
     overflow-x: hidden;
     overflow-y: hidden;
     position: relative;
+    font-family: 'DottedSongtiSquareRegular';
 }
 
 .rotate-90 {
