@@ -1,26 +1,3 @@
-/* kindle浏览器为webkit内核，使用css3时需手动添加-webkit-* */
-
-
-/* ---------- DEBUG BEGIN ---------- */
-
-
-/* show border */
-
-
-/* #top,
-#middle,
-#bottom {
-    border: 1px black solid;
-}
-
-#top>div,
-.hitokoto_main {
-    border: 1px black dotted;
-} */
-
-
-/* ---------- DEBUG END ---------- */
-
 @media screen and (min-width: 500px) {
     html {
         font-size: 16px;
@@ -148,7 +125,7 @@ li div {
 }
 
 #top {
-    height: 27%;
+    height: 32%;
     width: 100%;
     text-align: center;
 }
@@ -160,11 +137,7 @@ li div {
     font-family: 'DottedSongtiSquareRegular';
 }
 
-#bottom {
-    height: 38%;
-    width: 100%;
-    text-align: center;
-}
+#bottom {}
 
 #top>div,
 #middle>div,
@@ -173,14 +146,6 @@ li div {
     top: 50%;
     transform: translateY(-50%);
     -webkit-transform: translateY(-50%);
-}
-
-.nonetop_container,
-.hitokoto_container,
-.weibo_container,
-.nonebtm_container,
-.weather_container {
-    display: none;
 }
 
 .hitokoto_container {
@@ -216,52 +181,6 @@ li div {
     text-align: right;
     font-size: 1.25rem;
     line-height: 2.5rem;
-    /* padding-right: 0.75rem; */
-}
-
-.poem_container {
-    text-align: center;
-    font-size: 2rem;
-    padding: 1rem;
-}
-
-#poem_sentence {
-    line-height: 4rem;
-}
-
-#poem_info {
-    font-size: 1.25rem;
-    text-align: right;
-}
-
-.weibo_container {
-    font-size: 1.5rem;
-}
-
-.weibo_title {
-    padding-bottom: 0.5rem;
-}
-
-#hot_word,
-#hot_word_num {
-    display: inline-block;
-}
-
-#hot_word {
-    text-align: left;
-    margin-right: 1rem;
-    max-width: 25rem;
-}
-
-#hot_word_num {
-    width: auto;
-}
-
-#hot_word li,
-#hot_word_num {
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
 }
 
 .time_container {
@@ -305,82 +224,14 @@ li div {
     line-height: 3rem;
 }
 
-.weaWrapper {
-    width: 100%;
-}
-
-#weaTitle {
-    font-size: 1.5rem;
-}
-
-#weaImg {
-    display: inline-block;
-    float: left;
-    margin-left: 1.75rem;
-    font-size: 1.5rem;
-}
-
-#weaImg>div,
-#weaTemp>div:last-child {
-    margin-top: 0.75rem;
-}
-
-#weaTemp {
-    display: inline-block;
-    float: right;
-    margin-right: 1.75rem;
-    font-size: 1.5rem;
-}
-
-.tempNum {
-    display: inline-block;
-    font-size: 7rem;
-    font-weight: 400;
-    line-height: 8.125rem;
-}
-
-.symbol {
-    display: inline-block;
-    font-size: 3rem;
-    line-height: 3rem;
-}
-
-#weaInfo {
-    display: inline-block;
-    left: 1rem;
-    position: relative;
-    /* text-align: right; */
-    font-size: 1.5rem;
-    line-height: 1.75rem;
-    margin-top: 0.25rem;
-}
-
-.pic {
-    color: #ffffff;
-    background-color: #ffffff;
-    -webkit-text-stroke: 1px #000;
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    /* -webkit-filter: grayscale(100%); */
-    background-image: url('https://source.unsplash.com/random');
-    font-weight: 800;
-    /* -webkit-transition: color, background-color 1s;
-    transition: color, background-color 1s; */
-}
-
 .light {
     color: #000000;
     background-color: #ffffff;
     background-image: none !important;
-    /* -webkit-transition: color, background-color 1s;
-    transition: color, background-color 1s; */
 }
 
 .dark {
     color: #ffffff;
     background-color: #000000;
     background-image: none !important;
-    /* -webkit-transition: color, background-color 1s;
-    transition: color, background-color 1s; */
 }
