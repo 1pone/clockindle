@@ -12,14 +12,14 @@ window.onload = function() {
     // rotation_mode 屏幕旋转标识
     if (rotation_mode !== '') {
         rotation_mode = Number(rotation_mode)
-            // 标识号退一再调用一次组件方法，实现组件的初始化
-        rotation_mode = rotation_mode === 0 ? 3 : rotation_mode - 1
-        rotateScreen()
     } else {
         rotation_mode = rotation_mode_default
         setCookie('rotation_mode', rotation_mode, 30)
     }
-    // hour24 时制标识
+    // 标识号退一再调用一次组件方法，实现组件的初始化
+    rotation_mode = rotation_mode === 0 ? 3 : rotation_mode - 1
+    rotateScreen()
+        // hour24 时制标识
     if (hour24 !== '') {
         hour24 = hour24 === 'true' ? true : false
     } else {
@@ -29,23 +29,22 @@ window.onload = function() {
     // 顶部组件序号
     if (top_mode !== '') {
         top_mode = Number(top_mode)
-        top_mode = top_mode === 0 ? TOP_MODE.length - 1 : top_mode - 1
-        changeTopMode()
-            // 等价前两行
-            // if (top_mode !== 0) {
-            //     eval(TOP_MODE[top_mode] + '()')
-            //     eval(TOP_MODE[top_mode] + '_timer = setInterval("TOP_MODE[top_mode]()", 60 * 1000 * 20)')
-            //     document.getElementsByClassName(TOP_MODE[top_mode] + "_container")[0].style.display = 'block'
-            // }
+
+        // 等价前两行
+        // if (top_mode !== 0) {
+        //     eval(TOP_MODE[top_mode] + '()')
+        //     eval(TOP_MODE[top_mode] + '_timer = setInterval("TOP_MODE[top_mode]()", 60 * 1000 * 20)')
+        //     document.getElementsByClassName(TOP_MODE[top_mode] + "_container")[0].style.display = 'block'
+        // }
     } else {
         top_mode = top_mode_default
         setCookie('top_mode', top_mode, 30)
     }
-    // 底部组件序号
+    top_mode = top_mode === 0 ? TOP_MODE.length - 1 : top_mode - 1
+    changeTopMode()
+        // 底部组件序号
     if (bottom_mode !== '') {
         bottom_mode = Number(bottom_mode)
-        bottom_mode = bottom_mode === 0 ? BOTTOM_MODE.length - 1 : bottom_mode - 1
-        changeBottomMode()
             // 等价前两行
             // if (bottom_mode !== 0) {
             //     eval(BOTTOM_MODE[bottom_mode] + '()')
@@ -56,7 +55,9 @@ window.onload = function() {
         bottom_mode = bottom_mode_default
         setCookie('bottom_mode', bottom_mode, 30)
     }
-    // 背景组件序号
+    bottom_mode = bottom_mode === 0 ? BOTTOM_MODE.length - 1 : bottom_mode - 1
+    changeBottomMode()
+        // 背景组件序号
     if (bg_mode !== '') {
         bg_mode = Number(bg_mode)
         bg_mode = bg_mode === 0 ? BG_MODE.length - 1 : bg_mode - 1
