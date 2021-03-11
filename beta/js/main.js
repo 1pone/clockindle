@@ -325,7 +325,7 @@ function weather() {
                 }
 
                 var weaImg = '<span class="iconfont">' + img + '</span>' + '<div>天气：' + weather_data.weather + '</div>';
-                var weaTemp = '<div class="tempNum">' + weather_data.temp + '<div class="symbol">&#8451;</div></div>' +
+                var weaTemp = '<div class="tempNum">' + weather_data.temp + '</div><div class="symbol">&#8451;</div>' +
                     '<div>当前气温</div>';
                 var highTemp = weather_data.max_temp // 日间气温/最高气温
                 var lowTemp = weather_data.min_temp // 夜间气温/最低气温

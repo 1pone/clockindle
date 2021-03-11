@@ -60,7 +60,7 @@
 | 一言 + 时钟 + 天气 |   `/index`   |   `/dark`    |   `/auto`    |         ✕          |  √   |
 |        时钟        |   `/clock`   | `/clockDark` | `/clockAuto` |         √          |  √   |
 | 微博热搜+时钟+天气 |   `/weibo`   | `/weiboDark` | `/weiboAuto` |         ✕          |  √   |
-|     图片+时钟      |    `/pic`    |     V2.0     |     V2.0     |         ✕          |  √   |
+|     图片+时钟      |    `/pic`    |    `/pic`    |    `/pic`    |         ✕          |  √   |
 |    一言 + 时钟     |   `/yiyan`   | `/yiyanDark` | `/yiyanAuto` | √ `/offline/yiyan` |  √   |
 |        ...         |     ...      |     ...      |     ...      |        ...         | ...  |
 

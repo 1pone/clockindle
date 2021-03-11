@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <!-- 查询客户端ip用于天气查询 -->
     <script src="https://pv.sohu.com/cityjson"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
     <script src="js/cookie.js"></script>
     <script src="js/main.js"></script>
 </head>
@@ -28,6 +29,10 @@
                 </div>
                 <div id="from"></div>
             </div>
+            <div class="poem_container">
+                <div id="poem_sentence"></div>
+                <div id="poem_info"></div>
+            </div>
             <div class="weibo_container">
                 <div class="weibo_title">微博热搜加载中...</div>
                 <div class="hot_list">
@@ -45,7 +50,7 @@
                     </div>
                 </div>
                 <div class="time" id="time"></div>
-                <div class="date" id="date"></div>
+                <div class="date" id="date">时钟加载中...</div>
             </div>
         </div>
 
