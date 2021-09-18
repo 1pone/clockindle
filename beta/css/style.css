@@ -129,18 +129,6 @@ li div {
   width: 15rem;
 }
 
-.fadeout {
-  -webkit-transition: opacity 1s;
-  transition: opacity 1s;
-  opacity: 0;
-}
-
-.fadein {
-  -webkit-transition: opacity 2s;
-  transition: opacity 2s;
-  opacity: 1;
-}
-
 #log_container {
   position: absolute;
   top: 0;

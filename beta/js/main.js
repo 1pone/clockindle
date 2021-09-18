@@ -1,7 +1,9 @@
 // TODO 配置参数、API抽离
+// TODO 历史上的今天模块
 
 window.onload = function () {
   //读取cookie数据重新赋值
+  // 时钟模块
   if (timezoneOffset !== "") {
     timezoneOffset = Number(timezoneOffset);
     clock(bg_autoMode);
@@ -29,13 +31,6 @@ window.onload = function () {
   // 顶部组件序号
   if (top_mode !== "") {
     top_mode = Number(top_mode);
-
-    // 等价前两行
-    // if (top_mode !== 0) {
-    //     eval(TOP_MODE[top_mode] + '()')
-    //     eval(TOP_MODE[top_mode] + '_timer = setInterval("TOP_MODE[top_mode]()", 60 * 1000 * 20)')
-    //     document.getElementsByClassName(TOP_MODE[top_mode] + "_container")[0].style.display = 'block'
-    // }
   } else {
     top_mode = top_mode_default;
     setCookie("top_mode", top_mode, 30);
@@ -45,12 +40,6 @@ window.onload = function () {
   // 底部组件序号
   if (bottom_mode !== "") {
     bottom_mode = Number(bottom_mode);
-    // 等价前两行
-    // if (bottom_mode !== 0) {
-    //     eval(BOTTOM_MODE[bottom_mode] + '()')
-    //     eval(BOTTOM_MODE[bottom_mode] + '_timer = setInterval("' + BOTTOM_MODE[bottom_mode] + '()", 60 * 1000 * 20)')
-    //     document.getElementsByClassName(BOTTOM_MODE[bottom_mode] + "_container")[0].style.display = 'block'
-    // }
   } else {
     bottom_mode = bottom_mode_default;
     setCookie("bottom_mode", bottom_mode, 30);
@@ -69,23 +58,6 @@ window.onload = function () {
 
   // 绑定12/24小时制切换、横/竖屏切换事件
   addEvent(bg_autoMode); // autoMode
-
-  // 时钟模块
-  // clock(bg_autoMode)
-  // time_timer = setInterval('clock(' + bg_autoMode + ')', 60 * 1000)
-
-  // TODO 历史上的今天模块
-
-  // 重写console.log方法，将控制台信息输出至页面，测试用
-  // var logger = document.getElementById('log_container');
-  // console.log(logger)
-  // console.log = function(message) {
-  //     if (typeof message == 'object') {
-  //         logger.innerHTML += (JSON && JSON.stringify ? JSON.stringify(message) : message) + '<br />';
-  //     } else {
-  //         logger.innerHTML += message + '<br />';
-  //     }
-  // }
 };
 
 var ALAPI_TOKEN = "pBsICqbRV2eVtGiI";
@@ -118,11 +90,12 @@ var hour24 = getCookie("hour24"); // 24小时制
 var timezoneOffset = getCookie("timezoneOffset"); // 时区偏移分钟
 
 // 模块缓存数据
-var hitokoto_data = null;
-var weibo_data = null;
-var poem_data = null;
-var weather_data = null;
-var pic_data = null;
+var hitokoto_data = null; // 一言缓存数据
+var weibo_data = null; // 微博热搜缓存数据
+var poem_data = null; // 每日诗词缓存数据
+var weather_data = null; // 天气缓存数据
+var pic_data = null; // 背景图片缓存数据
+var dd_data = null; // 当前日期全局变量，用于触发lunar和holiday接口
 
 // 定时器
 var hitokoto_timer = null; // 一言模块定时器
@@ -150,48 +123,6 @@ var weaImgs = {
 
 // 背景自动模式图标
 var autoModeImg = "&#xe8e3";
-
-/**
- * 判断浏览器是否支持某一个CSS3属性
- * @param {String} 属性名称
- * @return {Boolean} true/false
- * @version 1.0
- * @author ydr.me
- * 2014年4月4日14:47:19
- */
-function supportCss3(style) {
-  var prefix = ["webkit", "Moz", "ms", "o"],
-    i,
-    humpString = [],
-    htmlStyle = document.documentElement.style,
-    _toHumb = function (string) {
-      return string.replace(/-(\w)/g, function ($0, $1) {
-        return $1.toUpperCase();
-      });
-    };
-
-  for (i in prefix) humpString.push(_toHumb(prefix[i] + "-" + style));
-
-  humpString.push(_toHumb(style));
-
-  for (i in humpString) if (humpString[i] in htmlStyle) return true;
-
-  return false;
-}
-
-function showScreenSize() {
-  // 获取设备显示尺寸
-  var w = document.documentElement.clientWidth || document.body.clientWidth;
-  var h = document.documentElement.clientHeight || document.body.clientHeight;
-  console.log(w, h);
-  document.getElementById("screensize").innerHTML =
-    "屏幕分辨率的宽：" +
-    w +
-    "</br>屏幕分辨率的高：" +
-    h +
-    "</br>getTimezoneOffset: " +
-    Boolean(new Date().getTimezoneOffset);
-}
 
 // 创建XMLHttpRequest对象
 function createXHR() {
@@ -262,7 +193,6 @@ function clock(autoMode) {
 
   var utc8DiffMinutes = date.getTimezoneOffset() + timezoneOffset; // Kindle上new Date()为标准时间且getTimezoneOffset() === 0
   date.setMinutes(date.getMinutes() + utc8DiffMinutes);
-
   var MM = date.getMonth() + 1;
   var dd = date.getDate();
   var day = date.getDay();
@@ -299,42 +229,42 @@ function clock(autoMode) {
       apm = "下<br>午";
       hour -= 12;
     }
-
     document.getElementById("apm").innerHTML = apm;
   } else {
     document.getElementById("apm").innerHTML = "";
   }
 
   var timeString = hour + ":" + ("0" + minutes).slice(-2);
-  var dateString = MM + "月" + dd + "日";
-  var weekList = ["日", "一", "二", "三", "四", "五", "六"];
-  var weekString = "星期" + weekList[day];
 
   document.getElementById("time").innerHTML = timeString;
-  document.getElementById("date").innerHTML = dateString + " " + weekString;
 
-  // 获取农历日期
-  getLunar();
-  // 判断节假日
-  getHoliday();
+  if (!dd_data || dd !== dd_data) {
+    console.log("get lunar");
+    dd_data = dd;
+    var dateString = MM + "月" + dd + "日";
+    var weekList = ["日", "一", "二", "三", "四", "五", "六"];
+    var weekString = "星期" + weekList[day];
+    document.getElementById("date").innerHTML = dateString + " " + weekString;
+    // 获取农历日期
+    getLunar();
+    // 判断节假日
+    getHoliday();
+  }
 }
 
 function getLunar() {
   var lunarString = "";
   var xhr = createXHR();
-  xhr.open("GET", "https://v2.alapi.cn/api/lunar?token=" + ALAPI_TOKEN);
+  xhr.open("GET", "https://v2.alapi.cn/api/lunar?token=" + ALAPI_TOKEN); // 备用接口：https://api.xlongwei.com/service/datetime/convert.json
   xhr.onreadystatechange = function () {
     if (this.readyState == 4) {
       var data = JSON.parse(this.responseText);
+      console.log(data);
       if (data.code === 200) {
         var lunar_data = data.data;
-        lunarString =
-          lunar_data.ganzhi_year +
-          "年" +
-          lunar_data.lunar_month_chinese +
-          lunar_data.lunar_day_chinese;
-
-        document.getElementById("lunar").innerHTML = lunarString;
+        lunarString = `${lunar_data.ganzhi_year}年${lunar_data.lunar_month_chinese}${lunar_data.lunar_day_chinese}`;
+        lunar = document.getElementById("lunar").innerHTML = lunarString;
+        console.log(lunar_data);
       } else {
         console.error("农历数据获取失败");
       }
@@ -345,18 +275,19 @@ function getLunar() {
 
 function getHoliday() {
   var xhr = createXHR();
-  xhr.open(
-    "GET",
-    "https://api.xlongwei.com/service/datetime/holiday.json?2021-10-1"
-  );
+  xhr.open("GET", "https://timor.tech/api/holiday/info/"); // 备用接口：https://api.xlongwei.com/service/datetime/holiday.json
   xhr.onreadystatechange = function () {
     if (this.readyState == 4) {
       if (this.status === 200) {
         var data = JSON.parse(this.responseText);
+        console.log(data);
         data.holiday &&
           (document.getElementById("holiday").innerHTML =
-            "&nbsp;&nbsp;" + data.holiday);
-        var remark = data.remark;
+            "&nbsp;&nbsp;" + data.holiday.name);
+        /**
+         * // 备用接口用
+         * (data.holiday || data.remark) && (document.getElementById("holiday").innerHTML = "&nbsp;&nbsp;" + (data.holiday || data.remark));
+         */
       } else {
         console.error("节假日数据获取失败");
       }
@@ -491,17 +422,23 @@ function weibo() {
 }
 
 // 图片背景模块 目前API处于开发阶段，请求频率受限，每小时50次
+// 暂时使用css中的接口，背景切换定时器失效
 function picture() {
   console.log("picture update");
   // var xhr = createXHR();
-  // xhr.open('GET', 'https://api.unsplash.com/photos/random?client_id=' + UNSPLASH_ID, true);
-  // xhr.onreadystatechange = function() {
-  //     if (this.readyState == 4) {
-  //         var data = JSON.parse(this.responseText)
-  //         pic_data = data
-  //         document.getElementsByClassName('page')[0].style.backgroundImage = 'url(' + pic_data.urls.regular + ')'
-  //     }
-  // }
+  // xhr.open(
+  //   "GET",
+  //   "https://api.unsplash.com/photos/random?client_id=" + UNSPLASH_ID,
+  //   true
+  // );
+  // xhr.onreadystatechange = function () {
+  //   if (this.readyState == 4) {
+  //     var data = JSON.parse(this.responseText);
+  //     pic_data = data;
+  //     document.getElementsByClassName("page")[0].style.backgroundImage =
+  //       "url(" + pic_data.urls.regular + ")";
+  //   }
+  // };
   // xhr.send(null);
 
   // ACG picture
@@ -518,19 +455,6 @@ function picture() {
 
 // 切换功能组件方法
 function changeMode(pos) {
-  // Kindle似乎对e事件接收存在问题，故需采用额外函数判断事件触发者
-  // var pos
-  //   console.log(e.path)
-  //   for (var p of e.path) {
-  //       var id = p.id
-  //       if (id === 'top') {
-  //           pos = id
-  //           break
-  //       } else if (id === 'bottom') {
-  //           pos = id
-  //           break
-  //       }
-  //   }
   console.log("# change " + pos + " mode");
   var pos_mode = eval(pos + "_mode");
   var POS_MODE = eval(pos.toUpperCase() + "_MODE");
@@ -639,21 +563,9 @@ function changeBgMode() {
     }
     var icon = document.getElementById("light_dark_icon");
     var middle = document.getElementById("middle");
-    // var iconClasses = icon.classList
-    // var middleClasses = middle.classList
     icon.style.visibility = "visible";
     middle.style.visibility = "hidden";
-    // iconClasses.add('fadein')
-    // middleClasses.add('fadeout')
-    // setTimeout(function() {
-    //     iconClasses.remove('fadein')
-    //     middleClasses.remove('fadeout')
-    //     iconClasses.add('fadeout')
-    //     middleClasses.add('fadein')
-    // }, 1000)
     setTimeout(function () {
-      // iconClasses.remove('fadeout')
-      // middleClasses.remove('fadein')
       icon.style.visibility = "hidden";
       middle.style.visibility = "visible";
     }, 1000);
