@@ -1,3 +1,4 @@
+// Attention: Kindle浏览器不支持模版字符串
 // TODO 配置参数、API抽离
 // TODO 历史上的今天模块
 
@@ -262,7 +263,11 @@ function getLunar() {
       console.log(data);
       if (data.code === 200) {
         var lunar_data = data.data;
-        lunarString = `${lunar_data.ganzhi_year}年${lunar_data.lunar_month_chinese}${lunar_data.lunar_day_chinese}`;
+        lunarString =
+          lunar_data.ganzhi_year +
+          "年" +
+          lunar_data.lunar_month_chinese +
+          lunar_data.lunar_day_chinese;
         lunar = document.getElementById("lunar").innerHTML = lunarString;
         console.log(lunar_data);
       } else {
