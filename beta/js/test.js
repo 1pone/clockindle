@@ -42,3 +42,6 @@ function reLog() {
     }
   };
 }
+
+reLog();
+console.log(new Date().toLocaleString());
