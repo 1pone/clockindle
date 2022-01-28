@@ -269,7 +269,7 @@ function getLunar() {
   var xhr = createXHR();
   xhr.open(
     "GET",
-    "http://api.tianapi.com/jiejiari/index?key=" +
+    "https://api.tianapi.com/jiejiari/index?key=" +
       TIANAPI +
       "&date=" +
       new Date().toLocaleDateString()
@@ -301,7 +301,7 @@ function weather() {
   var xhr = createXHR();
   xhr.open(
     "GET",
-    "http://api.tianapi.com/tianqi/index?key=" + TIANAPI + "&city=" + cname,
+    "https://api.tianapi.com/tianqi/index?key=" + TIANAPI + "&city=" + cname,
     true
   );
   xhr.onreadystatechange = function () {
