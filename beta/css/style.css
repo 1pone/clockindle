@@ -317,13 +317,13 @@ li div {
 #weaImg > div,
 #weaTemp > div:last-child {
   margin-top: 0.75rem;
+  font-size: 1.5rem;
 }
 
 #weaTemp {
   display: inline-block;
   float: right;
   margin-right: 1.75rem;
-  font-size: 1.5rem;
   /* font-family: 'DottedSongtiSquareRegular'; */
 }
 

@@ -61,8 +61,8 @@ window.onload = function () {
   addEvent(bg_autoMode); // autoMode
 };
 
-var ALAPI_TOKEN = "pBsICqbRV2eVtGiI";
 var UNSPLASH_ID = "bXwWoUhPeVw-yvSesGMgaOENnlSzhHYB43kZIQOR8cQ";
+var TIANAPI = "130dbb050d6326886a2c6d3b0a819405"; // https://www.tianapi.com/console/
 
 // 组件容器
 // TODO 添加组件刷新频率
@@ -80,7 +80,8 @@ var rotation_mode_default = 0; // 默认使用0-竖屏模式 0=0°，1=90°，2=
 var hour24_default = false; // 默认使用十二小时制
 var bg_autoMode = false; // 黑白背景自动切换
 var weibo_num = 3; // 微博热搜条数
-var cip = returnCitySN.cip; // 客户端ip
+// var cip = returnCitySN.cip; // 客户端ip
+var cname = returnCitySN.cname; // 客户端所在城市名称
 
 // cookie变量
 var top_mode = getCookie("top_mode"); // 顶部组件序号，默认使用“一言”
@@ -107,16 +108,28 @@ var weather_timer = null; // 天气模块定时器
 var pic_timer = null; // 图片背景模块定时器
 
 // 天气模块图标
-// 固定9种类型: xue、lei、shachen、wu、bingbao、yun、yu、yin、qing
+// 天气预报接口主要天气状态图标文件名: https://www.tianapi.com/article/164
 var weaImgs = {
   xue: ["&#xe645;", "&#xe645;"],
-  lei: ["&#xe643;", "&#xe643;"],
-  shachen: ["&#xe646;", "&#xe646;"],
+  xiaoxue: ["&#xe645;", "&#xe645;"],
+  zhongxue: ["&#xe645;", "&#xe645;"],
+  daxue: ["&#xe645;", "&#xe645;"],
+  baoxue: ["&#xe645;", "&#xe645;"],
+  leizhenyu: ["&#xe643;", "&#xe643;"],
+  fuchen: ["&#xe646;", "&#xe646;"],
+  yangsha: ["&#xe646;", "&#xe646;"],
+  shachenbao: ["&#xe646;", "&#xe646;"],
   wu: ["&#xe647;", "&#xe647;"],
+  dawu: ["&#xe647;", "&#xe647;"],
+  mai: ["&#xe647;", "&#xe647;"],
   bingbao: ["&#xe667;", "&#xe667;"],
   yun: ["&#xe648;", "&#xe648;"],
   duoyun: ["&#xe648;", "&#xe648;"],
-  yu: ["&#xe64b;", "&#xe64b;"],
+  xiaoyu: ["&#xe64b;", "&#xe64b;"],
+  zhongyu: ["&#xe64b;", "&#xe64b;"],
+  zhongyu: ["&#xe64b;", "&#xe64b;"],
+  dayu: ["&#xe64b;", "&#xe64b;"],
+  baoyu: ["&#xe64b;", "&#xe64b;"],
   yin: ["&#xe64a;", "&#xe652;"],
   qing: ["&#xe649;", "&#xe764;"],
   weizhi: ["&#xe6f2;", "&#xe6f2;"],
@@ -246,55 +259,37 @@ function clock(autoMode) {
     var weekList = ["日", "一", "二", "三", "四", "五", "六"];
     var weekString = "星期" + weekList[day];
     document.getElementById("date").innerHTML = dateString + " " + weekString;
-    // 获取农历日期
+    // 获取农历日期及节假日
     getLunar();
-    // 判断节假日
-    getHoliday();
   }
 }
 
 function getLunar() {
   var lunarString = "";
   var xhr = createXHR();
-  xhr.open("GET", "https://v2.alapi.cn/api/lunar?token=" + ALAPI_TOKEN); // 备用接口：https://api.xlongwei.com/service/datetime/convert.json
+  xhr.open(
+    "GET",
+    "http://api.tianapi.com/jiejiari/index?key=" +
+      TIANAPI +
+      "&date=" +
+      new Date().toLocaleDateString()
+  ); // 备用接口：https://api.xlongwei.com/service/datetime/convert.json
   xhr.onreadystatechange = function () {
     if (this.readyState == 4) {
       var data = JSON.parse(this.responseText);
-      console.log(data);
       if (data.code === 200) {
-        var lunar_data = data.data;
+        var lunar_data = data.newslist[0];
         lunarString =
-          lunar_data.ganzhi_year +
+          lunar_data.lunaryear +
           "年" +
-          lunar_data.lunar_month_chinese +
-          lunar_data.lunar_day_chinese;
-        lunar = document.getElementById("lunar").innerHTML = lunarString;
+          lunar_data.lunarmonth +
+          lunar_data.lunarday;
+        document.getElementById("lunar").innerHTML = lunarString;
+        document.getElementById("holiday").innerHTML =
+          "&nbsp;&nbsp;" + lunar_data.name;
         console.log(lunar_data);
       } else {
         console.error("农历数据获取失败");
-      }
-    }
-  };
-  xhr.send(null);
-}
-
-function getHoliday() {
-  var xhr = createXHR();
-  xhr.open("GET", "https://timor.tech/api/holiday/info/"); // 备用接口：https://api.xlongwei.com/service/datetime/holiday.json
-  xhr.onreadystatechange = function () {
-    if (this.readyState == 4) {
-      if (this.status === 200) {
-        var data = JSON.parse(this.responseText);
-        console.log(data);
-        data.holiday &&
-          (document.getElementById("holiday").innerHTML =
-            "&nbsp;&nbsp;" + data.holiday.name);
-        /**
-         * // 备用接口用
-         * (data.holiday || data.remark) && (document.getElementById("holiday").innerHTML = "&nbsp;&nbsp;" + (data.holiday || data.remark));
-         */
-      } else {
-        console.error("节假日数据获取失败");
       }
     }
   };
@@ -306,81 +301,69 @@ function weather() {
   var xhr = createXHR();
   xhr.open(
     "GET",
-    "https://v2.alapi.cn/api/tianqi?token=" + ALAPI_TOKEN + "&ip=" + cip,
+    "http://api.tianapi.com/tianqi/index?key=" + TIANAPI + "&city=" + cname,
     true
   );
-  // xhr.open('GET', 'https://tianqiapi.com/free/day?appid=48353766&appsecret=VjZ4oxd5', true);
-  // xhr.open('GET','https://tianqiapi.com/free/day?appid=48373524&appsecret=5iHwLsS8',true);
   xhr.onreadystatechange = function () {
     if (this.readyState == 4) {
       var data = JSON.parse(this.responseText);
       if (data.code === 200) {
-        weather_data = data.data;
-        // 获取天气图标信息
-        var imgs = weaImgs[weather_data.weather_code];
-        var img = imgs[0];
+        wea_list = data.newslist;
+        wea_now = wea_list[0];
+
         var date = new Date();
         var utc8DiffMinutes = date.getTimezoneOffset() + 480;
         date.setMinutes(date.getMinutes() + utc8DiffMinutes);
         var hour = date.getHours();
-        // nightHour后天气使用夜间天气图标
-        if (hour > nightHour || hour < morningHour) {
-          img = imgs[1];
-        }
+
+        var imgs = weaImgs[wea_now.weatherimg.split(".")[0]] || weaImgs[weizhi];
+        var img = hour > nightHour || hour < morningHour ? imgs[1] : imgs[0];
 
         var weaImg =
-          '<span class="iconfont">' +
+          "<span class='iconfont' >" +
           img +
           "</span>" +
           "<div>天气：" +
-          weather_data.weather +
+          wea_now.weather +
           "</div>";
         var weaTemp =
           '<div class="tempNum">' +
-          weather_data.temp +
+          wea_now.real +
           '</div><div class="symbol">&#8451;</div>' +
           "<div>当前气温</div>";
-        var highTemp = weather_data.max_temp; // 日间气温/最高气温
-        var lowTemp = weather_data.min_temp; // 夜间气温/最低气温
-        var air = weather_data.aqi.air;
-        air = air ? air : "未知";
-        var airLevel = weather_data.aqi.air_level; // 空气质量，air_level为alapi独有
-        airLevel = airLevel && air ? airLevel : "";
-        var updateTime = weather_data.update_time.split(" "); // 更新时间，alapi格式为'年-月-日 时-分-秒'，tianqiapi格式为'时-分'
-        updateTime = updateTime[updateTime.length - 1];
         var weaInfo =
           "<div>" +
-          weather_data.city +
-          "气温：" +
-          highTemp +
+          wea_now.area +
+          "当前天气" +
+          "</div>" +
+          "<div>最高/低气温：" +
+          wea_now.lowest.substring(0, wea_now.lowest.length - 1) +
           "/" +
-          lowTemp +
-          "&#8451;</div>" +
+          wea_now.highest +
+          "</div>" +
           "<div>湿度：" +
-          weather_data.humidity +
-          "</div>" +
-          "<div>空气质量：" +
-          air +
-          airLevel +
-          "</div>" +
+          wea_now.humidity +
+          "%</div>" +
           "<div>风向：" +
-          weather_data.wind +
+          wea_now.wind +
           "</div>" +
           "<div>风速：" +
-          weather_data.wind_speed +
+          wea_now.windsc +
           " " +
-          weather_data.wind_scale +
-          "</div>" +
-          "<div>更新时间：" +
-          updateTime +
+          wea_now.windspeed +
+          "km/h</div>" +
+          "<div>日出/落：" +
+          wea_now.sunrise.substring(1) +
+          "/" +
+          wea_now.sunset +
           "</div>";
-        // document.getElementById("weaTitle").innerHTML = weather_data.city + "当前天气";
+
         document.getElementById("weaTitle").innerHTML = "";
         document.getElementById("weaImg").innerHTML = weaImg;
         document.getElementById("weaTemp").innerHTML = weaTemp;
         document.getElementById("weaInfo").innerHTML = weaInfo;
       } else {
-        console.error("天气数据获取失败: " + weather_data.msg);
+        console.error("天气数据获取失败: " + wea_now.msg);
         document.getElementById("weaTitle").innerHTML =
           "数据获取失败，请稍后再试～";
       }
@@ -390,32 +373,28 @@ function weather() {
 }
 
 // 微博热搜模块
+// https://docs.tenapi.cn/resou.html#%E8%AF%B7%E6%B1%82url
 function weibo() {
   console.log("weibo update");
   var xhr = createXHR();
-  // xhr.open("GET", "http://api.tianapi.com/txapi/weibohot/index?num="+weibo_num+"&key=130dbb050d6326886a2c6d3b0a819405", true); // tianapi 免费接口：：单日100次
-  xhr.open("GET", "https://v2.alapi.cn/api/new/wbtop?num=" + weibo_num, true); //
-  xhr.setRequestHeader("token", ALAPI_TOKEN);
+  xhr.open("GET", "https://tenapi.cn/resou/", true);
   xhr.onreadystatechange = function () {
     if (this.readyState == 4) {
       var data = JSON.parse(this.responseText);
       var weibo_title = document.getElementsByClassName("weibo_title")[0];
       var hot_word = document.getElementById("hot_word");
       var hot_word_num = document.getElementById("hot_word_num");
-      if (data.code === 200) {
+      if (data.data === 200) {
         // var hots = data.newslist; // tianapi
-        weibo_data = data.data; // alapi
+        weibo_data = data.list; // alapi
         weibo_title.innerHTML = "微博实时热搜";
         hot_word.innerHTML = "";
         hot_word_num.innerHTML = "";
         for (var i = 0; i < weibo_num; i++) {
           var index = i + 1;
-          // hot_word.innerHTML += "<li>" + index + ". " + weibo_data[i].hotword + "</li>"; // tianapi
-          // hot_word_num.innerHTML += "<li>" + weibo_data[i].hotwordnum + "</li>"; // tianapi
           hot_word.innerHTML +=
-            "<li>" + index + ". " + weibo_data[i].hot_word + "</li>"; // alapi
-          hot_word_num.innerHTML +=
-            "<li>" + weibo_data[i].hot_word_num + "</li>"; // alapi
+            "<li>" + index + ". " + weibo_data[i].name + "</li>"; // alapi
+          hot_word_num.innerHTML += "<li>" + weibo_data[i].hot + "</li>"; // alapi
         }
       } else {
         console.error("微博热搜数据获取失败: " + data.msg);
