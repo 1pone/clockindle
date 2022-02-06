@@ -288,13 +288,7 @@ function clock(autoMode) {
 function getLunar() {
   var lunarString = "";
   var xhr = createXHR();
-  xhr.open(
-    "GET",
-    "https://api.tianapi.com/jiejiari/index?key=" +
-      TIANAPI +
-      "&date=" +
-      new Date().toLocaleDateString()
-  ); // 备用接口：https://api.xlongwei.com/service/datetime/convert.json
+  xhr.open("GET", "https://api.tianapi.com/jiejiari/index?key=" + TIANAPI); // 备用接口：https://api.xlongwei.com/service/datetime/convert.json
   xhr.onreadystatechange = function () {
     if (this.readyState == 4) {
       var data = JSON.parse(this.responseText);
