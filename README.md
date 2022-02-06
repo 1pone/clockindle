@@ -6,6 +6,8 @@
 
 ​		现在就在你的Kindle浏览器中打开Kindle实用工具网站主页 https://1pone.github.io 吧！
 
+​		国内镜像请访问 [https://wellpeng.gitee.io](https://wellpeng.gitee.io)
+
 <div align=center><img src="https://raw.githubusercontent.com/1pone/1pone.github.io/master/images/banner.png" alt="banner.png" width="800"/>
   </p></div>
 ## 一点技巧 🥳
@@ -98,7 +100,7 @@
 2. 自动模式根据当前时间自动切换深浅色模式，深色模式开启时间为晚上8点到早上6点。
 3. 信息更新频率：时钟/1分钟，一言/20分钟，天气/20分钟，微博热搜/20分钟，图片/1小时。
 4. 离线支持的页面允许你打开网站后开启飞行模式并正常运作，这将更节省电量。
-6. 由于当前~~天气查询接口~~、图片接口为公用免费接口，可能存在因查询次数超过上限无法显示。
+6. 如网络状况不佳请访问国内镜像 [https://wellpeng.gitee.io/](https://wellpeng.gitee.io/)；gitee 项目镜像 [https://gitee.com/wellpeng/wellpeng](https://gitee.com/wellpeng/wellpeng) 。
 
 ## 最后的话 😌
 

@@ -81,7 +81,7 @@ var rotation_mode_default = 0; // 默认使用0-竖屏模式 0=0°，1=90°，2=
 var hour24_default = false; // 默认使用十二小时制
 var bg_autoMode = false; // 黑白背景自动切换
 var weibo_num = 3; // 微博热搜条数
-var cip = null; // 客户端ip
+var cip = returnCitySN.cip; // 客户端ip
 var cname = null; // 客户端所在城市名称
 
 // cookie变量
@@ -191,12 +191,18 @@ function poem() {
 // 根据获取所在城市信息v
 function getIpInfo() {
   var xhr = createXHR();
-  xhr.open("GET", "http://ip-api.com/json/?lang=zh-CN", false);
+  xhr.open(
+    "GET",
+    "https://api.tianapi.com/ipquery/index?key=" +
+      TIANAPI +
+      "&ip=" +
+      returnCitySN.cip,
+    false
+  );
   xhr.onreadystatechange = function () {
     if (this.readyState == 4) {
       var data = JSON.parse(this.responseText);
-      cip = data.query;
-      cname = data.city;
+      cname = data.newslist[0].city;
     }
   };
   xhr.send(null);
@@ -343,7 +349,7 @@ function weather() {
           "</div>";
         var weaTemp =
           '<div class="tempNum">' +
-          wea_now.real +
+          parseInt(wea_now.real) +
           '</div><div class="symbol">&#8451;</div>' +
           "<div>当前气温</div>";
         var weaInfo =
