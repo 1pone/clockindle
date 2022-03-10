@@ -63,7 +63,7 @@ window.onload = function () {
 };
 
 var UNSPLASH_ID = "bXwWoUhPeVw-yvSesGMgaOENnlSzhHYB43kZIQOR8cQ";
-var TIANAPI = "130dbb050d6326886a2c6d3b0a819405"; // https://www.tianapi.com/console/
+var TIANAPI = "0e3037491da2489e4e22325074724b08"; // https://www.tianapi.com/console/
 
 // 组件容器
 // TODO 添加组件刷新频率
@@ -473,7 +473,7 @@ function changeMode(pos) {
     }
     eval(
       POS_MODE[pos_mode] +
-        '_timer = setInterval(POS_MODE[pos_mode] + "()", 60 * 1000 * 20)'
+        '_timer = setInterval(POS_MODE[pos_mode] + "()", 60 * 1000 * 60)'
     );
     console.log(POS_MODE[pos_mode] + "_timer created");
   }
