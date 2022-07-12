@@ -65,11 +65,12 @@ window.onload = function () {
 // Keys
 var KEY_UNSPLASH = "bXwWoUhPeVw-yvSesGMgaOENnlSzhHYB43kZIQOR8cQ";
 var KEY_QWEATHER = "f3c3540923c24847b9f4d194888dbcef"; // https://console.qweather.com/#/apps
+var KEY_IP = "b12e8f6dc0287ecdca63ab184fa657af" // https://ipstack.com/dashboard
 var KEY_LUNAR = "c8be368a035acdf1"
 
 // APIs
 var API_HITOKOTO = "https://v1.hitokoto.cn?encode=json&charset=utf-8"
-var API_CITY_INFO = "https://ip-api.com/json/"
+var API_IP_INFO = "http://api.ipstack.com/"
 var API_TIMEZONE = "https://worldtimeapi.org/api/ip/"
 var API_LUNAR = "https://api.muxiaoguo.cn/api/yinlongli?"
 var API_WEATHER = "https://devapi.qweather.com/v7/weather/now?"
@@ -176,14 +177,14 @@ function getIpInfo() {
   var xhr = createXHR();
   xhr.open(
     "GET",
-    API_CITY_INFO + cIp + "?lang=zh-CN",
+    API_IP_INFO + cIp + "?&language=zh&access_key=" + KEY_IP,
     false
   );
   xhr.onreadystatechange = function () {
     if (this.readyState == 4) {
       var data = JSON.parse(this.responseText);
       city = data.city
-      cityLocation = data.lon + "," + data.lat
+      cityLocation = data.longitude + "," + data.latitude
     }
   };
   xhr.send(null);
