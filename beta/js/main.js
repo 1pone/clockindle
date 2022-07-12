@@ -70,7 +70,7 @@ var KEY_LUNAR = "c8be368a035acdf1"
 
 // APIs
 var API_HITOKOTO = "https://v1.hitokoto.cn?encode=json&charset=utf-8"
-var API_IP_INFO = "http://api.ipstack.com/"
+var API_IP_INFO = "https://api.ipstack.com/"
 var API_TIMEZONE = "https://worldtimeapi.org/api/ip/"
 var API_LUNAR = "https://api.muxiaoguo.cn/api/yinlongli?"
 var API_WEATHER = "https://devapi.qweather.com/v7/weather/now?"
@@ -172,7 +172,7 @@ function poem() {
   });
 }
 
-// 根据获取所在城市信息
+// 根据IP获取所在城市信息
 function getIpInfo() {
   var xhr = createXHR();
   xhr.open(
