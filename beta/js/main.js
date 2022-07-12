@@ -64,15 +64,15 @@ window.onload = function () {
 
 // Keys
 var KEY_UNSPLASH = "bXwWoUhPeVw-yvSesGMgaOENnlSzhHYB43kZIQOR8cQ";
-var KEY_TIAN = "0e3037491da2489e4e22325074724b08"; // https://www.tianapi.com/console/
 var KEY_QWEATHER = "f3c3540923c24847b9f4d194888dbcef"; // https://console.qweather.com/#/apps
+var KEY_LUNAR = "c8be368a035acdf1"
 
 // APIs
 var API_HITOKOTO = "https://v1.hitokoto.cn?encode=json&charset=utf-8"
-var API_CITY_INFO = "https://api.tianapi.com/ipquery/index?"
+var API_CITY_INFO = "http://ip-api.com/json/"
 var API_TIMEZONE = "https://worldtimeapi.org/api/ip/"
-var API_LUNAR = "https://api.tianapi.com/jiejiari/index?" // 备用接口：https://api.xlongwei.com/service/datetime/convert.json
-var API_WEATHER = "https://api.tianapi.com/tianqi/index?"
+var API_LUNAR = "https://api.muxiaoguo.cn/api/yinlongli?"
+var API_WEATHER = "https://devapi.qweather.com/v7/weather/now?"
 var API_WEIBO = "https://tenapi.cn/resou/"
 
 // 组件容器
@@ -91,8 +91,9 @@ var rotation_mode_default = 0; // 默认使用0-竖屏模式 0=0°，1=90°，2=
 var hour24_default = false; // 默认使用十二小时制
 var bg_autoMode = false; // 黑白背景自动切换
 var weibo_num = 3; // 微博热搜条数
-var cip = returnCitySN.cip; // 客户端ip
-var cname = null; // 客户端所在城市名称
+var cIp = returnCitySN.cip; // 客户端ip
+var city = null; // 客户端所在城市
+var cityLocation = null; // 客户端经纬度信息
 
 // cookie变量
 var top_mode = getCookie("top_mode"); // 顶部组件序号，默认使用“一言”
@@ -118,34 +119,6 @@ var time_timer = null; // 时钟模块定时器
 var weather_timer = null; // 天气模块定时器
 var pic_timer = null; // 图片背景模块定时器
 
-// 天气模块图标
-// 天气预报接口主要天气状态图标文件名: https://www.tianapi.com/article/164
-var weaImgs = {
-  xue: ["&#xe645;", "&#xe645;"],
-  xiaoxue: ["&#xe645;", "&#xe645;"],
-  zhongxue: ["&#xe645;", "&#xe645;"],
-  daxue: ["&#xe645;", "&#xe645;"],
-  baoxue: ["&#xe645;", "&#xe645;"],
-  leizhenyu: ["&#xe643;", "&#xe643;"],
-  fuchen: ["&#xe646;", "&#xe646;"],
-  yangsha: ["&#xe646;", "&#xe646;"],
-  shachenbao: ["&#xe646;", "&#xe646;"],
-  wu: ["&#xe647;", "&#xe647;"],
-  dawu: ["&#xe647;", "&#xe647;"],
-  mai: ["&#xe647;", "&#xe647;"],
-  bingbao: ["&#xe667;", "&#xe667;"],
-  yun: ["&#xe648;", "&#xe648;"],
-  duoyun: ["&#xe648;", "&#xe648;"],
-  xiaoyu: ["&#xe64b;", "&#xe64b;"],
-  zhongyu: ["&#xe64b;", "&#xe64b;"],
-  zhongyu: ["&#xe64b;", "&#xe64b;"],
-  dayu: ["&#xe64b;", "&#xe64b;"],
-  baoyu: ["&#xe64b;", "&#xe64b;"],
-  yin: ["&#xe64a;", "&#xe652;"],
-  qing: ["&#xe649;", "&#xe764;"],
-  weizhi: ["&#xe6f2;", "&#xe6f2;"],
-};
-
 // 背景自动模式图标
 var autoModeImg = "&#xe8e3";
 
@@ -164,7 +137,7 @@ function createXHR() {
 function hitokoto() {
   console.log("hitokoto update");
   var xhr = createXHR();
-  xhr.open("GET", HITOKOTO_API, true);
+  xhr.open("GET", API_HITOKOTO, true);
   xhr.onreadystatechange = function () {
     if (this.readyState == 4) {
       hitokoto_data = JSON.parse(this.responseText);
@@ -198,22 +171,19 @@ function poem() {
   });
 }
 
-// 根据获取所在城市信息v
+// 根据获取所在城市信息
 function getIpInfo() {
   var xhr = createXHR();
   xhr.open(
     "GET",
-    API_CITY_INFO +
-    "key=" +
-      KEY_TIAN +
-      "&ip=" +
-      returnCitySN.cip,
+    API_CITY_INFO + cIp + "?lang=zh-CN",
     false
   );
   xhr.onreadystatechange = function () {
     if (this.readyState == 4) {
       var data = JSON.parse(this.responseText);
-      cname = data.newslist[0].city;
+      city = data.city
+      cityLocation = data.lon + "," + data.lat
     }
   };
   xhr.send(null);
@@ -222,7 +192,7 @@ function getIpInfo() {
 // 获取所在时区
 function getTimezoneOffset() {
   var xhr = createXHR();
-  xhr.open("GET", API_TIMEZONE + (cip || null), true);
+  xhr.open("GET", API_TIMEZONE + (cIp || null), true);
   xhr.onreadystatechange = function () {
     if (this.readyState == 4) {
       timezoneOffset = JSON.parse(this.responseText).raw_offset / 60;
@@ -297,23 +267,15 @@ function clock(autoMode) {
 }
 
 function getLunar() {
-  var lunarString = "";
   var xhr = createXHR();
-  xhr.open("GET", API_LUNAR + "key=" + KEY_TIAN); 
+  xhr.open("GET", API_LUNAR + "api_key=" + KEY_LUNAR, true);
   xhr.onreadystatechange = function () {
     if (this.readyState == 4) {
       var data = JSON.parse(this.responseText);
-      if (data.code === 200) {
-        var lunar_data = data.newslist[0];
-        lunarString =
-          lunar_data.lunaryear +
-          "年" +
-          lunar_data.lunarmonth +
-          lunar_data.lunarday;
-        document.getElementById("lunar").innerHTML = lunarString;
-        document.getElementById("holiday").innerHTML =
-          "&nbsp;&nbsp;" + lunar_data.name;
-        console.log(lunar_data);
+      if (data.code == 200) {
+        var lunar_data = data.data
+        document.getElementById("lunar").innerHTML = lunar_data.lunarYearName + lunar_data.lunar
+        if (lunar_data.festival.length) document.getElementById("holiday").innerHTML = "&nbsp;&nbsp;" + lunar_data.festival[0];
       } else {
         console.error("农历数据获取失败");
       }
@@ -327,61 +289,50 @@ function weather() {
   var xhr = createXHR();
   xhr.open(
     "GET",
-    API_WEATHER + "key=" + KEY_TIAN + "&city=" + cname,
+    API_WEATHER + "key=" + KEY_QWEATHER + "&location=" + cityLocation,
     true
   );
   xhr.onreadystatechange = function () {
     if (this.readyState == 4) {
       var data = JSON.parse(this.responseText);
-      if (data.code === 200) {
-        wea_list = data.newslist;
-        wea_now = wea_list[0];
+      var wea_now = data.now;
+      if (data.code === "200") {
 
-        var date = new Date();
-        var utc8DiffMinutes = date.getTimezoneOffset() + 480;
-        date.setMinutes(date.getMinutes() + utc8DiffMinutes);
-        var hour = date.getHours();
-
-        var imgs = weaImgs[wea_now.weatherimg.split(".")[0]] || weaImgs[weizhi];
-        var img = hour > nightHour || hour < morningHour ? imgs[1] : imgs[0];
+        var img = "<i class=qi-" + wea_now.icon + "></i>"
 
         var weaImg =
-          "<span class='iconfont' >" +
           img +
-          "</span>" +
           "<div>天气：" +
-          wea_now.weather +
+          wea_now.text +
           "</div>";
+
         var weaTemp =
           '<div class="tempNum">' +
-          parseInt(wea_now.real) +
+          parseInt(wea_now.temp) +
           '</div><div class="symbol">&#8451;</div>' +
           "<div>当前气温</div>";
+
         var weaInfo =
           "<div>" +
-          wea_now.area +
+          city +
           "当前天气" +
           "</div>" +
-          "<div>最高/低气温：" +
-          wea_now.lowest.substring(0, wea_now.lowest.length - 1) +
-          "/" +
-          wea_now.highest +
-          "</div>" +
+          "<div>体感温度：" +
+          wea_now.feelsLike +
+          "&#8451;</div>" +
           "<div>湿度：" +
           wea_now.humidity +
           "%</div>" +
           "<div>风向：" +
-          wea_now.wind +
+          wea_now.windDir +
           "</div>" +
           "<div>风速：" +
-          wea_now.windsc +
-          " " +
-          wea_now.windspeed +
+          wea_now.windScale +
+          "级 " +
+          wea_now.windSpeed +
           "km/h</div>" +
-          "<div>日出/落：" +
-          wea_now.sunrise.substring(1) +
-          "/" +
-          wea_now.sunset +
+          "<div>更新时间：" +
+          new Date("2022-07-12T16:14+08:00").toLocaleTimeString()
           "</div>";
 
         document.getElementById("weaTitle").innerHTML = "";
@@ -484,7 +435,7 @@ function changeMode(pos) {
     }
     eval(
       POS_MODE[pos_mode] +
-        '_timer = setInterval(POS_MODE[pos_mode] + "()", 60 * 1000 * 60)'
+      '_timer = setInterval(POS_MODE[pos_mode] + "()", 60 * 1000 * 60)'
     );
     console.log(POS_MODE[pos_mode] + "_timer created");
   }
