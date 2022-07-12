@@ -3,7 +3,8 @@
 // TODO 历史上的今天模块
 
 window.onload = function () {
-  getIpInfo();
+  // getIpInfo();
+  getCity()
   //读取cookie数据重新赋值
   // 时钟模块
   if (timezoneOffset !== "") {
@@ -65,13 +66,13 @@ window.onload = function () {
 // Keys
 var KEY_UNSPLASH = "bXwWoUhPeVw-yvSesGMgaOENnlSzhHYB43kZIQOR8cQ";
 var KEY_QWEATHER = "f3c3540923c24847b9f4d194888dbcef"; // https://console.qweather.com/#/apps
-var KEY_IP = "b12e8f6dc0287ecdca63ab184fa657af" // https://ipstack.com/dashboard
+var KEY_IP = "6b9c2d4aa0548032406f0f4ee02e84d9" // https://console.amap.com/dev/key/app
 var KEY_LUNAR = "c8be368a035acdf1"
 
 // APIs
 var API_HITOKOTO = "https://v1.hitokoto.cn?encode=json&charset=utf-8"
-var API_IP_INFO = "https://ipapi.co/"
-var API_CITY = "https://opendata.baidu.com/api.php?&resource_id=6006&query="
+// var API_IP_INFO = "https://ipapi.co/"
+var API_CITY = "https://restapi.amap.com/v3/ip?"
 var API_TIMEZONE = "https://worldtimeapi.org/api/ip/"
 var API_LUNAR = "https://api.muxiaoguo.cn/api/yinlongli?"
 var API_WEATHER = "https://devapi.qweather.com/v7/weather/now?"
@@ -174,45 +175,36 @@ function poem() {
 }
 
 // 根据IP获取所在城市信息
-function getIpInfo() {
-  var xhr = createXHR();
-  xhr.open(
-    "GET",
-    API_IP_INFO + cIp + "/json/?languages=zh-CN",
-    false
-  );
-  xhr.onreadystatechange = function () {
-    if (this.readyState == 4) {
-      var data = JSON.parse(this.responseText);
-      cityLocation = data.longitude + "," + data.latitude
-      getCity()
-    }
-  };
-  xhr.send(null);
-}
+// 备用, 目前功能被 API_CITY 实现
+// function getIpInfo() {
+//   var xhr = createXHR();
+//   xhr.open(
+//     "GET",
+//     API_IP_INFO + cIp + "/json/?languages=zh-CN",
+//     false
+//   );
+//   xhr.onreadystatechange = function () {
+//     if (this.readyState == 4) {
+//       var data = JSON.parse(this.responseText);
+//       cityLocation = data.longitude + "," + data.latitude
+//     }
+//   };
+//   xhr.send(null);
+// }
 
 function getCity() {
   var xhr = createXHR();
   xhr.open(
     "GET",
-    API_CITY + cIp,
+    API_CITY + "key=" + KEY_IP + "&ip=" + cIp,
     false
   );
   xhr.onreadystatechange = function () {
     if (this.readyState == 4) {
       var data = JSON.parse(this.responseText);
-      if (data.status == "0" && data.data.length) {
-        var provinceCount = 0
-        var cityCount = 0
-        var location = data.data[0].location.split(" ").pop()
-        for (var i = 0; i < location.length; i++) {
-          location[i] == "省" && (provinceCount++)
-          location[i] == "市" && (cityCount++)
-        }
-        if (provinceCount) city = location.split("省").pop()
-        else if (cityCount == 2) city = location.split("市").pop()
-        else city = location
-      }
+      city = data.city
+      cityLocation = data.rectangle.split(";").map(item => item.split(","))
+      cityLocation = (Number(cityLocation[0][0])+Number(cityLocation[1][0]))/2 + ',' + (Number(cityLocation[0][1])+Number(cityLocation[1][1]))/2
     }
   };
   xhr.send(null);
