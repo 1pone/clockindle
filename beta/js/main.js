@@ -62,8 +62,18 @@ window.onload = function () {
   addEvent(bg_autoMode); // autoMode
 };
 
-var UNSPLASH_ID = "bXwWoUhPeVw-yvSesGMgaOENnlSzhHYB43kZIQOR8cQ";
-var TIANAPI = "0e3037491da2489e4e22325074724b08"; // https://www.tianapi.com/console/
+// Keys
+var KEY_UNSPLASH = "bXwWoUhPeVw-yvSesGMgaOENnlSzhHYB43kZIQOR8cQ";
+var KEY_TIAN = "0e3037491da2489e4e22325074724b08"; // https://www.tianapi.com/console/
+var KEY_QWEATHER = "f3c3540923c24847b9f4d194888dbcef"; // https://console.qweather.com/#/apps
+
+// APIs
+var API_HITOKOTO = "https://v1.hitokoto.cn?encode=json&charset=utf-8"
+var API_CITY_INFO = "https://api.tianapi.com/ipquery/index?"
+var API_TIMEZONE = "https://worldtimeapi.org/api/ip/"
+var API_LUNAR = "https://api.tianapi.com/jiejiari/index?" // 备用接口：https://api.xlongwei.com/service/datetime/convert.json
+var API_WEATHER = "https://api.tianapi.com/tianqi/index?"
+var API_WEIBO = "https://tenapi.cn/resou/"
 
 // 组件容器
 // TODO 添加组件刷新频率
@@ -154,7 +164,7 @@ function createXHR() {
 function hitokoto() {
   console.log("hitokoto update");
   var xhr = createXHR();
-  xhr.open("GET", "https://v1.hitokoto.cn?encode=json&charset=utf-8", true);
+  xhr.open("GET", HITOKOTO_API, true);
   xhr.onreadystatechange = function () {
     if (this.readyState == 4) {
       hitokoto_data = JSON.parse(this.responseText);
@@ -193,8 +203,9 @@ function getIpInfo() {
   var xhr = createXHR();
   xhr.open(
     "GET",
-    "https://api.tianapi.com/ipquery/index?key=" +
-      TIANAPI +
+    API_CITY_INFO +
+    "key=" +
+      KEY_TIAN +
       "&ip=" +
       returnCitySN.cip,
     false
@@ -211,7 +222,7 @@ function getIpInfo() {
 // 获取所在时区
 function getTimezoneOffset() {
   var xhr = createXHR();
-  xhr.open("GET", "https://worldtimeapi.org/api/ip/" + (cip || null), true);
+  xhr.open("GET", API_TIMEZONE + (cip || null), true);
   xhr.onreadystatechange = function () {
     if (this.readyState == 4) {
       timezoneOffset = JSON.parse(this.responseText).raw_offset / 60;
@@ -288,7 +299,7 @@ function clock(autoMode) {
 function getLunar() {
   var lunarString = "";
   var xhr = createXHR();
-  xhr.open("GET", "https://api.tianapi.com/jiejiari/index?key=" + TIANAPI); // 备用接口：https://api.xlongwei.com/service/datetime/convert.json
+  xhr.open("GET", API_LUNAR + "key=" + KEY_TIAN); 
   xhr.onreadystatechange = function () {
     if (this.readyState == 4) {
       var data = JSON.parse(this.responseText);
@@ -316,7 +327,7 @@ function weather() {
   var xhr = createXHR();
   xhr.open(
     "GET",
-    "https://api.tianapi.com/tianqi/index?key=" + TIANAPI + "&city=" + cname,
+    API_WEATHER + "key=" + KEY_TIAN + "&city=" + cname,
     true
   );
   xhr.onreadystatechange = function () {
@@ -392,7 +403,7 @@ function weather() {
 function weibo() {
   console.log("weibo update");
   var xhr = createXHR();
-  xhr.open("GET", "https://tenapi.cn/resou/", true);
+  xhr.open("GET", API_WEIBO, true);
   xhr.onreadystatechange = function () {
     if (this.readyState == 4) {
       var data = JSON.parse(this.responseText);
@@ -427,7 +438,7 @@ function picture() {
   // var xhr = createXHR();
   // xhr.open(
   //   "GET",
-  //   "https://api.unsplash.com/photos/random?client_id=" + UNSPLASH_ID,
+  //   "https://api.unsplash.com/photos/random?client_id=" + KEY_UNSPLASH,
   //   true
   // );
   // xhr.onreadystatechange = function () {
