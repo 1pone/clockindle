@@ -16,6 +16,11 @@
 } */
 
 /* ---------- DEBUG END ---------- */
+@media screen and (min-width: 375px) {
+  html {
+    font-size: 12px;
+  }
+}
 
 @media screen and (min-width: 500px) {
   html {
@@ -310,7 +315,7 @@ li div {
 #weaImg {
   display: inline-block;
   float: left;
-  margin-left: 1.75rem;
+  margin-left: 1rem;
   font-size: 5.8rem;
 }
 
@@ -323,7 +328,7 @@ li div {
 #weaTemp {
   display: inline-block;
   float: right;
-  margin-right: 1.75rem;
+  margin-right: 1rem;
   /* font-family: 'DottedSongtiSquareRegular'; */
 }
 
@@ -353,7 +358,7 @@ li div {
 .pic {
   color: #ffffff;
   background-color: #ffffff;
-  -webkit-text-stroke: 1px #000;
+  -webkit-text-stroke: .5px #000;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
