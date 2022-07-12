@@ -70,7 +70,8 @@ var KEY_LUNAR = "c8be368a035acdf1"
 
 // APIs
 var API_HITOKOTO = "https://v1.hitokoto.cn?encode=json&charset=utf-8"
-var API_IP_INFO = "https://api.ipstack.com/"
+var API_IP_INFO = "https://ipapi.co/"
+var API_CITY = "https://opendata.baidu.com/api.php?&resource_id=6006&query="
 var API_TIMEZONE = "https://worldtimeapi.org/api/ip/"
 var API_LUNAR = "https://api.muxiaoguo.cn/api/yinlongli?"
 var API_WEATHER = "https://devapi.qweather.com/v7/weather/now?"
@@ -93,7 +94,7 @@ var hour24_default = false; // 默认使用十二小时制
 var bg_autoMode = false; // 黑白背景自动切换
 var weibo_num = 3; // 微博热搜条数
 var cIp = returnCitySN.cip; // 客户端ip
-var city = null; // 客户端所在城市
+var city = ''; // 客户端所在城市
 var cityLocation = null; // 客户端经纬度信息
 
 // cookie变量
@@ -177,14 +178,41 @@ function getIpInfo() {
   var xhr = createXHR();
   xhr.open(
     "GET",
-    API_IP_INFO + cIp + "?&language=zh&access_key=" + KEY_IP,
+    API_IP_INFO + cIp + "/json/?languages=zh-CN",
     false
   );
   xhr.onreadystatechange = function () {
     if (this.readyState == 4) {
       var data = JSON.parse(this.responseText);
-      city = data.city
       cityLocation = data.longitude + "," + data.latitude
+      getCity()
+    }
+  };
+  xhr.send(null);
+}
+
+function getCity() {
+  var xhr = createXHR();
+  xhr.open(
+    "GET",
+    API_CITY + cIp,
+    false
+  );
+  xhr.onreadystatechange = function () {
+    if (this.readyState == 4) {
+      var data = JSON.parse(this.responseText);
+      if (data.status == "0" && data.data.length) {
+        var provinceCount = 0
+        var cityCount = 0
+        var location = data.data[0].location.split(" ").pop()
+        for (var i = 0; i < location.length; i++) {
+          location[i] == "省" && (provinceCount++)
+          location[i] == "市" && (cityCount++)
+        }
+        if (provinceCount) city = location.split("省").pop()
+        else if (cityCount == 2) city = location.split("市").pop()
+        else city = location
+      }
     }
   };
   xhr.send(null);
