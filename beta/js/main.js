@@ -69,7 +69,7 @@ var KEY_LUNAR = "c8be368a035acdf1"
 
 // APIs
 var API_HITOKOTO = "https://v1.hitokoto.cn?encode=json&charset=utf-8"
-var API_CITY_INFO = "http://ip-api.com/json/"
+var API_CITY_INFO = "https://ip-api.com/json/"
 var API_TIMEZONE = "https://worldtimeapi.org/api/ip/"
 var API_LUNAR = "https://api.muxiaoguo.cn/api/yinlongli?"
 var API_WEATHER = "https://devapi.qweather.com/v7/weather/now?"
@@ -333,7 +333,7 @@ function weather() {
           "km/h</div>" +
           "<div>更新时间：" +
           new Date("2022-07-12T16:14+08:00").toLocaleTimeString()
-          "</div>";
+        "</div>";
 
         document.getElementById("weaTitle").innerHTML = "";
         document.getElementById("weaImg").innerHTML = weaImg;
