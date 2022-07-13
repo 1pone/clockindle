@@ -203,8 +203,9 @@ function getCity() {
     if (this.readyState == 4) {
       var data = JSON.parse(this.responseText);
       city = data.city
-      cityLocation = data.rectangle.split(";").map(item => item.split(","))
-      cityLocation = (Number(cityLocation[0][0])+Number(cityLocation[1][0]))/2 + ',' + (Number(cityLocation[0][1])+Number(cityLocation[1][1]))/2
+      cityLocation = data.rectangle.split(";")
+      cityLocation = [cityLocation[0].split(","), cityLocation[1].split(",")]
+      cityLocation = (Number(cityLocation[0][0]) + Number(cityLocation[1][0])) / 2 + ',' + (Number(cityLocation[0][1]) + Number(cityLocation[1][1])) / 2
     }
   };
   xhr.send(null);
@@ -353,7 +354,7 @@ function weather() {
           wea_now.windSpeed +
           "km/h</div>" +
           "<div>更新时间：" +
-          new Date("2022-07-12T16:14+08:00").toLocaleTimeString()
+          wea_now.obsTime.match(/T(.+)\+/)[1]
         "</div>";
 
         document.getElementById("weaTitle").innerHTML = "";

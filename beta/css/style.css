@@ -315,14 +315,17 @@ li div {
 #weaImg {
   display: inline-block;
   float: left;
-  margin-left: 1rem;
+  margin-left: 1.5rem;
   font-size: 5.8rem;
 }
 
 #weaImg > div,
 #weaTemp > div:last-child {
-  margin-top: 0.75rem;
+  margin-top: 0.5rem;
   font-size: 1.5rem;
+}
+#weaImg > div{
+  margin-top: 2rem;
 }
 
 #weaTemp {
