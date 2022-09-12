@@ -36,12 +36,9 @@
 
 @font-face {
   font-family: "iconfont";
-  src: url("./font/iconfont.eot");
-  src: url("./font/iconfont.eot?#iefix") format("embedded-opentype"),
-    url("./font/iconfont.woff2") format("woff2"),
+  src: url("./font/iconfont.woff2") format("woff2"),
     url("./font/iconfont.woff") format("woff"),
-    url("./font/iconfont.ttf") format("truetype"),
-    url("./font/iconfont.svg#iconfont") format("svg");
+    url("./font/iconfont.ttf") format("truetype");
 }
 
 @font-face {
@@ -134,10 +131,96 @@ li div {
   width: 15rem;
 }
 
+#settings_icon {
+  font-size: 2rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  cursor: pointer;
+}
+
+#settings_save_icon {
+  font-size:1rem;s
+}
+
 #log_container {
   position: absolute;
   top: 0;
   left: 0;
+}
+
+#settings_dialog {
+  display: none;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0%;
+  left: 0%;
+  z-index: 100;
+  overflow: hidden;
+}
+
+#settings_backdrop{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.backdrop_black {
+  background: url('../css/images/pixel_black.png')
+}
+
+.backdrop_white {
+  background: url('../css/images/pixel_white.png')
+}
+
+#settings_dialog .settings_card{
+  position: absolute;
+  height:50%;
+  width: 75%;
+  top: 20%;
+  left: 10%;
+  border: 1px solid black;
+  border-radius: 4px;
+  font-size: 1.5rem;
+  padding: 1rem;
+  z-index: 110;
+  -webkit-text-stroke: 0;
+}
+
+#settings_dialog .settings_header{
+  font-size: 1.5rem;
+  padding: 0 0 0.75rem 0;
+  border-bottom: 1px solid #88888888
+}
+
+#settings_dialog .settings_header .button{
+  float: right;
+  font-size: 1rem;
+}
+
+#settings_dialog .settings_content {
+  padding: 1.25rem 0;
+  font-size: 1rem;
+}
+
+.settings_input {
+  width: 300px;
+}
+
+.qr-code {
+  position: absolute;
+  bottom: 56px;
+  left: calc(50% - 100px);
+  width: 200px;
+  height: 200px;
+}
+
+.qr_tips {
+  font-size: 0.75rem;
+  margin-top: 0.5rem;
 }
 
 #top {
@@ -324,7 +407,7 @@ li div {
   margin-top: 0.5rem;
   font-size: 1.5rem;
 }
-#weaImg > div{
+#weaImg > div {
   margin-top: 2rem;
 }
 
@@ -361,7 +444,7 @@ li div {
 .pic {
   color: #ffffff;
   background-color: #ffffff;
-  -webkit-text-stroke: .5px #000;
+  -webkit-text-stroke: 0.5px #000;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;

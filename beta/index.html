@@ -16,9 +16,31 @@
 
 <body scroll="no">
     <div class="page">
-        <div id="log_container">
+        <div id="log_container"></div>
+        <div id="settings_dialog">
+          <div id="settings_backdrop" class="backdrop_black">
+          </div>
+          <div id="settings_card" class="light settings_card ">
+            <div class="settings_header">
+              <span>设置</span>
+              <button id="save_button" class="button">
+                <span class="iconfont" id="settings_save_icon">&#xe606;                </span>
+                保存
+              </button>
+            </div>
+
+            <div class="settings_content">
+              <span> 天气API KEY: </span>
+              <input id="qweather_input" class="settings_input" type="text">
+              <div class="qr_tips">扫描二维码, 参照文档创建免费应用及 Web API, 并将 Key 填入上方输入框中</div>
+              <img class="qr-code" src="./css/images/qweather_get_key.png" alt="qweather_get_key">
+            </div>
+
+          </div>
         </div>
         <span class="iconfont" id="light_dark_icon">&#xe8e3</span>
+        <span class="iconfont" id="settings_icon">&#xe78e;</span>
+
         <div id="top">
             <div class="nonetop_container">
             </div>
