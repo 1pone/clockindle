@@ -1,4 +1,4 @@
-// Attention: Kindle浏览器不支持模版字符串
+// Attention: Kindle浏览器不支持模版字符串、箭头函数等es6语法
 // TODO 配置参数、API抽离
 // TODO 历史上的今天模块
 
@@ -356,8 +356,8 @@ function weather() {
           wea_now.windSpeed +
           "km/h</div>" +
           "<div>更新时间：" +
-          wea_now.obsTime.match(/T(.+)\+/)[1];
-        ("</div>");
+          wea_now.obsTime.match(/T(.+)\+/)[1] +
+          "</div>";
 
         document.getElementById("weaTitle").innerHTML = "";
         document.getElementById("weaImg").innerHTML = weaImg;
@@ -592,7 +592,7 @@ function changeBgMode() {
 }
 
 function delayHiddenSetting() {
-  settings_timer = setTimeout(() => {
+  settings_timer = setTimeout(function () {
     document.getElementById("settings_icon").style.visibility = "hidden";
   }, 3000);
 }
