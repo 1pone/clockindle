@@ -6,10 +6,13 @@
 
 ​		现在就在你的Kindle浏览器中打开Kindle实用工具网站主页 https://1pone.github.io 吧！
 
+​		beta功能预览版请访问 [https://1pone.github.io/beta](https://1pone.github.io/beta)
+
 ​		国内镜像请访问 [https://wellpeng.gitee.io](https://wellpeng.gitee.io)
 
 <div align=center><img src="https://raw.githubusercontent.com/1pone/1pone.github.io/master/images/banner.png" alt="banner.png" width="800"/>
   </p></div>
+
 ## 一点技巧 🥳
 
 * 为了让屏幕关闭自动锁屏保持常亮，请在Kindle主页搜索栏输入`~ds` 并回车，这时并不会有明显的反应，但是当你尝试按锁屏键时已无法锁屏，即已生效。当你想要恢复正常锁屏重启Kindle即可。
