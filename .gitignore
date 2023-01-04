@@ -2,3 +2,6 @@
 */.DS_Store 
 *.psd
 *.pptx
+/beta/js/dist
+/js/dist
+.idea
