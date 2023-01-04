@@ -5,8 +5,6 @@
     <meta charset="utf-8" />
     <title>　</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <!-- 查询客户端ip用于天气查询 -->
-    <script src="https://pv.sohu.com/cityjson"></script>
 </head>
 
 <body>
@@ -124,16 +122,15 @@
         function weather() {
             console.log('weather update')
             var xhr = createXHR();
-            xhr.open('GET', 'https://v2.alapi.cn/api/tianqi?token=pBsICqbRV2eVtGiI&ip=' + returnCitySN.cip, true);
-            // xhr.open('GET', 'https://tianqiapi.com/free/day?appid=48353766&appsecret=VjZ4oxd5', true);
-            // xhr.open('GET','https://tianqiapi.com/free/day?appid=48373524&appsecret=5iHwLsS8',true);
+            // xhr.open('GET', 'https://v2.alapi.cn/api/tianqi?token=pBsICqbRV2eVtGiI&ip=' + returnCitySN.cip, true);
+            xhr.open('GET','https://tianqiapi.com/free/day?appid=48373524&appsecret=5iHwLsS8',true);
             xhr.onreadystatechange = function() {
                 if (this.readyState == 4) {
                     var data = JSON.parse(this.responseText)
-                    if (data.code === 200) {
-                        weather_data = data.data
+                    if (data) {
+                        weather_data = data
                             // 获取天气图标信息
-                        var imgs = weaImgs[weather_data.weather_code]
+                        var imgs = weaImgs[weather_data.wea_img]
                         var img = imgs[0]
                         var date = new Date()
                         var utc8DiffMinutes = date.getTimezoneOffset() + 480
@@ -144,22 +141,17 @@
                             img = imgs[1]
                         }
 
-                        var weaImg = '<span class="iconfont">' + img + '</span>' + '<div>天气：' + weather_data.weather + '</div>';
-                        var weaTemp = '<div class="tempNum">' + weather_data.temp + '<div class="symbol">&#8451;</div></div>' +
-                            '<div>当前气温</div>';
-                        var highTemp = weather_data.max_temp // 日间气温/最高气温
-                        var lowTemp = weather_data.min_temp // 夜间气温/最低气温
-                        var air = weather_data.aqi.air
-                        air = air ? air : '未知'
-                        var airLevel = weather_data.aqi.air_level // 空气质量，air_level为alapi独有
-                        airLevel = airLevel && air ? airLevel : ''
-                        var updateTime = weather_data.update_time.split(' ') // 更新时间，alapi格式为'年-月-日 时-分-秒'，tianqiapi格式为'时-分'
-                        updateTime = updateTime[updateTime.length - 1]
+                        var weaImg = '<span class="iconfont">' + img + '</span>' + '<div>天气：' + weather_data.wea + '</div>';
+                        var weaTemp = '<div class="tempNum">' + weather_data.tem + '<div class="symbol">&#8451;</div></div><div>当前气温</div>';
+                        var highTemp = weather_data.tem_day // 日间气温/最高气温
+                        var lowTemp = weather_data.tem_night// 夜间气温/最低气温
+                        var air = weather_data.air
+                        var updateTime = weather_data.update_time // 更新时间
                         var weaInfo = '<div>最高/低气温：' + highTemp + '/' + lowTemp + '&#8451;</div>' +
                             '<div>湿度：' + weather_data.humidity + '</div>' +
-                            '<div>空气质量：' + air + airLevel + '</div>' +
-                            '<div>风向：' + weather_data.wind + '</div>' +
-                            '<div>风速：' + weather_data.wind_speed + ' ' + weather_data.wind_scale + '</div>' +
+                            '<div>空气质量：' + air  + '</div>' +
+                            '<div>风向：' + weather_data.win + '</div>' +
+                            '<div>风速：' + weather_data.win_meter + ' ' + weather_data.win_speed + '</div>' +
                             '<div>更新时间：' + updateTime + '</div>';
                         document.getElementById('weaTitle').innerHTML = weather_data.city + '当前天气'
                         document.getElementById('weaImg').innerHTML = weaImg
