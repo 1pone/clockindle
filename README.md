@@ -117,6 +117,16 @@
 
 ## 更新日志
 
+#### 2.7(2023.02.24)
+
+##### Features
+
+* 使用 [calendar.js](https://github.com/jjonline/calendar.js) 代替农历查询接口
+
+##### Bug Fixes
+
+* 时区查询接口增加兜底，默认`东八区`
+
 #### 2.6 (2023.01.04)
 
 ##### Features

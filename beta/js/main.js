@@ -62,12 +62,10 @@ window.onload = function () {
 // Keys
 var KEY_UNSPLASH = "bXwWoUhPeVw-yvSesGMgaOENnlSzhHYB43kZIQOR8cQ";
 var KEY_QWEATHER = getCookie("qweatherKey"); // "f3c3540923c24847b9f4d194888dbcef"; // https://console.qweather.com/#/apps
-var KEY_LUNAR = "LwExDtUWhF3rH5ib";
 
 // APIs
 var API_HITOKOTO = "https://v1.hitokoto.cn?encode=json&charset=utf-8";
 var API_IP_INFO = "https://ipapi.co/json?languages=zh-CN";
-var API_LUNAR = "https://v2.alapi.cn/api/lunar?token=";
 var API_WEATHER = "https://devapi.qweather.com/v7/weather/now?";
 var API_WEIBO = "https://tenapi.cn/resou/";
 
@@ -247,27 +245,11 @@ function clock(autoMode) {
 }
 
 function getLunar() {
-  var xhr = createXHR();
-  xhr.open("GET", API_LUNAR + KEY_LUNAR, true);
-  xhr.onreadystatechange = function () {
-    if (this.readyState == 4) {
-      var data = JSON.parse(this.responseText);
-      if (data.code == 200) {
-        var lunar_data = data.data;
-        document.getElementById("lunar").innerHTML =
-          lunar_data.ganzhi_year +
-          "年" +
-          lunar_data.lunar_month_chinese +
-          lunar_data.lunar_day_chinese;
-        // if (lunar_data.festival.length)
-        //   document.getElementById("holiday").innerHTML =
-        //     "&nbsp;&nbsp;" + lunar_data.festival[0];
-      } else {
-        console.error("农历数据获取失败");
-      }
-    }
-  };
-  xhr.send(null);
+  var lunar = calendar.solar2lunar();
+  document.getElementById("lunar").innerHTML =
+    lunar.gzYear + "年" + lunar.IMonthCn + lunar.IDayCn;
+  document.getElementById("holiday").innerHTML =
+    "&nbsp;&nbsp;" + (lunar.lunarFestival || "") + (lunar.festival || "");
 }
 
 function weather() {
