@@ -87,7 +87,7 @@ var rotation_mode_default = 0; // 默认使用0-竖屏模式 0=0°，1=90°，2=
 var hour24_default = false; // 默认使用十二小时制
 var bg_autoMode = false; // 黑白背景自动切换
 var weibo_num = 3; // 微博热搜条数
-var timezoneOffset =  0; // 时区偏移分钟
+var timezoneOffset = 0; // 时区偏移分钟
 var cIp = ""; // 客户端ip
 var city = ""; // 客户端所在城市
 var cityLocation = null; // 客户端经纬度信息
@@ -142,8 +142,8 @@ function hitokoto() {
       document.getElementById("brackets-r").innerHTML = "』";
       document.getElementById("hitokoto").innerHTML = hitokoto_data.hitokoto;
       document.getElementById("from").innerHTML = hitokoto_data.from_who
-          ? "「" + hitokoto_data.from + " " + hitokoto_data.from_who + "」"
-          : "「" + hitokoto_data.from + "」";
+        ? "「" + hitokoto_data.from + " " + hitokoto_data.from_who + "」"
+        : "「" + hitokoto_data.from + "」";
     }
   };
   xhr.send(null);
@@ -158,13 +158,13 @@ function poem() {
     var info = document.querySelector("#poem_info");
     sentence.innerHTML = poem_data.content;
     info.innerHTML =
-        "【" +
-        poem_data.origin.dynasty +
-        "】" +
-        poem_data.origin.author +
-        "《" +
-        poem_data.origin.title +
-        "》";
+      "【" +
+      poem_data.origin.dynasty +
+      "】" +
+      poem_data.origin.author +
+      "《" +
+      poem_data.origin.title +
+      "》";
   });
 }
 
@@ -178,7 +178,7 @@ function getIpInfo() {
       cityLocation = data.longitude + "," + data.latitude;
       cIp = data.ip;
       city = data.region;
-      timezoneOffset = parseInt(data.utc_offset) * 0.6
+      timezoneOffset = parseInt(data.utc_offset || "+0800") * 0.6;
     }
   };
   xhr.send(null);
@@ -206,14 +206,14 @@ function clock(autoMode) {
       if (lightMode) {
         document.getElementsByClassName("page")[0].style.color = "#ffffff";
         document.getElementsByClassName("page")[0].style.backgroundColor =
-            "#000000";
+          "#000000";
         lightMode = false;
       }
     } else {
       if (!lightMode) {
         document.getElementsByClassName("page")[0].style.color = "#000000";
         document.getElementsByClassName("page")[0].style.backgroundColor =
-            "#ffffff";
+          "#ffffff";
         lightMode = true;
       }
     }
@@ -255,7 +255,10 @@ function getLunar() {
       if (data.code == 200) {
         var lunar_data = data.data;
         document.getElementById("lunar").innerHTML =
-            lunar_data.ganzhi_year + "年" + lunar_data.lunar_month_chinese + lunar_data.lunar_day_chinese;
+          lunar_data.ganzhi_year +
+          "年" +
+          lunar_data.lunar_month_chinese +
+          lunar_data.lunar_day_chinese;
         // if (lunar_data.festival.length)
         //   document.getElementById("holiday").innerHTML =
         //     "&nbsp;&nbsp;" + lunar_data.festival[0];
@@ -270,15 +273,15 @@ function getLunar() {
 function weather() {
   if (!getCookie("qweatherKey")) {
     document.getElementById("weaTitle").innerHTML =
-        "请刷新后点击右上角设置按钮填写 API Key～";
+      "请刷新后点击右上角设置按钮填写 API Key～";
     return;
   }
   console.log("weather update");
   var xhr = createXHR();
   xhr.open(
-      "GET",
-      API_WEATHER + "key=" + KEY_QWEATHER + "&location=" + cityLocation,
-      true
+    "GET",
+    API_WEATHER + "key=" + KEY_QWEATHER + "&location=" + cityLocation,
+    true
   );
   xhr.onreadystatechange = function () {
     if (this.readyState == 4) {
@@ -290,33 +293,33 @@ function weather() {
         var weaImg = img + "<div>天气：" + wea_now.text + "</div>";
 
         var weaTemp =
-            '<div class="tempNum">' +
-            parseInt(wea_now.temp) +
-            '</div><div class="symbol">&#8451;</div>' +
-            "<div>当前气温</div>";
+          '<div class="tempNum">' +
+          parseInt(wea_now.temp) +
+          '</div><div class="symbol">&#8451;</div>' +
+          "<div>当前气温</div>";
 
         var weaInfo =
-            "<div>" +
-            city +
-            "当前天气" +
-            "</div>" +
-            "<div>体感温度：" +
-            wea_now.feelsLike +
-            "&#8451;</div>" +
-            "<div>湿度：" +
-            wea_now.humidity +
-            "%</div>" +
-            "<div>风向：" +
-            wea_now.windDir +
-            "</div>" +
-            "<div>风速：" +
-            wea_now.windScale +
-            "级 " +
-            wea_now.windSpeed +
-            "km/h</div>" +
-            "<div>更新时间：" +
-            wea_now.obsTime.match(/T(.+)\+/)[1] +
-            "</div>";
+          "<div>" +
+          city +
+          "当前天气" +
+          "</div>" +
+          "<div>体感温度：" +
+          wea_now.feelsLike +
+          "&#8451;</div>" +
+          "<div>湿度：" +
+          wea_now.humidity +
+          "%</div>" +
+          "<div>风向：" +
+          wea_now.windDir +
+          "</div>" +
+          "<div>风速：" +
+          wea_now.windScale +
+          "级 " +
+          wea_now.windSpeed +
+          "km/h</div>" +
+          "<div>更新时间：" +
+          wea_now.obsTime.match(/T(.+)\+/)[1] +
+          "</div>";
 
         document.getElementById("weaTitle").innerHTML = "";
         document.getElementById("weaImg").innerHTML = weaImg;
@@ -325,7 +328,7 @@ function weather() {
       } else {
         console.error("天气数据获取失败");
         document.getElementById("weaTitle").innerHTML =
-            "数据获取失败，请检查 API Key～";
+          "数据获取失败，请检查 API Key～";
       }
     }
   };
@@ -353,7 +356,7 @@ function weibo() {
         for (var i = 0; i < weibo_num; i++) {
           var index = i + 1;
           hot_word.innerHTML +=
-              "<li>" + index + ". " + weibo_data[i].name + "</li>"; // alapi
+            "<li>" + index + ". " + weibo_data[i].name + "</li>"; // alapi
           hot_word_num.innerHTML += "<li>" + weibo_data[i].hot + "</li>"; // alapi
         }
       } else {
@@ -417,18 +420,18 @@ function changeMode(pos) {
       eval(POS_MODE[pos_mode] + "()");
     }
     eval(
-        POS_MODE[pos_mode] +
+      POS_MODE[pos_mode] +
         '_timer = setInterval(POS_MODE[pos_mode] + "()", 60 * 1000 * 60)'
     );
     console.log(POS_MODE[pos_mode] + "_timer created");
   }
   for (var i = 0; i < POS_MODE.length; i++) {
     document.getElementsByClassName(
-        POS_MODE[i] + "_container"
+      POS_MODE[i] + "_container"
     )[0].style.display = "none";
   }
   document.getElementsByClassName(
-      POS_MODE[pos_mode] + "_container"
+    POS_MODE[pos_mode] + "_container"
   )[0].style.display = "block";
 }
 
@@ -578,26 +581,26 @@ function saveSettings() {
 
 function addEvent(autoMode) {
   document
-      .getElementById("apmOuterWrapper")
-      .addEventListener("click", function () {
-        console.log("hourCycle change");
-        hour24 = !hour24;
-        setCookie("hour24", hour24, 30);
-        clock(autoMode);
-      });
+    .getElementById("apmOuterWrapper")
+    .addEventListener("click", function () {
+      console.log("hourCycle change");
+      hour24 = !hour24;
+      setCookie("hour24", hour24, 30);
+      clock(autoMode);
+    });
   document
-      .getElementsByClassName("time")[0]
-      .addEventListener("click", rotateScreen);
+    .getElementsByClassName("time")[0]
+    .addEventListener("click", rotateScreen);
   document.getElementById("top").addEventListener("click", changeTopMode);
   document.getElementById("bottom").addEventListener("click", changeBottomMode);
   document.getElementById("date").addEventListener("click", changeBgMode);
   document
-      .getElementById("settings_icon")
-      .addEventListener("click", openSettingsDialog);
+    .getElementById("settings_icon")
+    .addEventListener("click", openSettingsDialog);
   document
-      .getElementById("save_button")
-      .addEventListener("click", saveSettings);
+    .getElementById("save_button")
+    .addEventListener("click", saveSettings);
   document
-      .getElementById("settings_backdrop")
-      .addEventListener("click", closeSettingsDialog);
+    .getElementById("settings_backdrop")
+    .addEventListener("click", closeSettingsDialog);
 }
