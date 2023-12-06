@@ -1,10 +1,10 @@
-## Kindle拯救计划 —— 你的Kindle实用工具网站
+## Clockindle
 
-> 你的Kindle还好么？是否还藏在角落吃灰呢？赶紧拿出来擦一擦，与其闲置着不如让它成为一台墨水屏时钟，既实用又有格调。当然，它能做的远不止一台时钟...
+> 你的 Kindle 还好么？是否还藏在角落吃灰呢？赶紧拿出来擦一擦，与其闲置着不如让它成为一台墨水屏时钟，既实用又有格调。当然，它能做的远不止一台时钟...
 
 ## 如何使用 😛
 
-​		现在就在你的Kindle浏览器中打开Kindle实用工具网站主页 https://1pone.github.io 吧！
+​		现在就在你的 Kindle 浏览器中打开 Clockindle 主页 https://1pone.github.io 吧！
 
 ​		beta功能预览版请访问 [https://1pone.github.io/beta](https://1pone.github.io/beta)
 
@@ -15,7 +15,7 @@
 
 ## 一点技巧 🥳
 
-* 为了让屏幕关闭自动锁屏保持常亮，请在Kindle主页搜索栏输入`~ds` 并回车，这时并不会有明显的反应，但是当你尝试按锁屏键时已无法锁屏，即已生效。当你想要恢复正常锁屏重启Kindle即可。
+* 为了让屏幕关闭自动锁屏保持常亮，请在 Kindle 主页搜索栏输入`~ds` 并回车，这时并不会有明显的反应，但是当你尝试按锁屏键时已无法锁屏，即已生效。当你想要恢复正常锁屏重启Kindle即可。
 
 <div align=center><img src="https://raw.githubusercontent.com/1pone/1pone.github.io/master/images/%EF%BD%9Eds.png" alt="～ds.png" width="400"/><p>「 输入 ～ds 保持屏幕常亮 」</p></div>
 
